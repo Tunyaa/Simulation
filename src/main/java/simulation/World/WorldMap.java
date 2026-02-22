@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import simulation.Model.Entity;
 
 /**
  *
@@ -12,21 +14,23 @@ import java.util.List;
  */
 public class WorldMap {
 
-    private final int width;
-    private final int height;
-    private final int len;
-    private List<Integer> positions;
+    private final int width;     // Ширина поля
+    private final int height;   // Высота поля
+    private final int len;         // Количество позиций поля   
+    private List<Integer> positions;// УДАЛИТЬ
+    private Map<Integer, Entity> positionEntityMap; // Позиция - Сущность (Некоторые сущности могут занимать одну клетку)
 
     public WorldMap(int width, int height) {
         this.width = width;
         this.height = height;
         len = width * height;
-        positions = new ArrayList<>();
+        positions = new ArrayList<>();// Удалить!!!
         for (int i = 0; i < len; i++) {
             positions.add(i);
         }
     }
 
+    // Отображение поля
     public void showMap() {
         int l = 1;
         for (int i = 0; i < height; i++) {
@@ -44,6 +48,7 @@ public class WorldMap {
         }
     }
 
+    // Движения по полю побавить движение по диагонали!!!!!
 //    public void moveTo(String direction) {
 //        int newPoint;
 //        if (direction.equals("w")) {
@@ -70,6 +75,8 @@ public class WorldMap {
 //            }
 //        }
 //    }
+    
+    // ручное передвижение
 //    public void render() throws IOException {
 //        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 //        String s;
