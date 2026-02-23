@@ -19,4 +19,9 @@ public class World {
     public void createNewMap(int width, int height){
         this.worldMapComponent = new WorldMap(width, height);
     }
+
+    public WorldMap getWorldMap() {
+        return worldMapComponent;
+    }
+    
 }
