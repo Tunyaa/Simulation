@@ -2,7 +2,7 @@ package simulation.View;
 
 import javafx.scene.canvas.Canvas;
 import simulation.World.World;
-import simulation.World.WorldMap;
+import simulation.World.WorldField;
 
 /**
  *
@@ -10,5 +10,5 @@ import simulation.World.WorldMap;
  */
 public interface Renderer {
 
-    void render(WorldMap worldMap,Canvas canvas);
+    void render(World world,Canvas canvas);
 }

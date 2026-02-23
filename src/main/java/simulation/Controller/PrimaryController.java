@@ -17,7 +17,7 @@ import simulation.Simulation.Simulation;
 import simulation.View.EntityTypePng;
 import simulation.View.View;
 import simulation.World.World;
-import simulation.World.WorldMap;
+import simulation.World.WorldField;
 
 public class PrimaryController {
 

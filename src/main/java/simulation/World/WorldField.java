@@ -12,7 +12,7 @@ import simulation.Model.Entity;
  *
  * @author tunyaa
  */
-public class WorldMap {
+public class WorldField {
 
     private int width;     // Ширина поля
     private int height;   // Высота поля
@@ -31,6 +31,10 @@ public class WorldMap {
         this.height = 0;
         this.len = 0;
         this.positionEntityMap.clear();
+    }
+    
+    public void getCoordinateByPosition(int position){
+        
     }
 
     // Движения по полю побавить движение по диагонали!!!!!
