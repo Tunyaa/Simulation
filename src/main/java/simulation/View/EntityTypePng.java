@@ -5,11 +5,11 @@ package simulation.View;
  * @author tunyaa
  */
 public enum EntityTypePng {
-    PREDATOR("/static/img/Волк.png"),
-    HERBIVORE("/static/img/Заяц.png"),
-    GRASS("/static/img/Трава.png"),
-    THREE("/static/img/Дерево.png"),
-    STONE("/static/img/Скала.png");
+    PREDATOR("/static/img/wolf.png"),
+    HERBIVORE("/static/img/rabbit.png"),
+    GRASS("/static/img/grass.png"),
+    THREE("/static/img/three.png"),
+    STONE("/static/img/stone.png");
 
     private String displayName;
 
