@@ -107,6 +107,15 @@ public class WorldMap {
     public List<Integer> getPositions() {
         return positions;
     }
+
+    public Map<Integer, Entity> getPositionEntityMap() {
+        return positionEntityMap;
+    }
+
+    public void setPositionEntityMap(Map<Integer, Entity> positionEntityMap) {
+        this.positionEntityMap = positionEntityMap;
+    }
+    
     
     
 }
