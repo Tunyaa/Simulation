@@ -14,38 +14,23 @@ import simulation.Model.Entity;
  */
 public class WorldMap {
 
-    private final int width;     // Ширина поля
-    private final int height;   // Высота поля
-    private final int len;         // Количество позиций поля   
-    private List<Integer> positions;// УДАЛИТЬ
+    private int width;     // Ширина поля
+    private int height;   // Высота поля
+    private int len;         // Количество позиций поля   
     private Map<Integer, Entity> positionEntityMap; // Позиция - Сущность (Некоторые сущности могут занимать одну клетку)
 
-    public WorldMap(int width, int height) {
+    public void createMap(int width, int height) {
         this.width = width;
         this.height = height;
-        len = width * height;
-        positions = new ArrayList<>();// Удалить!!!
-        for (int i = 0; i < len; i++) {
-            positions.add(i);
-        }
+        this.len = width * height;
     }
 
-    // Отображение поля
-    public void showMap() {
-        int l = 1;
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-//                if (l == point) {
-//                    System.out.print("8 ");
-//
-//                } else {
-//                    System.out.print(0 + " ");
-//                }
-                l++;
-
-            }
-            System.out.println("");
-        }
+    // Очистить карту
+    public void clearMap() {
+        this.width = 0;
+        this.height = 0;
+        this.len = 0;
+        this.positionEntityMap.clear();
     }
 
     // Движения по полю побавить движение по диагонали!!!!!
@@ -75,7 +60,6 @@ public class WorldMap {
 //            }
 //        }
 //    }
-    
     // ручное передвижение
 //    public void render() throws IOException {
 //        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -91,7 +75,6 @@ public class WorldMap {
 //
 //        }
 //    }
-
     public int getWidth() {
         return width;
     }
@@ -104,10 +87,6 @@ public class WorldMap {
         return len;
     }
 
-    public List<Integer> getPositions() {
-        return positions;
-    }
-
     public Map<Integer, Entity> getPositionEntityMap() {
         return positionEntityMap;
     }
@@ -115,7 +94,5 @@ public class WorldMap {
     public void setPositionEntityMap(Map<Integer, Entity> positionEntityMap) {
         this.positionEntityMap = positionEntityMap;
     }
-    
-    
-    
+
 }
