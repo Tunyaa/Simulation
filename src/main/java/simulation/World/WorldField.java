@@ -87,7 +87,7 @@ public class WorldField {
         return height;
     }
 
-    public int getLen() {
+    public int getWorldLen() {
         return len;
     }
 
