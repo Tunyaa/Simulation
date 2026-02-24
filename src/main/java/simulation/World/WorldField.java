@@ -17,7 +17,6 @@ public class WorldField {
     private int width;     // Ширина поля
     private int height;   // Высота поля
     private int len;         // Количество позиций поля   
-    private Map<Integer, Entity> positionEntityMap; // Позиция - Сущность (Некоторые сущности могут занимать одну клетку)
 
     public void createMap(int width, int height) {
         this.width = width;
@@ -30,11 +29,10 @@ public class WorldField {
         this.width = 0;
         this.height = 0;
         this.len = 0;
-        this.positionEntityMap.clear();
     }
-    
-    public void getCoordinateByPosition(int position){
-        
+
+    public void getCoordinateByPosition(int position) {
+
     }
 
     // Движения по полю побавить движение по диагонали!!!!!
@@ -89,14 +87,6 @@ public class WorldField {
 
     public int getWorldLen() {
         return len;
-    }
-
-    public Map<Integer, Entity> getPositionEntityMap() {
-        return positionEntityMap;
-    }
-
-    public void setPositionEntityMap(Map<Integer, Entity> positionEntityMap) {
-        this.positionEntityMap = positionEntityMap;
     }
 
 }

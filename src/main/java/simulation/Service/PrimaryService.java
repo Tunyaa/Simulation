@@ -35,4 +35,8 @@ public class PrimaryService {
     public void render(Canvas canvas) {
         view.render(world,canvas);
     }
+
+    public void clearWorldMap() {
+        world.clearWorldMap();
+    }
 }

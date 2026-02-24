@@ -50,6 +50,7 @@
                   <Insets />
                </VBox.margin>
             </Button>
+            <Button fx:id="clearWorldMapButton" mnemonicParsing="false" onAction="#clearWorldMap" text="Очистить поле" />
             </children>
          <opaqueInsets>
             <Insets />

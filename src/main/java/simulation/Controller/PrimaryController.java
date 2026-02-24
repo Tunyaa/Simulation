@@ -40,6 +40,12 @@ public class PrimaryController {
         primaryService.createWorldMap(widthWorldMapField, heightWorldMapField);
         primaryService.render(canvas);
     }
+    
+    @FXML
+    private void clearWorldMap(){
+        primaryService.clearWorldMap();
+        primaryService.render(canvas);
+    }
 
 //    @FXML
 //    private void toStart() {

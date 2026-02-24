@@ -147,25 +147,23 @@ public class World {
     // Формирование линии из камня
 
     private int generateStoneFragment(int position) {
-        // 0-3x3		Space ==max
         int stoneCount = 0;
-        int maxSubsequence;
+        int maxSubsequence = 0;
         int direction = random.nextInt(4);
         int height = getWorldMap().getHeight();
-                // вверх, вниз, влево, вправо
+        // вверх, вниз, влево, вправо
         int[] ary = new int[]{-height, height, -1, 1};
-        System.out.println(direction + " - Направление");
         int steps = random.nextInt(4);
         for (int i = 0; i < steps; i++) {
 
-            Stone stone = new Stone();
-            stone.setPosition(position);
-            positionEntityMap.put(position, stone);
-            stoneCount++;
-            System.out.println("Position - " + position);
-            
+            if (positionEntityMap.get(position) == null) {
+                Stone stone = new Stone();
+                stone.setPosition(position);
+                positionEntityMap.put(position, stone);
+                stoneCount++;
+            }
+
             int newPosition = position + ary[direction];
-            System.out.println("NewPosition - " + newPosition);
             if (isPositionNotOutOfBorder(position, newPosition, this, direction)) {
                 position = newPosition;
             } else {
@@ -173,6 +171,11 @@ public class World {
             }
         }
         return stoneCount;
+    }
+
+    public void clearWorldMap() {
+        positionEntityMap.clear();
+        worldMapComponent.clearMap();
     }
 
 }
