@@ -20,10 +20,10 @@ public class World {
     private WorldField worldMapComponent; // Поле
     private Map<Integer, Entity> positionEntityMap; // Карта <Позиция, Сущность>
     private final int STONESATURATION = 10;// Плотность камня на поле (количество клеток / cons)
-    private final int THREESATURATION = 20;// Плотность камня на поле (количество клеток / cons)
-    private final int GRASSSATURATION = 50;// Плотность камня на поле (количество клеток / cons)
-    private final int PREDATORSATURATION = 80;// Плотность камня на поле (количество клеток / cons)
-    private final int HERBIVORESATURATION = 80;// Плотность камня на поле (количество клеток / cons)
+    private final int THREESATURATION = 20;
+    private final int GRASSSATURATION = 50;
+    private final int PREDATORSATURATION = 80;
+    private final int HERBIVORESATURATION = 80;
 
     private Random random = new Random();
 
