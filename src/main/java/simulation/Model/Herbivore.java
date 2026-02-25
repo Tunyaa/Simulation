@@ -1,13 +1,15 @@
 package simulation.Model;
 
+import simulation.View.EntityTypePng;
+
 /**
  *
  * @author tunyaa
  */
 public class Herbivore extends Creature{
 
-    public Herbivore(int position) {
-        this.position = position;
+    public Herbivore() {
+        setEntityTypePng(EntityTypePng.HERBIVORE);
     }
     
 }

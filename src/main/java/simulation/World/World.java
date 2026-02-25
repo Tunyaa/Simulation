@@ -1,10 +1,15 @@
 package simulation.World;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import simulation.Model.Entity;
+import simulation.Model.Grass;
+import simulation.Model.Herbivore;
+import simulation.Model.Predator;
 import simulation.Model.Stone;
+import simulation.Model.Three;
 
 /**
  *
@@ -15,6 +20,10 @@ public class World {
     private WorldField worldMapComponent; // Поле
     private Map<Integer, Entity> positionEntityMap; // Карта <Позиция, Сущность>
     private final int STONESATURATION = 10;// Плотность камня на поле (количество клеток / cons)
+    private final int THREESATURATION = 20;// Плотность камня на поле (количество клеток / cons)
+    private final int GRASSSATURATION = 50;// Плотность камня на поле (количество клеток / cons)
+    private final int PREDATORSATURATION = 80;// Плотность камня на поле (количество клеток / cons)
+    private final int HERBIVORESATURATION = 80;// Плотность камня на поле (количество клеток / cons)
 
     private Random random = new Random();
 
@@ -31,36 +40,30 @@ public class World {
     // Заполняет карту сущностями
     public void generateEntitysOnWorldField() {
 
-        generateStones();
+        generateEntity(Stone.class, STONESATURATION);
+        generateEntity(Grass.class, GRASSSATURATION);
+        generateEntity(Three.class, THREESATURATION);
+        generateEntity(Predator.class, PREDATORSATURATION);
+        generateEntity(Herbivore.class, HERBIVORESATURATION);
     }
 
-// Заполняет карту камнем
-    private void generateStones() {
+// Заполняет карту конкретной сущностью 
+    private void generateEntity(Class entityClass, int saturation) {
         // Переменная хранит количество камня на карте
-        int stoneCount = 0;
+        int entityCount = 0;
         // Проверяет что (количество камня < len/cons)
         int len = getWorldMap().getWorldLen();
-        while (stoneCount < len / STONESATURATION) {
+        while (entityCount < len / saturation) {
             // Получает рандомную позицию
             int position = random.nextInt(len);
             // Проверяет что позиция не крайняя
             if (isPositionNotBorder(position, this)) {
                 // Генерирует фрагмент камня
-                stoneCount += generateStoneFragment(position);
+                entityCount += generateEntityFragment(position, 1, entityClass);
             }
 
         }
 
-    }
-
-    // Возвращает  поле
-    public WorldField getWorldMap() {
-        return worldMapComponent;
-    }
-
-    // Возвращает карту
-    public Map<Integer, Entity> getPositionEntityMap() {
-        return positionEntityMap;
     }
 
     // Проверка. Позиция не является крайней
@@ -107,45 +110,25 @@ public class World {
             default:
                 throw new AssertionError();
         }
-//        if (direction == 0) {// Если движение вверх
-//            if (newPosition >= 1) {// Новая точка не выходит за первую линию вверх
-//                return true;
-//            }
-//        }
-//        if (direction == 1) {// Если движение вниз
-//            if (newPosition < len) {// Новая точка не выходит за последнюю линию вниз
-//                return true;
-//            }
-//        }
-//        if (direction == 2) {// Если движение влево
-//            if (newPosition > (width * (position / width))) {// Новая точка не выходит за первый ряд влево
-//                return true;
-//            }
-//        }
-//        if (direction == 3) {// Если движение вправо
-//            if (position < (width * ((position - 1) / width + 1))) {// Новая точка не выходит за последний ряд вправо
-//                return true;
-//            }
-//        }
-//        return false;
     }
 
     // Формирование линии из камня
-    private int generateStoneFragment(int position) {
-        int stoneCount = 0;// Количество резмещенного камня
+    private int generateEntityFragment(int position, int steps, Class entityClass) {
+        int entityCount = 0;// Количество резмещенного камня
         int maxSubsequence = 0;//  Максимальное количество камня в линии
         int direction = random.nextInt(4);// направление 0-вверх, 1-вниз, 2-влево, 3-вправо
         int width = getWorldMap().getWidth();
         // массив направлений вверх, вниз, влево, вправо
         int[] ary = new int[]{-width, width, -1, 1};
-        int steps = random.nextInt(4);// Количество камней в линии
+        steps = 1;// Количество камней в линии
+//        steps = random.nextInt(steps);// Количество камней в линии
         for (int i = 0; i < steps; i++) {
 
-            if (positionEntityMap.get(position) == null) {// Если в позиции пусто
-                Stone stone = new Stone();
-                stone.setPosition(position);
-                positionEntityMap.put(position, stone);
-                stoneCount++;
+            if (positionEntityMap.get(position) == null) { // Если в позиции пусто
+                Entity entity = entityFactory(entityClass);
+                entity.setPosition(position);
+                positionEntityMap.put(position, entity);
+                entityCount++;
             }
 
             int newPosition = position + ary[direction];
@@ -156,7 +139,7 @@ public class World {
                 break;
             }
         }
-        return stoneCount;
+        return entityCount;
     }
 
     // Очищает поле и карту
@@ -165,4 +148,23 @@ public class World {
         worldMapComponent.clearMap();
     }
 
+    // Создает объект 
+    private Entity entityFactory(Class<Entity> entityClass) {
+        try {
+            return entityClass.getDeclaredConstructor().newInstance();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    // Возвращает  поле
+    public WorldField getWorldMap() {
+        return worldMapComponent;
+    }
+
+    // Возвращает карту
+    public Map<Integer, Entity> getPositionEntityMap() {
+        return positionEntityMap;
+    }
 }

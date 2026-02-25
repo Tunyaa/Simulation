@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import simulation.Model.Entity;
@@ -31,6 +34,9 @@ public class View implements Renderer {
 
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+        gc.setFill(Color.BISQUE);
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
         int h = world.getWorldMap().getHeight();
         int w = world.getWorldMap().getWidth();
         Map<Integer, Entity> map = world.getPositionEntityMap();
@@ -45,6 +51,7 @@ public class View implements Renderer {
         });
 
     }
+
 }
 
 //    @Override
