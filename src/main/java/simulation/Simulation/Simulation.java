@@ -1,5 +1,7 @@
 package simulation.Simulation;
 
+import simulation.World.World;
+
 /**
  *
  * @author tunyaa
@@ -7,8 +9,12 @@ package simulation.Simulation;
 public class Simulation {
     private TurnProcessor turnProcessor;
 
-    public Simulation(TurnProcessor turnProcessor) {
-        this.turnProcessor = turnProcessor;
+    public Simulation() {
+        this.turnProcessor = new TurnProcessor();
+    }
+
+    public void startSimulation(World world) {
+        world.getPositionEntityMap();
     }
     
     

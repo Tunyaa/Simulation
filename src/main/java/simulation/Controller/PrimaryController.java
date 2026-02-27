@@ -35,15 +35,16 @@ public class PrimaryController {
 //    private void switchToSecondary() throws IOException {
 //        App.setRoot("secondary");
 //    }
-    @FXML
+    @FXML// Генерация поля. Заполнение сущностями.
     private void createWorldMap() {
         primaryService.createWorldMap(widthWorldMapField, heightWorldMapField);
         primaryService.render(canvas);
     }
 
-    @FXML
+    @FXML // Начало симуляции
     private void startSimulation() {
         System.out.println("START");
+        primaryService.startSimulation();
     }
 
     @FXML

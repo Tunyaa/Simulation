@@ -17,7 +17,7 @@ import simulation.Model.Three;
  */
 public class World {
 
-    private WorldField worldMapComponent; // Поле
+    private WorldField worldFeld; // Поле
     private Map<Integer, Entity> positionEntityMap; // Карта <Позиция, Сущность>
     private final int STONESATURATION = 10;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 20;
@@ -28,13 +28,13 @@ public class World {
     private Random random = new Random();
 
     public World() {
-        this.worldMapComponent = new WorldField();
+        this.worldFeld = new WorldField();
         this.positionEntityMap = new HashMap<>();
     }
 
     // Создать новое поле
     public void createNewMap(int width, int height) {
-        this.worldMapComponent.createMap(width, height);
+        this.worldFeld.createMap(width, height);
     }
 
     // Заполняет карту сущностями
@@ -44,7 +44,7 @@ public class World {
         generateEntity(Grass.class, GRASSSATURATION);
         generateEntity(Three.class, THREESATURATION);
         generateEntity(Predator.class, PREDATORSATURATION);
-        generateEntity(Herbivore.class, HERBIVORESATURATION);
+        generateEntity(Herbivore.class, worldFeld.getWorldLen());
     }
 
 // Заполняет карту конкретной сущностью 
@@ -68,8 +68,8 @@ public class World {
 
     // Проверка. Позиция не является крайней
     private boolean isPositionNotBorder(int position, World world) {
-        int width = worldMapComponent.getWidth();// Ширина поля
-        int height = worldMapComponent.getHeight();// Высота поля
+        int width = worldFeld.getWidth();// Ширина поля
+        int height = worldFeld.getHeight();// Высота поля
         int positionH = (int) Math.ceil((double) position / width); // Координата по высоте
         int positionW = width - (positionH * width - position); // Координата по ширине
 
@@ -81,8 +81,8 @@ public class World {
 
     // Проверка. Позиция не выходит за край.
     private boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {
-        int width = worldMapComponent.getWidth();
-        int len = worldMapComponent.getWorldLen();
+        int width = worldFeld.getWidth();
+        int len = worldFeld.getWorldLen();
 
         switch (direction) {
             case 0: {// Если движение вверх
@@ -145,7 +145,7 @@ public class World {
     // Очищает поле и карту
     public void clearWorldMap() {
         positionEntityMap.clear();
-        worldMapComponent.clearMap();
+        worldFeld.clearMap();
     }
 
     // Создает объект 
@@ -160,7 +160,7 @@ public class World {
     
     // Возвращает  поле
     public WorldField getWorldMap() {
-        return worldMapComponent;
+        return worldFeld;
     }
 
     // Возвращает карту

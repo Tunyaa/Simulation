@@ -39,4 +39,8 @@ public class PrimaryService {
     public void clearWorldMap() {
         world.clearWorldMap();
     }
+
+    public void startSimulation() {
+        simulation.startSimulation(world);
+    }
 }
