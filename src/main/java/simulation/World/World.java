@@ -34,7 +34,7 @@ public class World {
 
     // Создать новое поле
     public void createNewMap(int width, int height) {
-        this.worldFeld.createMap(width, height);
+        this.worldFeld.createField(width, height);
     }
 
     // Заполняет карту сущностями
@@ -52,7 +52,7 @@ public class World {
         // Переменная хранит количество камня на карте
         int entityCount = 0;
         // Проверяет что (количество камня < len/cons)
-        int len = getWorldMap().getWorldLen();
+        int len = getWorldField().getWorldLen();
         while (entityCount < len / saturation) {
             // Получает рандомную позицию
             int position = random.nextInt(len);
@@ -117,7 +117,7 @@ public class World {
         int entityCount = 0;// Количество резмещенного камня
         int maxSubsequence = 0;//  Максимальное количество камня в линии
         int direction = random.nextInt(4);// направление 0-вверх, 1-вниз, 2-влево, 3-вправо
-        int width = getWorldMap().getWidth();
+        int width = getWorldField().getWidth();
         // массив направлений вверх, вниз, влево, вправо
         int[] ary = new int[]{-width, width, -1, 1};
         steps = 1;// Количество камней в линии
@@ -145,7 +145,7 @@ public class World {
     // Очищает поле и карту
     public void clearWorldMap() {
         positionEntityMap.clear();
-        worldFeld.clearMap();
+        worldFeld.clearField();
     }
 
     // Создает объект 
@@ -159,7 +159,7 @@ public class World {
     }
     
     // Возвращает  поле
-    public WorldField getWorldMap() {
+    public WorldField getWorldField() {
         return worldFeld;
     }
 

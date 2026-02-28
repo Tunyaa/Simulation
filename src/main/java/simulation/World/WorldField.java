@@ -18,14 +18,14 @@ public class WorldField {
     private int height;   // Высота поля
     private int len;         // Количество позиций поля   
 
-    public void createMap(int width, int height) {
+    public void createField(int width, int height) {
         this.width = width;
         this.height = height;
         this.len = width * height;
     }
 
     // Очистить карту
-    public void clearMap() {
+    public void clearField() {
         this.width = 0;
         this.height = 0;
         this.len = 0;

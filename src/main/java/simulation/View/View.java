@@ -37,8 +37,8 @@ public class View implements Renderer {
         gc.setFill(Color.BISQUE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        int h = world.getWorldMap().getHeight();
-        int w = world.getWorldMap().getWidth();
+        int h = world.getWorldField().getHeight();
+        int w = world.getWorldField().getWidth();
         Map<Integer, Entity> map = world.getPositionEntityMap();
 
         map.forEach((k, v) -> {
