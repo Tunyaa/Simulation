@@ -1,7 +1,9 @@
 package simulation.World;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import simulation.Model.Entity;
@@ -18,7 +20,7 @@ import simulation.Model.Three;
 public class World {
 
     private WorldField worldFeld; // Поле
-    private Map<Integer, Entity> positionEntityMap; // Карта <Позиция, Сущность>
+    private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
     private final int STONESATURATION = 10;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 20;
     private final int GRASSSATURATION = 50;
@@ -127,7 +129,8 @@ public class World {
             if (positionEntityMap.get(position) == null) { // Если в позиции пусто
                 Entity entity = entityFactory(entityClass);
                 entity.setPosition(position);
-                positionEntityMap.put(position, entity);
+                positionEntityMap.putIfAbsent(position, new ArrayList<>());
+                positionEntityMap.get(position).add(entity);
                 entityCount++;
             }
 
@@ -148,7 +151,7 @@ public class World {
         worldFeld.clearField();
     }
 
-    // Создает объект 
+    // Создает объект // !!!!!!!!!!!!!!!!!!!!!
     private Entity entityFactory(Class<Entity> entityClass) {
         try {
             return entityClass.getDeclaredConstructor().newInstance();
@@ -164,7 +167,7 @@ public class World {
     }
 
     // Возвращает карту
-    public Map<Integer, Entity> getPositionEntityMap() {
+    public Map<Integer, List<Entity>> getPositionEntityMap() {
         return positionEntityMap;
     }
 }

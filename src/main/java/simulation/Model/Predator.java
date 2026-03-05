@@ -1,6 +1,7 @@
 package simulation.Model;
 
 import simulation.View.EntityTypePng;
+import simulation.World.World;
 
 /**
  *
@@ -12,13 +13,15 @@ public class Predator extends Creature{
         setEntityTypePng(EntityTypePng.PREDATOR);
     }
 
+   
+
     @Override
-    public void move() {
+    public void viev(World world) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void viev() {
+    public void move(World world) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

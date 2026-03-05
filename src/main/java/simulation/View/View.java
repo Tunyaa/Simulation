@@ -1,5 +1,6 @@
 package simulation.View;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javafx.fxml.FXML;
@@ -39,14 +40,17 @@ public class View implements Renderer {
 
         int h = world.getWorldField().getHeight();
         int w = world.getWorldField().getWidth();
-        Map<Integer, Entity> map = world.getPositionEntityMap();
+        Map<Integer, List<Entity>> map = world.getPositionEntityMap();
 
         map.forEach((k, v) -> {
-            double position = v.getPosition();
+            for (int i = 0; i < 10; i++) {
+                
+            }
+            double position = v.get(0).getPosition();//  На 0 позиции может не быть элемента использовать деку
             int positionH = (int) Math.ceil(position / w);
             double positionW = w - (positionH * w - position);
             int pngFormat = 20;
-            Image image = new Image(getClass().getResourceAsStream(v.getEntityTypePng().getDisplayName()));
+            Image image = new Image(getClass().getResourceAsStream(v.get(0).getEntityTypePng().getDisplayName()));
             gc.drawImage(image, positionW * pngFormat, positionH * pngFormat, pngFormat, pngFormat);
         });
 

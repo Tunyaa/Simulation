@@ -8,5 +8,5 @@ import simulation.World.WorldField;
  * @author tunyaa
  */
 public interface Viewer {
-    void viev(WorldField worldMap);
+    void viev(World world);
 }

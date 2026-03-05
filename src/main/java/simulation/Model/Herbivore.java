@@ -27,21 +27,22 @@ public class Herbivore extends Creature {
 
     }
 
+    
     @Override
     public void viev(World world) {
-
-        int width = world.getWorldField().getWidth();
-        int worldLen = world.getWorldField().getWorldLen();
-        int scanPosition = position - rangeOfView - (width * rangeOfView);
-
-        for (int w = -rangeOfView; w <= rangeOfView; w++) {
-            for (int i = -rangeOfView; i <= rangeOfView; i++) {
-                int viewPoint = position - i - (width * w);
-                if (world.getPositionEntityMap().get(viewPoint).) {
-                    
-                }
-            }
-        }
+//
+//        int width = world.getWorldField().getWidth();
+//        int worldLen = world.getWorldField().getWorldLen();
+//        int scanPosition = position - rangeOfView - (width * rangeOfView);
+//
+//        for (int w = -rangeOfView; w <= rangeOfView; w++) {
+//            for (int i = -rangeOfView; i <= rangeOfView; i++) {
+//                int viewPoint = position - i - (width * w);
+//                if (world.getPositionEntityMap().get(viewPoint).) {
+//                    
+//                }
+//            }
+//        }
 
     }
 
