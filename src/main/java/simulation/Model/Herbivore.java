@@ -1,6 +1,7 @@
 package simulation.Model;
 
 import java.util.List;
+import java.util.Map;
 import simulation.View.EntityTypePng;
 import simulation.World.World;
 import simulation.World.WorldField;
@@ -18,7 +19,7 @@ public class Herbivore extends Creature {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setInititive(5);
-        setRangeOfView(3);
+        setRangeOfView(2);
         setSpeed(2);
     }
 
@@ -27,22 +28,71 @@ public class Herbivore extends Creature {
 
     }
 
-    
     @Override
     public void viev(World world) {
+
+        int width = world.getWorldField().getWidth();
+        System.out.println("width - " + width);
+        int worldLen = world.getWorldField().getWorldLen();
+        System.out.println("len - " + worldLen);
+        int scanPosition = position - rangeOfView - (width * rangeOfView);
+        System.out.println("scan - " + scanPosition);
+
+        int positionH = (int) Math.ceil((double) position / width); // Координата по высоте
+        int positionW = width - (positionH * width - position); // Координата по ширине
+
+        for (int w = -rangeOfView; w <= rangeOfView; w++) {
+            System.out.println("w - " + w);
+            for (int i = -rangeOfView; i <= rangeOfView; i++) {
+                System.out.println("i - " + i);
+
+                // Точка которая сейчас проверяется
+                int viewPoint = position + i + (width * w);
+                if (viewPoint < 1 || viewPoint > worldLen) {
+                    System.out.println("Out of Map");
+                    continue;
+                }
+                System.out.println("Position - " + viewPoint);
+                int viewPointH = (int) Math.ceil((double) viewPoint / width);
+                int viewPointW = width - (viewPointH * width - viewPoint);
+
+//Wp-rOV & !< 1
+//Wp+rOV & !> W
 //
-//        int width = world.getWorldField().getWidth();
-//        int worldLen = world.getWorldField().getWorldLen();
-//        int scanPosition = position - rangeOfView - (width * rangeOfView);
-//
-//        for (int w = -rangeOfView; w <= rangeOfView; w++) {
-//            for (int i = -rangeOfView; i <= rangeOfView; i++) {
-//                int viewPoint = position - i - (width * w);
-//                if (world.getPositionEntityMap().get(viewPoint).) {
-//                    
-//                }
-//            }
-//        }
+//Hp - rOV & !< 1
+//Hp + rOv & !> H
+                // Если просматриаемая точка в облати видимости и не выходит за пределы
+                System.out.println("viewPointW - " + viewPointW + " positionW - " + positionW);
+                System.out.println("viewPointH - " + viewPointH + " positionH - " + positionH);
+                if (viewPointW >= positionW - rangeOfView && viewPointW <= positionW + rangeOfView
+                        && viewPointH >= positionH - rangeOfView && viewPointH <= positionH + rangeOfView) {
+                    System.out.println(positionH + " - " + positionW);
+
+                    Map<Integer, List<Entity>> positionEntityMap = world.getPositionEntityMap();
+                    List<Entity> entities = positionEntityMap.get(viewPoint);
+
+                    if (entities != null) {
+                        for (Entity entity : entities) {
+                            if (entity instanceof Grass) {
+
+                                System.out.println("scan Grass" + entity.getPosition());
+                            }
+                            if (entity instanceof Predator) {
+                                System.out.println("scan Predator" + entity.getPosition());
+                            }
+                            if (entity instanceof Three) {
+                                System.out.println("scan Three" + entity.getPosition());
+                            }
+                            if (entity instanceof Stone) {
+                                System.out.println("scan Stone" + entity.getPosition());
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
 
     }
 

@@ -82,7 +82,7 @@ public class World {
     }
 
     // Проверка. Позиция не выходит за край.
-    private boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {
+    public boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {
         int width = worldFeld.getWidth();
         int len = worldFeld.getWorldLen();
 
