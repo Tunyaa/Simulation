@@ -21,9 +21,9 @@ public class World {
 
     private WorldField worldFeld; // Поле
     private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
-    private final int STONESATURATION = 10;// Плотность камня на поле (количество клеток / cons)
-    private final int THREESATURATION = 20;
-    private final int GRASSSATURATION = 50;
+    private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
+    private final int THREESATURATION = 5;
+    private final int GRASSSATURATION = 30;
     private final int PREDATORSATURATION = 80;
     private final int HERBIVORESATURATION = 80;
 
@@ -59,10 +59,10 @@ public class World {
             // Получает рандомную позицию
             int position = random.nextInt(len);
             // Проверяет что позиция не крайняя
-            if (isPositionNotBorder(position, this)) {
+//            if (isPositionNotBorder(position, this)) {
                 // Генерирует фрагмент камня
                 entityCount += generateEntityFragment(position, 1, entityClass);
-            }
+//            }
 
         }
 

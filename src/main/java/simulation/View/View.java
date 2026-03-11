@@ -25,7 +25,7 @@ public class View implements Renderer {
     @Override
     public void render(World world, Canvas canvas) {
 
-        Image p = new Image(getClass().getResourceAsStream(EntityTypePng.PREDATOR.getDisplayName()));
+//        Image p = new Image(getClass().getResourceAsStream(EntityTypePng.PREDATOR.getDisplayName()));
         Image pp = new Image(getClass().getResourceAsStream(EntityTypePng.HERBIVORE.getDisplayName()));
         Image g = new Image(getClass().getResourceAsStream(EntityTypePng.GRASS.getDisplayName()));
         Image s = new Image(getClass().getResourceAsStream(EntityTypePng.STONE.getDisplayName()));
@@ -38,7 +38,7 @@ public class View implements Renderer {
         gc.setFill(Color.BISQUE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        int h = world.getWorldField().getHeight();
+//        int h = world.getWorldField().getHeight();
         int w = world.getWorldField().getWidth();
         Map<Integer, List<Entity>> map = world.getPositionEntityMap();
 

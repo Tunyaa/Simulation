@@ -16,7 +16,8 @@ public abstract class Creature extends Entity implements
     protected int rangeOfView;
     protected int hp;
     protected int speed;
-    protected int inititive;
+    protected int inititive; 
+    protected int targetPosition;
 
     public int getRangeOfView() {
         return rangeOfView;
@@ -50,6 +51,15 @@ public abstract class Creature extends Entity implements
         this.inititive = inititive;
     }
 
+    public int getTargetPosition() {
+        return targetPosition;
+    }
+
+    public void setTargetPosition(int targetPosition) {
+        this.targetPosition = targetPosition;
+    }
+
+    
     
     
 }

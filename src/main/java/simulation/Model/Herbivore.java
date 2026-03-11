@@ -19,7 +19,7 @@ public class Herbivore extends Creature {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setInititive(5);
-        setRangeOfView(2);
+        setRangeOfView(3);
         setSpeed(2);
     }
 
@@ -56,18 +56,18 @@ public class Herbivore extends Creature {
                 int viewPointH = (int) Math.ceil((double) viewPoint / width);
                 int viewPointW = width - (viewPointH * width - viewPoint);
 
-//Wp-rOV & !< 1
-//Wp+rOV & !> W
-//
-//Hp - rOV & !< 1
-//Hp + rOv & !> H
                 // Если просматриаемая точка в облати видимости и не выходит за пределы
                 System.out.println("viewPointW - " + viewPointW + " positionW - " + positionW);
                 System.out.println("viewPointH - " + viewPointH + " positionH - " + positionH);
-                if (viewPointW >= positionW - rangeOfView && viewPointW <= positionW + rangeOfView
-                        && viewPointH >= positionH - rangeOfView && viewPointH <= positionH + rangeOfView) {
-                    System.out.println(positionH + " - " + positionW);
+                int topLeftExtremePoint = positionW - rangeOfView;
+                int topRightExtremePoint = positionW + rangeOfView;
+                int lowerLeftExtremePoint = positionH - rangeOfView;
+                int lowerRightExtremePoint = positionH + rangeOfView;
 
+                if (viewPointW >= topLeftExtremePoint && viewPointW <= topRightExtremePoint
+                        && viewPointH >= lowerLeftExtremePoint && viewPointH <= lowerRightExtremePoint) {
+                    System.out.println(positionH + " - " + positionW);
+                    System.out.println("IF VIEW");
                     Map<Integer, List<Entity>> positionEntityMap = world.getPositionEntityMap();
                     List<Entity> entities = positionEntityMap.get(viewPoint);
 
