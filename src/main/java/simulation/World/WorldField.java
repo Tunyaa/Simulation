@@ -77,6 +77,28 @@ public class WorldField {
 //
 //        }
 //    }
+    // Возвращает позицию по ряд \ колонна
+    public int getPositionByLineСolumn(int line, int column) {
+        return (line - 1) * len + column;
+    }
+
+    // Возвращает ряд \ колонна по позиции
+    public int[] getRowСolumnByPosition(int position) {
+
+        int[] rowColumn = new int[2];
+        // Присваевает номер линии
+        rowColumn[0] = (int) Math.ceil((double) position / width);
+        // Присваивает номер колонны
+        rowColumn[1] = width - (rowColumn[0] * width - position);
+        return rowColumn;
+    }
+
+    public RowColumn getRowColumnByPosition(int position) {
+        int row = (int) Math.ceil((double) position / width);
+        int col = width - (row * width - position);
+        return new RowColumn(row, col);
+    }
+
     public int getWidth() {
         return width;
     }
@@ -87,6 +109,34 @@ public class WorldField {
 
     public int getWorldLen() {
         return len;
+    }
+
+}
+
+class RowColumn {
+
+    int row;
+    int col;
+
+    public RowColumn(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
     }
 
 }
