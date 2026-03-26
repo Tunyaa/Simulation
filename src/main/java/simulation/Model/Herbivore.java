@@ -15,12 +15,16 @@ public class Herbivore extends Creature {
     private List<Integer> Path;
     private int targetPosition;
 
+    // Тестовое зрение
+    private SquareViewer squareViewer;
+    
     public Herbivore() {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setInititive(5);
-        setRangeOfView(3);
+        setRangeOfView(2);
         setSpeed(2);
+        this.squareViewer = new SquareViewer(this);
     }
 
     @Override
@@ -30,69 +34,73 @@ public class Herbivore extends Creature {
 
     @Override
     public void viev(World world) {
-
-        int width = world.getWorldField().getWidth();
-        System.out.println("width - " + width);
-        int worldLen = world.getWorldField().getWorldLen();
-        System.out.println("len - " + worldLen);
-        int scanPosition = position - rangeOfView - (width * rangeOfView);
-        System.out.println("scan - " + scanPosition);
-
-        int positionH = (int) Math.ceil((double) position / width); // Координата по высоте
-        int positionW = width - (positionH * width - position); // Координата по ширине
-
-        for (int w = -rangeOfView; w <= rangeOfView; w++) {
-            System.out.println("w - " + w);
-            for (int i = -rangeOfView; i <= rangeOfView; i++) {
-                System.out.println("i - " + i);
-
-                // Точка которая сейчас проверяется
-                int viewPoint = position + i + (width * w);
-                if (viewPoint < 1 || viewPoint > worldLen) {
-                    System.out.println("Out of Map");
-                    continue;
-                }
-                System.out.println("Position - " + viewPoint);
-                int viewPointH = (int) Math.ceil((double) viewPoint / width);
-                int viewPointW = width - (viewPointH * width - viewPoint);
-
-                // Если просматриаемая точка в облати видимости и не выходит за пределы
-                System.out.println("viewPointW - " + viewPointW + " positionW - " + positionW);
-                System.out.println("viewPointH - " + viewPointH + " positionH - " + positionH);
-                int topLeftExtremePoint = positionW - rangeOfView;
-                int topRightExtremePoint = positionW + rangeOfView;
-                int lowerLeftExtremePoint = positionH - rangeOfView;
-                int lowerRightExtremePoint = positionH + rangeOfView;
-
-                if (viewPointW >= topLeftExtremePoint && viewPointW <= topRightExtremePoint
-                        && viewPointH >= lowerLeftExtremePoint && viewPointH <= lowerRightExtremePoint) {
-                    System.out.println(positionH + " - " + positionW);
-                    System.out.println("IF VIEW");
-                    Map<Integer, List<Entity>> positionEntityMap = world.getPositionEntityMap();
-                    List<Entity> entities = positionEntityMap.get(viewPoint);
-
-                    if (entities != null) {
-                        for (Entity entity : entities) {
-                            if (entity instanceof Grass) {
-
-                                System.out.println("scan Grass" + entity.getPosition());
-                            }
-                            if (entity instanceof Predator) {
-                                System.out.println("scan Predator" + entity.getPosition());
-                            }
-                            if (entity instanceof Three) {
-                                System.out.println("scan Three" + entity.getPosition());
-                            }
-                            if (entity instanceof Stone) {
-                                System.out.println("scan Stone" + entity.getPosition());
-                            }
-                        }
-                    }
-
-                }
-
-            }
-        }
+        squareViewer.viev(world);
+        
+        System.out.println("View complete");
+        System.out.println("Target is " + getTargetPosition());
+//
+//        int width = world.getWorldField().getWidth();
+//        System.out.println("width - " + width);
+//        int worldLen = world.getWorldField().getWorldLen();
+//        System.out.println("len - " + worldLen);
+//        int scanPosition = position - rangeOfView - (width * rangeOfView);
+//        System.out.println("scan - " + scanPosition);
+//
+//        int positionH = (int) Math.ceil((double) position / width); // Координата по высоте
+//        int positionW = width - (positionH * width - position); // Координата по ширине
+//
+//        for (int w = -rangeOfView; w <= rangeOfView; w++) {
+//            System.out.println("w - " + w);
+//            for (int i = -rangeOfView; i <= rangeOfView; i++) {
+//                System.out.println("i - " + i);
+//
+//                // Точка которая сейчас проверяется
+//                int viewPoint = position + i + (width * w);
+//                if (viewPoint < 1 || viewPoint > worldLen) {
+//                    System.out.println("Out of Map");
+//                    continue;
+//                }
+//                System.out.println("Position - " + viewPoint);
+//                int viewPointH = (int) Math.ceil((double) viewPoint / width);
+//                int viewPointW = width - (viewPointH * width - viewPoint);
+//
+//                // Если просматриаемая точка в облати видимости и не выходит за пределы
+//                System.out.println("viewPointW - " + viewPointW + " positionW - " + positionW);
+//                System.out.println("viewPointH - " + viewPointH + " positionH - " + positionH);
+//                int topLeftExtremePoint = positionW - rangeOfView;
+//                int topRightExtremePoint = positionW + rangeOfView;
+//                int lowerLeftExtremePoint = positionH - rangeOfView;
+//                int lowerRightExtremePoint = positionH + rangeOfView;
+//
+//                if (viewPointW >= topLeftExtremePoint && viewPointW <= topRightExtremePoint
+//                        && viewPointH >= lowerLeftExtremePoint && viewPointH <= lowerRightExtremePoint) {
+//                    System.out.println(positionH + " - " + positionW);
+//                    System.out.println("IF VIEW");
+//                    Map<Integer, List<Entity>> positionEntityMap = world.getPositionEntityMap();
+//                    List<Entity> entities = positionEntityMap.get(viewPoint);
+//
+//                    if (entities != null) {
+//                        for (Entity entity : entities) {
+//                            if (entity instanceof Grass) {
+//
+//                                System.out.println("scan Grass" + entity.getPosition());
+//                            }
+//                            if (entity instanceof Predator) {
+//                                System.out.println("scan Predator" + entity.getPosition());
+//                            }
+//                            if (entity instanceof Three) {
+//                                System.out.println("scan Three" + entity.getPosition());
+//                            }
+//                            if (entity instanceof Stone) {
+//                                System.out.println("scan Stone" + entity.getPosition());
+//                            }
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//        }
 
     }
 
