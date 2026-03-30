@@ -7,13 +7,11 @@ import simulation.World.World;
  *
  * @author tunyaa
  */
-public class Predator extends Creature{
+public class Predator extends Creature {
 
     public Predator() {
         setEntityTypePng(EntityTypePng.PREDATOR);
     }
-
-   
 
     @Override
     public void viev(World world) {
@@ -21,10 +19,8 @@ public class Predator extends Creature{
     }
 
     @Override
-    public void move(World world) {
+    public void move() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    
+
 }

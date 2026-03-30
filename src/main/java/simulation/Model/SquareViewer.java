@@ -21,7 +21,7 @@ public class SquareViewer implements Viewer {
         int width = world.getWorldField().getWidth();
         // 
 
-        for (int r = 0; r <= rangeOfView; r++) {
+        for (int r = rangeOfView; r >= 0; r--) {
 
             int firstScanPOsition = creature.getPosition() - r - (width * r);
 
@@ -36,7 +36,6 @@ public class SquareViewer implements Viewer {
                 }
             }
 
-            
             // просмотр поля 
             for (int i : scan) {
                 int f = firstScanPOsition += i;

@@ -7,5 +7,5 @@ import simulation.World.World;
  * @author tunyaa
  */
 public interface Mover {
-    void move(World world);
+    void move();
 }

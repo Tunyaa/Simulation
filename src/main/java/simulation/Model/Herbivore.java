@@ -17,18 +17,24 @@ public class Herbivore extends Creature {
 
     // Тестовое зрение
     private SquareViewer squareViewer;
+    private  StraightPathMover mover;
+
+    public void setMover(StraightPathMover mover) {
+        this.mover = mover;
+    }
     
     public Herbivore() {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setInititive(5);
-        setRangeOfView(2);
+        setRangeOfView(6);
         setSpeed(2);
         this.squareViewer = new SquareViewer(this);
+        
     }
 
     @Override
-    public void move(World world) {
+    public void move() {
 
     }
 

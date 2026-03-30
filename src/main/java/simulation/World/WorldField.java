@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import simulation.Model.Entity;
+import simulation.Model.RowColumn;
 
 /**
  *
@@ -29,10 +30,6 @@ public class WorldField {
         this.width = 0;
         this.height = 0;
         this.len = 0;
-    }
-
-    public void getCoordinateByPosition(int position) {
-
     }
 
     // Движения по полю побавить движение по диагонали!!!!!
@@ -78,8 +75,8 @@ public class WorldField {
 //        }
 //    }
     // Возвращает позицию по ряд \ колонна
-    public int getPositionByLineСolumn(int line, int column) {
-        return (line - 1) * len + column;
+    public int getPositionByRowСolumn(int row, int column) {
+        return (row - 1) * len + column;
     }
 
     // Возвращает ряд \ колонна по позиции
@@ -110,33 +107,13 @@ public class WorldField {
     public int getWorldLen() {
         return len;
     }
-
-}
-
-class RowColumn {
-
-    int row;
-    int col;
-
-    public RowColumn(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
+// ДОЛГО?? ПЕРЕДЕЛАТЬ НА [][]
+    public RowColumn getRelativeRowColumn(int position, int targetPosition) {
+        RowColumn targetRowColumn = getRowColumnByPosition(targetPosition);
+        RowColumn positionRowColumn = getRowColumnByPosition(position);
+        int col = targetRowColumn.getCol() - positionRowColumn.getCol();
+        int row = targetRowColumn.getRow() - positionRowColumn.getRow();
+        return new RowColumn(row, col);
     }
 
 }
