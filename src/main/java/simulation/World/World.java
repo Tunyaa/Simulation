@@ -23,7 +23,7 @@ public class World {
     private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 5;
-    private final int GRASSSATURATION = 30;
+    private final int GRASSSATURATION = 80;
     private final int PREDATORSATURATION = 80;
     private final int HERBIVORESATURATION = 80;
 

@@ -22,7 +22,7 @@ public class SquareViewer implements Viewer {
         // 
 
         for (int r = rangeOfView; r >= 0; r--) {
-
+            System.out.println("ОБЗОР зрения - " + r);
             int firstScanPOsition = creature.getPosition() - r - (width * r);
 
             System.out.println("first scan - " + firstScanPOsition);
@@ -41,17 +41,34 @@ public class SquareViewer implements Viewer {
                 int f = firstScanPOsition += i;
                 System.out.println(f);
 
-                List<Entity> get = world.getPositionEntityMap().get(f);
-                if (get != null) {
-                    for (Entity entity : get) {
+                RowColumn rowColumn = world.getWorldField().getRowColumnByPosition(creature.getPosition());
 
-                        System.out.println(entity.getEntityTypePng());
-                        if (entity instanceof Grass) {
-                            System.out.println(" IF - " + f);
-                            creature.setTargetPosition(f);
+                int LeftExtremePoint = rowColumn.getCol() - rangeOfView;
+                int RightExtremePoint = rowColumn.getCol() + rangeOfView;
+                int topExtremePoint = rowColumn.getRow() - rangeOfView;
+                int lowerExtremePoint = rowColumn.getRow() + rangeOfView;
+
+                RowColumn rowColumnByScanPosition = world.getWorldField().getRowColumnByPosition(f);
+                int col = rowColumnByScanPosition.getCol();
+                int row = rowColumnByScanPosition.getRow();
+                System.out.println("Крайние точки сканирования");
+                System.out.println(col + " - " + row);
+                if (col >= LeftExtremePoint && col <= RightExtremePoint
+                        && row >= topExtremePoint && row <= lowerExtremePoint) {
+                    List<Entity> get = world.getPositionEntityMap().get(f);
+                    if (get != null) {
+                        for (Entity entity : get) {
+
+                            System.out.println(entity.getEntityTypePng());
+                            if (entity instanceof Grass) {
+                                System.out.println(" IF - " + f);
+                                creature.setTargetPosition(f);
+                            }
+
                         }
-
                     }
+                } else {
+                    System.out.println("Skip scan position");
                 }
 
             }
