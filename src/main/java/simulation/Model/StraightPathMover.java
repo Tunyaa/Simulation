@@ -13,16 +13,15 @@ public class StraightPathMover implements Mover {
     ArrayList<Integer> path = new ArrayList<>();
     // Массив (возможные точки) промежуточный массив
     ArrayList<Integer> tempIndixes = new ArrayList<>();
-    private Creature creature;
-    private World world;
+//    private Creature creature;
+//    private World world;
 
-    public StraightPathMover(Creature creature, World world) {
-        this.creature = creature;
-        this.world = world;
-    }
-
+//    public StraightPathMover(Creature creature, World world) {
+//        this.creature = creature;
+//        this.world = world;
+//    }
     @Override
-    public void move() {
+    public void move(World world, Creature creature) {
         System.out.println("MOVE start");
         // Текущая позиция
         int position = creature.getPosition();
@@ -40,7 +39,7 @@ public class StraightPathMover implements Mover {
 
             System.out.println("Точка рядом");
             // 1: Проверка: Точка рядом?
-            if (isLocatedNearby(position, targetPosition)) {
+            if (isLocatedNearby(world, position, targetPosition)) {
                 System.out.println("Да");
                 // 2.2 Записать точку в массив
                 path.add(targetPosition);
@@ -49,7 +48,7 @@ public class StraightPathMover implements Mover {
                 // Проверка: Эта точка целевая?
                 // SET targetPosition
                 System.out.println("Дошли до цели?");
-                if (isTarget(targetPosition)) {
+                if (isTarget(creature, targetPosition)) {
                     System.out.println("Да");
                     // Дошли до целевой точки.
                     // Конец метода
@@ -58,16 +57,16 @@ public class StraightPathMover implements Mover {
                 System.out.println("нет");
 
                 position = targetPosition;
-//                position = path.get(path.size() - 1);
                 targetPosition = tempIndixes.get(tempIndixes.size() - 1);
             } else {
                 System.out.println("Нет");
                 // 2.1: Поиск пути:
                 // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
-                RowColumn halfRelativeRowColumn = getHalfRelativeRowColumn(position, targetPosition);
+//                RowColumn halfRelativeRowColumn = getHalfRelativePosition(world, position, targetPosition);
 
 //            RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(position);
-                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
+                targetPosition = getHalfRelativePosition(world, position, targetPosition);
+//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
                 System.out.println("Новая цель - " + targetPosition);
                 // Записываем в промежуточный массив
                 tempIndixes.add(targetPosition);
@@ -87,7 +86,7 @@ public class StraightPathMover implements Mover {
         System.out.println("");
     }
 
-    public boolean isLocatedNearby(int position, int targetPosition) {
+    public boolean isLocatedNearby(World world, int position, int targetPosition) {
         RowColumn relativeRowColumn = world.getWorldField().getRelativeRowColumn(position, targetPosition);
         System.out.println(relativeRowColumn.getCol() + " - " + relativeRowColumn.getRow());
         if (Math.abs(relativeRowColumn.getCol()) <= 1 && Math.abs(relativeRowColumn.getRow()) <= 1) {
@@ -104,7 +103,7 @@ public class StraightPathMover implements Mover {
 
     }
 
-    private boolean isTarget(Integer targetPosition) {
+    private boolean isTarget(Creature creature, Integer targetPosition) {
         System.out.println("Цель существа -" + creature.getTargetPosition());
         System.out.println("Цель промежуточная -" + targetPosition);
         return creature.getTargetPosition() == targetPosition;
@@ -112,7 +111,7 @@ public class StraightPathMover implements Mover {
 
     // Возвражает половину(округление в меньшую сторону)
     // от относительной координаты(+6w+7 => +3w+3)
-    public RowColumn getHalfRelativeRowColumn(int position, int targetPosition) {
+    public int getHalfRelativePosition(World world, int position, int targetPosition) {
 
         RowColumn relativeRowColumn = world.getWorldField().getRelativeRowColumn(position, targetPosition);
 
@@ -123,7 +122,8 @@ public class StraightPathMover implements Mover {
         relativeRowColumn.setRow(row);
         relativeRowColumn.setCol(col);
 
-        return relativeRowColumn;
+        targetPosition = position + col + (world.getWorldField().getWidth() * row);
+        return targetPosition;
     }
 
 }

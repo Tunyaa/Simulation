@@ -10,7 +10,7 @@ public abstract class Creature extends Entity implements
         LifeCycle,
         Generation,
         Viewer,
-        Mover,
+//        Mover,
         Eater {
 
     protected int rangeOfView;

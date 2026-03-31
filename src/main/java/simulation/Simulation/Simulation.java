@@ -31,8 +31,9 @@ public class Simulation {
                     System.out.println("Herbivore" + entity.getPosition());
                     ((Herbivore) entity).viev(world);
                     if (((Herbivore) entity).getTargetPosition() != 0) {
-                        StraightPathMover straightPathMover = new StraightPathMover(((Herbivore) entity), world);
-                        straightPathMover.move();
+                        ((Herbivore) entity).move(world);
+//                        StraightPathMover straightPathMover = new StraightPathMover(((Herbivore) entity), world);
+//                        straightPathMover.move(world, (Herbivore) entity);
                     }
 
                 }
