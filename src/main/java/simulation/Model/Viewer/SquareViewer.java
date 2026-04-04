@@ -1,6 +1,10 @@
-package simulation.Model;
+package simulation.Model.Viewer;
 
+import simulation.Model.Entity.Grass;
+import simulation.Model.Entity.Creature;
+import simulation.Model.Entity.Entity;
 import java.util.List;
+import simulation.World.RowColumn;
 import simulation.World.World;
 
 /**
@@ -17,7 +21,7 @@ public class SquareViewer implements Viewer {
 
     @Override
     public void viev(World world) {
-        int rangeOfView = creature.rangeOfView;
+        int rangeOfView = creature.getRangeOfView();
         int width = world.getWorldField().getWidth();
         // 
 

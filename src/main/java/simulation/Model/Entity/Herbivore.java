@@ -1,7 +1,10 @@
-package simulation.Model;
+package simulation.Model.Entity;
 
 import java.util.List;
 import java.util.Map;
+import simulation.Model.Mover.Mover;
+import simulation.Model.Viewer.SquareViewer;
+import simulation.Model.Mover.StraightPathMover;
 import simulation.View.EntityTypePng;
 import simulation.World.World;
 import simulation.World.WorldField;
@@ -34,9 +37,11 @@ public class Herbivore extends Creature {
         mover.move(world, this);
     }
 
-   
-
     @Override
+    public void action() {
+
+    }
+
     public void viev(World world) {
         squareViewer.viev(world);
 

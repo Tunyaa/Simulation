@@ -1,4 +1,4 @@
-package simulation.Model;
+package simulation.Model.Viewer;
 
 import simulation.World.World;
 import simulation.World.WorldField;

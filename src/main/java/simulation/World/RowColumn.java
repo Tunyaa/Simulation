@@ -1,4 +1,4 @@
-package simulation.Model;
+package simulation.World;
 
 /**
  *

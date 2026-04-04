@@ -11,7 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import simulation.App;
-import simulation.Model.Herbivore;
+import simulation.Model.Entity.Herbivore;
 
 public class SecondaryController {
 

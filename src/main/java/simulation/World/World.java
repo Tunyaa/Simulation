@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import simulation.Model.Entity;
-import simulation.Model.Grass;
-import simulation.Model.Herbivore;
-import simulation.Model.Predator;
-import simulation.Model.Stone;
-import simulation.Model.Three;
+import simulation.Model.Entity.Entity;
+import simulation.Model.Entity.Grass;
+import simulation.Model.Entity.Herbivore;
+import simulation.Model.Entity.Predator;
+import simulation.Model.Entity.Stone;
+import simulation.Model.Entity.Three;
 
 /**
  *

@@ -1,8 +1,11 @@
-package simulation.Model;
+package simulation.Model.Mover;
 
+import simulation.Model.Entity.Creature;
+import simulation.Model.Entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import simulation.World.RowColumn;
 import simulation.World.World;
 
 /**

@@ -1,5 +1,6 @@
-package simulation.Model;
+package simulation.Model.Mover;
 
+import simulation.Model.Entity.Creature;
 import simulation.World.World;
 
 /**

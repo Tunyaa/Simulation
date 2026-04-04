@@ -3,9 +3,9 @@ package simulation.Simulation;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import simulation.Model.Entity;
-import simulation.Model.Herbivore;
-import simulation.Model.StraightPathMover;
+import simulation.Model.Entity.Entity;
+import simulation.Model.Entity.Herbivore;
+import simulation.Model.Mover.StraightPathMover;
 import simulation.World.World;
 
 /**

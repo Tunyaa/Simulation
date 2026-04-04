@@ -12,7 +12,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import simulation.Model.Entity;
+import simulation.Model.Entity.Entity;
 import simulation.World.World;
 import simulation.World.WorldField;
 

@@ -1,4 +1,11 @@
-package simulation.Model;
+package simulation.Model.Entity;
+
+import simulation.Model.Entity.Entity;
+import java.util.ArrayList;
+import simulation.Model.Action;
+import simulation.Model.Eater;
+import simulation.Model.Generation;
+import simulation.Model.LifeCycle;
 
 /**
  *
@@ -19,6 +26,9 @@ public abstract class Creature extends Entity implements
     protected int speed;
     protected int inititive;
     protected int targetPosition;
+
+    // Массив (Путь из индексов)
+    protected ArrayList<Integer> path = new ArrayList<>();
 
     public int getRangeOfView() {
         return rangeOfView;
