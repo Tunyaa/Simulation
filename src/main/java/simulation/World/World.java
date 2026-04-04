@@ -2,6 +2,7 @@ package simulation.World;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +61,8 @@ public class World {
             int position = random.nextInt(len);
             // Проверяет что позиция не крайняя
 //            if (isPositionNotBorder(position, this)) {
-                // Генерирует фрагмент камня
-                entityCount += generateEntityFragment(position, 1, entityClass);
+            // Генерирует фрагмент камня
+            entityCount += generateEntityFragment(position, 1, entityClass);
 //            }
 
         }
@@ -160,7 +161,11 @@ public class World {
             return null;
         }
     }
-    
+// Изменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public Collection<List<Entity>> getEntitys() {
+        return positionEntityMap.values();
+    }
+
     // Возвращает  поле
     public WorldField getWorldField() {
         return worldFeld;

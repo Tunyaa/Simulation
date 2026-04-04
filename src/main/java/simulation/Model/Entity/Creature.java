@@ -30,6 +30,10 @@ public abstract class Creature extends Entity implements
     // Массив (Путь из индексов)
     protected ArrayList<Integer> path = new ArrayList<>();
 
+    public boolean isTarget(int targetPosition) {
+        return this.targetPosition == targetPosition;
+    }
+
     public int getRangeOfView() {
         return rangeOfView;
     }
@@ -68,6 +72,14 @@ public abstract class Creature extends Entity implements
 
     public void setTargetPosition(int targetPosition) {
         this.targetPosition = targetPosition;
+    }
+
+    public ArrayList<Integer> getPath() {
+        return path;
+    }
+
+    public void setPath(ArrayList<Integer> path) {
+        this.path = path;
     }
 
 }

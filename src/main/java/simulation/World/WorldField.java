@@ -31,48 +31,6 @@ public class WorldField {
         this.len = 0;
     }
 
-    // Движения по полю побавить движение по диагонали!!!!!
-//    public void moveTo(String direction) {
-//        int newPoint;
-//        if (direction.equals("w")) {
-//            newPoint = point - width;
-//            if (newPoint >= 1) {
-//                point = newPoint;
-//            }
-//        }
-//        if (direction.equals("s")) {
-//            newPoint = point + width;
-//            if (point < len) {
-//                point = newPoint;
-//            }
-//        }
-//        if (direction.equals("a")) {
-//            newPoint = point - 1;
-//            if (newPoint > (width * (point / width))) {
-//                point = newPoint;
-//            }
-//        }
-//        if (direction.equals("d")) {
-//            if (point < (width * ((point - 1) / width + 1))) {
-//                point += 1;
-//            }
-//        }
-//    }
-    // ручное передвижение
-//    public void render() throws IOException {
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//        String s;
-//        while (true) {
-//            showMap();
-//            System.out.println("point - " + point);
-//            s = reader.readLine();
-//            if (s.equals("q")) {
-//                return;
-//            }
-//            moveTo(s);
-//
-//        }
-//    }
     // Возвращает позицию по ряд \ колонна
     public int getPositionByRowСolumn(int row, int column) {
         return (row - 1) * len + column;
@@ -89,10 +47,46 @@ public class WorldField {
         return rowColumn;
     }
 
+    // Проверка: Цель рядом с позицией? (в диапазоне 1й клетки от позиции)
+    public boolean isLocatedNearby(int position, int targetPosition) {
+        RowColumn relativeRowColumn = getRelativeRowColumn(position, targetPosition);
+        if (Math.abs(relativeRowColumn.getCol()) <= 1 && Math.abs(relativeRowColumn.getRow()) <= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    // Возвращает координату поля по позиции
     public RowColumn getRowColumnByPosition(int position) {
         int row = (int) Math.ceil((double) position / width);
         int col = width - (row * width - position);
         return new RowColumn(row, col);
+    }
+
+    // ДОЛГО?? ПЕРЕДЕЛАТЬ НА [][]
+    // Возвращает относительную координату цели от позиции
+    public RowColumn getRelativeRowColumn(int position, int targetPosition) {
+        RowColumn targetRowColumn = getRowColumnByPosition(targetPosition);
+        RowColumn positionRowColumn = getRowColumnByPosition(position);
+        int col = targetRowColumn.getCol() - positionRowColumn.getCol();
+        int row = targetRowColumn.getRow() - positionRowColumn.getRow();
+        return new RowColumn(row, col);
+    }
+
+    // Возвращает середину между позицией и целью
+    public int getHalfRelativePosition(int position, int targetPosition) {
+
+        RowColumn relativeRowColumn = getRelativeRowColumn(position, targetPosition);
+
+        // Берем половину     (+6w+7 => +3w+3) округление в меньшую сторону
+        // Берем позицию
+        int row = relativeRowColumn.getRow() / 2;
+        int col = relativeRowColumn.getCol() / 2;
+        relativeRowColumn.setRow(row);
+        relativeRowColumn.setCol(col);
+
+        targetPosition = position + col + (width * row);
+        return targetPosition;
     }
 
     public int getWidth() {
@@ -105,14 +99,6 @@ public class WorldField {
 
     public int getWorldLen() {
         return len;
-    }
-// ДОЛГО?? ПЕРЕДЕЛАТЬ НА [][]
-    public RowColumn getRelativeRowColumn(int position, int targetPosition) {
-        RowColumn targetRowColumn = getRowColumnByPosition(targetPosition);
-        RowColumn positionRowColumn = getRowColumnByPosition(position);
-        int col = targetRowColumn.getCol() - positionRowColumn.getCol();
-        int row = targetRowColumn.getRow() - positionRowColumn.getRow();
-        return new RowColumn(row, col);
     }
 
 }
