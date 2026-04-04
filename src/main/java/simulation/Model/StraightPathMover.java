@@ -1,6 +1,8 @@
 package simulation.Model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import simulation.World.World;
 
 /**
@@ -22,68 +24,84 @@ public class StraightPathMover implements Mover {
 //    }
     @Override
     public void move(World world, Creature creature) {
-        System.out.println("MOVE start");
-        // Текущая позиция
-        int position = creature.getPosition();
-        System.out.println("Моя позиция - " + position);
-        // Целевая точка
-        // ОБРАТОБАТЬ ЕСЛИ ТОЧКИ ЦЕЛЕВОЙ НЕТ!!!!
-        int targetPosition = creature.getTargetPosition();
-        System.out.println("Цель - " + targetPosition);
-        // Добавляем целевую точку в промежуточный путь
-        tempIndixes.add(targetPosition);
+        if (!path.isEmpty()) {
+            System.out.println("Есть путь");
+            Map<Integer, List<Entity>> map = world.getPositionEntityMap();
+            // Следующая позиция в пути
+            int newPosition = path.get(0);
+            path.remove(0);
+            // Удалить существо из карты
+            List<Entity> list = map.get(creature.getPosition());
+            list.remove(creature);
+            // Добавить существо в новую позицию
+            creature.setPosition(newPosition);
+            map.putIfAbsent(newPosition, new ArrayList<>());
+            map.get(newPosition).add(creature);
 
-        // Проверка: массив пустой?
-        // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
-        while (!tempIndixes.isEmpty()) {
+        } else {
+            System.out.println("MOVE start");
+            // Текущая позиция
+            int position = creature.getPosition();
+            System.out.println("Моя позиция - " + position);
+            // Целевая точка
+            // ОБРАТОБАТЬ ЕСЛИ ТОЧКИ ЦЕЛЕВОЙ НЕТ!!!!
+            int targetPosition = creature.getTargetPosition();
+            System.out.println("Цель - " + targetPosition);
+            // Добавляем целевую точку в промежуточный путь
+            tempIndixes.add(targetPosition);
 
-            System.out.println("Точка рядом");
-            // 1: Проверка: Точка рядом?
-            if (isLocatedNearby(world, position, targetPosition)) {
-                System.out.println("Да");
-                // 2.2 Записать точку в массив
-                path.add(targetPosition);
-                // Удалить эту точку из промежуточного массива
-                tempIndixes.remove(tempIndixes.size() - 1);
-                // Проверка: Эта точка целевая?
-                // SET targetPosition
-                System.out.println("Дошли до цели?");
-                if (isTarget(creature, targetPosition)) {
+            // Проверка: массив пустой?
+            // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
+            while (!tempIndixes.isEmpty()) {
+
+                System.out.println("Точка рядом");
+                // 1: Проверка: Точка рядом?
+                if (isLocatedNearby(world, position, targetPosition)) {
                     System.out.println("Да");
-                    // Дошли до целевой точки.
-                    // Конец метода
-                    break;
-                }
-                System.out.println("нет");
+                    // 2.2 Записать точку в массив
+                    path.add(targetPosition);
+                    // Удалить эту точку из промежуточного массива
+                    tempIndixes.remove(tempIndixes.size() - 1);
+                    // Проверка: Эта точка целевая?
+                    // SET targetPosition
+                    System.out.println("Дошли до цели?");
+                    if (isTarget(creature, targetPosition)) {
+                        System.out.println("Да");
+                        // Дошли до целевой точки.
+                        // Конец метода
+                        break;
+                    }
+                    System.out.println("нет");
 
-                position = targetPosition;
-                targetPosition = tempIndixes.get(tempIndixes.size() - 1);
-            } else {
-                System.out.println("Нет");
-                // 2.1: Поиск пути:
-                // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
+                    position = targetPosition;
+                    targetPosition = tempIndixes.get(tempIndixes.size() - 1);
+                } else {
+                    System.out.println("Нет");
+                    // 2.1: Поиск пути:
+                    // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
 //                RowColumn halfRelativeRowColumn = getHalfRelativePosition(world, position, targetPosition);
 
 //            RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(position);
-                targetPosition = getHalfRelativePosition(world, position, targetPosition);
+                    targetPosition = getHalfRelativePosition(world, position, targetPosition);
 //                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
-                System.out.println("Новая цель - " + targetPosition);
-                // Записываем в промежуточный массив
-                tempIndixes.add(targetPosition);
+                    System.out.println("Новая цель - " + targetPosition);
+                    // Записываем в промежуточный массив
+                    tempIndixes.add(targetPosition);
+                }
+
+                System.out.println("временный массив - ");
+                for (Integer tempIndixe : tempIndixes) {
+                    System.out.print(tempIndixe);
+                }
+                System.out.println("");
             }
 
-            System.out.println("временный массив - ");
-            for (Integer tempIndixe : tempIndixes) {
-                System.out.print(tempIndixe);
+            System.out.println("Путь ");
+            for (Integer integer : path) {
+                System.out.print(integer + " ");
             }
             System.out.println("");
         }
-
-        System.out.println("Путь ");
-        for (Integer integer : path) {
-            System.out.print(integer + " ");
-        }
-        System.out.println("");
     }
 
     public boolean isLocatedNearby(World world, int position, int targetPosition) {

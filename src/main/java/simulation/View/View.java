@@ -43,9 +43,9 @@ public class View implements Renderer {
         Map<Integer, List<Entity>> map = world.getPositionEntityMap();
 
         map.forEach((k, v) -> {
-            for (int i = 0; i < 10; i++) {
-                
-            }
+//            for (int i = 0; i < 10; i++) {
+//                
+//            }
             double position = v.get(0).getPosition();//  На 0 позиции может не быть элемента использовать деку
             int positionH = (int) Math.ceil(position / w);
             double positionW = w - (positionH * w - position);

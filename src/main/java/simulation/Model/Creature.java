@@ -8,15 +8,16 @@ public abstract class Creature extends Entity implements
         //        Reproduser,
         //        Existance,
         LifeCycle,
+        Action,
         Generation,
-        Viewer,
-//        Mover,
+        //        Viewer,
+        //        Mover,
         Eater {
 
     protected int rangeOfView;
     protected int hp;
     protected int speed;
-    protected int inititive; 
+    protected int inititive;
     protected int targetPosition;
 
     public int getRangeOfView() {
@@ -59,7 +60,4 @@ public abstract class Creature extends Entity implements
         this.targetPosition = targetPosition;
     }
 
-    
-    
-    
 }

@@ -29,15 +29,16 @@ public class Simulation {
             for (Entity entity : value) {
                 if (entity instanceof Herbivore) {
                     System.out.println("Herbivore" + entity.getPosition());
+                    if (((Herbivore) entity).getTargetPosition() != 0) {
+                        
+                    }
                     ((Herbivore) entity).viev(world);
                     if (((Herbivore) entity).getTargetPosition() != 0) {
                         ((Herbivore) entity).move(world);
-//                        StraightPathMover straightPathMover = new StraightPathMover(((Herbivore) entity), world);
-//                        straightPathMover.move(world, (Herbivore) entity);
                     }
 
                 }
-                System.out.println(entity.getEntityTypePng() + " -  " + entity.getPosition());
+                System.out.println(entity.getEntityTypePng() + "  -  " + entity.getPosition());
             }
         }
     }
