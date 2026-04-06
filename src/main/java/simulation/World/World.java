@@ -22,11 +22,12 @@ public class World {
 
     private WorldField worldFeld; // Поле
     private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
+    private List<Entity>[] entitys;
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 5;
-    private final int GRASSSATURATION = 80;
-    private final int PREDATORSATURATION = 80;
-    private final int HERBIVORESATURATION = 80;
+    private final int GRASSSATURATION = 5;
+    private final int PREDATORSATURATION = 5;
+    private final int HERBIVORESATURATION = 5;
 
     private Random random = new Random();
 
@@ -37,6 +38,10 @@ public class World {
 
     // Создать новое поле
     public void createNewMap(int width, int height) {
+        entitys = new List[width * height + 1];
+        for (int i = 0; i < entitys.length; i++) {
+            entitys[i] = new ArrayList<>();
+        }
         this.worldFeld.createField(width, height);
     }
 
@@ -47,7 +52,8 @@ public class World {
         generateEntity(Grass.class, GRASSSATURATION);
         generateEntity(Three.class, THREESATURATION);
         generateEntity(Predator.class, PREDATORSATURATION);
-        generateEntity(Herbivore.class, worldFeld.getWorldLen());
+        generateEntity(Herbivore.class, HERBIVORESATURATION);
+
     }
 
 // Заполняет карту конкретной сущностью 
@@ -56,69 +62,26 @@ public class World {
         int entityCount = 0;
         // Проверяет что (количество камня < len/cons)
         int len = getWorldField().getWorldLen();
-        while (entityCount < len / saturation) {
+        while (entityCount < saturation) {
+//        while (saturation > 0) {
             // Получает рандомную позицию
             int position = random.nextInt(len);
             // Проверяет что позиция не крайняя
 //            if (isPositionNotBorder(position, this)) {
             // Генерирует фрагмент камня
+//            generateEntityFragment(position, 1, entityClass);
             entityCount += generateEntityFragment(position, 1, entityClass);
+//            saturation--;
 //            }
 
         }
 
     }
 
-    // Проверка. Позиция не является крайней
-    private boolean isPositionNotBorder(int position, World world) {
-        int width = worldFeld.getWidth();// Ширина поля
-        int height = worldFeld.getHeight();// Высота поля
-        int positionH = (int) Math.ceil((double) position / width); // Координата по высоте
-        int positionW = width - (positionH * width - position); // Координата по ширине
-
-        if (positionH == 1 || positionH == height || positionW == 1 || positionW == width) {
-            return false;
-        }
-        return true;
-    }
-
-    // Проверка. Позиция не выходит за край.
-    public boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {
-        int width = worldFeld.getWidth();
-        int len = worldFeld.getWorldLen();
-
-        switch (direction) {
-            case 0: {// Если движение вверх
-                if (newPosition >= 1) {// Новая точка не выходит за первую линию вверх
-                    return true;
-                }
-            }
-            case 1: {// Если движение вниз
-                if (newPosition < len) {// Новая точка не выходит за последнюю линию вниз
-                    return true;
-                }
-            }
-            case 2: {// Если движение влево
-                if (newPosition > (width * (position / width))) {// Новая точка не выходит за первый ряд влево
-                    return true;
-                }
-            }
-            case 3: {// Если движение вправо
-                if (position < (width * ((position - 1) / width + 1))) {// Новая точка не выходит за последний ряд вправо
-                    return true;
-                }
-            }
-
-            return false;
-            default:
-                throw new AssertionError();
-        }
-    }
-
-    // Формирование линии из камня
+    // Создаёт сущность в позиции
     private int generateEntityFragment(int position, int steps, Class entityClass) {
         int entityCount = 0;// Количество резмещенного камня
-        int maxSubsequence = 0;//  Максимальное количество камня в линии
+//        int maxSubsequence = 0;//  Максимальное количество камня в линии
         int direction = random.nextInt(4);// направление 0-вверх, 1-вниз, 2-влево, 3-вправо
         int width = getWorldField().getWidth();
         // массив направлений вверх, вниз, влево, вправо
@@ -127,6 +90,12 @@ public class World {
 //        steps = random.nextInt(steps);// Количество камней в линии
         for (int i = 0; i < steps; i++) {
 
+            if (entitys[position].isEmpty()) {
+                Entity entity = entityFactory(entityClass);
+                entity.setPosition(position);
+                entitys[position].add(entity);
+//                entityCount++;
+            }
             if (positionEntityMap.get(position) == null) { // Если в позиции пусто
                 Entity entity = entityFactory(entityClass);
                 entity.setPosition(position);
@@ -135,13 +104,13 @@ public class World {
                 entityCount++;
             }
 
-            int newPosition = position + ary[direction];
+//            int newPosition = position + ary[direction];
             // Если новая позиция не выходит за край поля
-            if (isPositionNotOutOfBorder(position, newPosition, direction)) {
-                position = newPosition;
-            } else {
-                break;
-            }
+//            if (isPositionNotOutOfBorder(position, newPosition, direction)) {
+//                position = newPosition;
+//            } else {
+//                break;
+//            }
         }
         return entityCount;
     }
@@ -149,6 +118,7 @@ public class World {
     // Очищает поле и карту
     public void clearWorldMap() {
         positionEntityMap.clear();
+        entitys = null;
         worldFeld.clearField();
     }
 
@@ -161,9 +131,24 @@ public class World {
             return null;
         }
     }
-// Изменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public Collection<List<Entity>> getEntitys() {
-        return positionEntityMap.values();
+
+    // Передвигат сужность на позицию
+    public void moveEntityToPosition(Entity e, int toPosition){
+        
+    }
+    
+    // Возвращает сущности по позиции
+    public List<Entity> getEntitysByPosition(int position) {
+        return entitys[position];
+    }
+
+    // Возвращает карту сущностей
+    public List<Entity>[] getEntitys() {
+        return entitys;
+    }
+
+    public void setEntitys(List<Entity>[] entitys) {
+        this.entitys = entitys;
     }
 
     // Возвращает  поле
@@ -175,4 +160,50 @@ public class World {
     public Map<Integer, List<Entity>> getPositionEntityMap() {
         return positionEntityMap;
     }
+
+    // Проверка. Позиция не выходит за край.
+//    public boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {
+//        System.out.println("isPositionNotOutOfBorder");
+//        int width = worldFeld.getWidth();
+//        int len = worldFeld.getWorldLen();
+//
+//        switch (direction) {
+//            case 0: {// Если движение вверх
+//                if (newPosition >= 1) {// Новая точка не выходит за первую линию вверх
+//                    return true;
+//                }
+//            }
+//            case 1: {// Если движение вниз
+//                if (newPosition < len) {// Новая точка не выходит за последнюю линию вниз
+//                    return true;
+//                }
+//            }
+//            case 2: {// Если движение влево
+//                if (newPosition > (width * (position / width))) {// Новая точка не выходит за первый ряд влево
+//                    return true;
+//                }
+//            }
+//            case 3: {// Если движение вправо
+//                if (position < (width * ((position - 1) / width + 1))) {// Новая точка не выходит за последний ряд вправо
+//                    return true;
+//                }
+//            }
+//
+//            return false;
+//            default:
+//                throw new AssertionError();
+//        }
+//    }
+    // Проверка. Позиция не является крайней
+//    private boolean isPositionNotBorder(int position, World world) {
+//        int width = worldFeld.getWidth();// Ширина поля
+//        int height = worldFeld.getHeight();// Высота поля
+//        int positionH = (int) Math.ceil((double) position / width); // Координата по высоте
+//        int positionW = width - (positionH * width - position); // Координата по ширине
+//
+//        if (positionH == 1 || positionH == height || positionW == 1 || positionW == width) {
+//            return false;
+//        }
+//        return true;
+//    }
 }

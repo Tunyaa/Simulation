@@ -27,13 +27,14 @@ public class StraightPathMover implements Mover {
         if (!creature.getPath().isEmpty()) {
             // Передвижение
             Map<Integer, List<Entity>> map = world.getPositionEntityMap();
-            // Следующая позиция в пути
-            int newPosition = path.getFirst();
-            path.removeFirst();
+            
             // Удалить существо из карты
             List<Entity> list = map.get(creature.getPosition());
             list.remove(creature);
             // Добавить существо в новую позицию
+            // Следующая позиция в пути
+            int newPosition = path.getFirst();
+            path.removeFirst();
             creature.setPosition(newPosition);
             map.putIfAbsent(newPosition, new ArrayList<>());
             map.get(newPosition).add(creature);
