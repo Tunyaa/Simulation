@@ -23,7 +23,7 @@ public class World {
     private WorldField worldFeld; // Поле
     private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
     private List<Entity>[] entitys;
-    private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
+    private final int STONESATURATION = 10;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 5;
     private final int GRASSSATURATION = 5;
     private final int PREDATORSATURATION = 5;
@@ -38,6 +38,7 @@ public class World {
 
     // Создать новое поле
     public void createNewMap(int width, int height) {
+        // !!!!!!!!!!СДЕЛАТЬ ПРОВЕРКУ на размер поля
         entitys = new List[width * height + 1];
         for (int i = 0; i < entitys.length; i++) {
             entitys[i] = new ArrayList<>();
@@ -94,14 +95,14 @@ public class World {
                 Entity entity = entityFactory(entityClass);
                 entity.setPosition(position);
                 entitys[position].add(entity);
-//                entityCount++;
+                entityCount++;
             }
             if (positionEntityMap.get(position) == null) { // Если в позиции пусто
                 Entity entity = entityFactory(entityClass);
                 entity.setPosition(position);
                 positionEntityMap.putIfAbsent(position, new ArrayList<>());
                 positionEntityMap.get(position).add(entity);
-                entityCount++;
+//                entityCount++;
             }
 
 //            int newPosition = position + ary[direction];
@@ -117,8 +118,10 @@ public class World {
 
     // Очищает поле и карту
     public void clearWorldMap() {
-        positionEntityMap.clear();
-        entitys = null;
+//        positionEntityMap.clear();
+        for (List<Entity> entity : entitys) {
+            entity.clear();
+        }
         worldFeld.clearField();
     }
 
@@ -133,10 +136,14 @@ public class World {
     }
 
     // Передвигат сужность на позицию
-    public void moveEntityToPosition(Entity e, int toPosition){
-        
+    public void moveEntityToPosition(Entity e, int toPosition) {
+        if (entitys[e.getPosition()].contains(e)) {
+            entitys[e.getPosition()].remove(e);
+            e.setPosition(toPosition);
+            entitys[e.getPosition()].add(e);
+        }
     }
-    
+
     // Возвращает сущности по позиции
     public List<Entity> getEntitysByPosition(int position) {
         return entitys[position];
