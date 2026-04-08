@@ -22,25 +22,35 @@ public class StraightPathMover implements Mover {
 
     @Override
     public void move(World world, Creature creature) {
-        
+        System.out.println("Metod start");
+        System.out.println("Проверка пути");
+        for (Integer integer : creature.getPath()) {
+            System.out.println(integer);
+        }
         // Проверка: есть путь?
+//        if (!path.isEmpty()) {
         if (!creature.getPath().isEmpty()) {
+            System.out.println("Path != Empty");
             // Передвижение
-            Map<Integer, List<Entity>> map = world.getPositionEntityMap();
-            
-            // Удалить существо из карты
-            List<Entity> list = map.get(creature.getPosition());
-            list.remove(creature);
+//            Map<Integer, List<Entity>> map = world.getPositionEntityMap();
+//            
+//            // Удалить существо из карты
+//            List<Entity> list = map.get(creature.getPosition());
+//            list.remove(creature);
             // Добавить существо в новую позицию
             // Следующая позиция в пути
-            int newPosition = path.getFirst();
-            path.removeFirst();
-            creature.setPosition(newPosition);
-            map.putIfAbsent(newPosition, new ArrayList<>());
-            map.get(newPosition).add(creature);
+            int newPosition = creature.getPath().getFirst();
+//            int newPosition = path.getFirst();
+            creature.getPath().removeFirst();
+//            path.removeFirst();
+            
+            world.moveEntityToPosition(creature, newPosition);
+//            creature.setPosition(newPosition);
+//            map.putIfAbsent(newPosition, new ArrayList<>());
+//            map.get(newPosition).add(creature);
 
         } else {
-
+            System.out.println("Move Else");
             // Поиск пути
             // Текущая позиция
             int position = creature.getPosition();
@@ -55,12 +65,13 @@ public class StraightPathMover implements Mover {
             // Проверка: массив пустой?
             // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
             while (!tempIndixes.isEmpty()) {
-
+                System.out.println("MOVE WHILE");
                 // 1: Проверка: Точка рядом?
                 if (world.getWorldField().isLocatedNearby(position, targetPosition)) {
 
                     // 2.2 Записать точку в массив
-                    path.add(targetPosition);
+                    creature.getPath().add(targetPosition);
+//                    path.add(targetPosition);
                     // Удалить эту точку из промежуточного массива
                     tempIndixes.remove(tempIndixes.size() - 1);
                     // Проверка: Эта точка целевая?
@@ -68,6 +79,8 @@ public class StraightPathMover implements Mover {
 
                     if (creature.isTarget(targetPosition)) {
                         // Дошли до целевой точки.
+                        System.out.println("Move IsTarget");
+//                        creature.setPath(path.toArray());
                         // Конец метода
                         break;
                     }
@@ -87,6 +100,10 @@ public class StraightPathMover implements Mover {
                     tempIndixes.add(targetPosition);
                 }
 
+            }
+            System.out.println("PATH IS");
+            for (Integer integer : creature.getPath()) {
+                System.out.println(integer);
             }
 
         }

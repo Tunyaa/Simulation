@@ -23,11 +23,11 @@ public class World {
     private WorldField worldFeld; // Поле
     private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
     private List<Entity>[] entitys;
-    private final int STONESATURATION = 10;// Плотность камня на поле (количество клеток / cons)
-    private final int THREESATURATION = 5;
-    private final int GRASSSATURATION = 5;
-    private final int PREDATORSATURATION = 5;
-    private final int HERBIVORESATURATION = 5;
+    private final int STONESATURATION = 0;// Плотность камня на поле (количество клеток / cons)
+    private final int THREESATURATION = 0;
+    private final int GRASSSATURATION = 3;
+    private final int PREDATORSATURATION = 0;
+    private final int HERBIVORESATURATION = 1;
 
     private Random random = new Random();
 
@@ -44,6 +44,7 @@ public class World {
             entitys[i] = new ArrayList<>();
         }
         this.worldFeld.createField(width, height);
+        System.out.println("Created World - len -" + entitys.length);
     }
 
     // Заполняет карту сущностями
@@ -146,7 +147,12 @@ public class World {
 
     // Возвращает сущности по позиции
     public List<Entity> getEntitysByPosition(int position) {
-        return entitys[position];
+        int length = entitys.length;
+        if (position >= 1 && position <= length-1) {
+            System.out.println("getEntitysByPosition");
+            return entitys[position];
+        }
+        return null;
     }
 
     // Возвращает карту сущностей

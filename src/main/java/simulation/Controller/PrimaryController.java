@@ -45,6 +45,7 @@ public class PrimaryController {
     private void startSimulation() {
         System.out.println("START");
         primaryService.startSimulation();
+        primaryService.render(canvas);
     }
 
     @FXML

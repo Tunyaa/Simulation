@@ -26,10 +26,9 @@ public class SquareViewer implements Viewer {
         // 
 
         for (int r = rangeOfView; r >= 0; r--) {
-            System.out.println("ОБЗОР зрения - " + r);
+
             int firstScanPOsition = creature.getPosition() - r - (width * r);
 
-            System.out.println("first scan - " + firstScanPOsition);
             int[] steps = new int[]{1, width, -1, -width};
             // массив из шагов по полю для просмотра
             int[] scan = new int[r * 2 * 4];
@@ -43,7 +42,6 @@ public class SquareViewer implements Viewer {
             // просмотр поля 
             for (int i : scan) {
                 int f = firstScanPOsition += i;
-                System.out.println(f);
 
                 RowColumn rowColumn = world.getWorldField().getRowColumnByPosition(creature.getPosition());
 
@@ -52,27 +50,44 @@ public class SquareViewer implements Viewer {
                 int topExtremePoint = rowColumn.getRow() - rangeOfView;
                 int lowerExtremePoint = rowColumn.getRow() + rangeOfView;
 
+//                LeftExtremePoint = LeftExtremePoint < 1 ? 1 : LeftExtremePoint;
+//                RightExtremePoint = RightExtremePoint > width ? width : RightExtremePoint;
+//                topExtremePoint = topExtremePoint < 1 ? 1 : topExtremePoint;
+//                lowerExtremePoint = lowerExtremePoint > world.getWorldField().getHeight() ? 1 : lowerExtremePoint;
                 RowColumn rowColumnByScanPosition = world.getWorldField().getRowColumnByPosition(f);
                 int col = rowColumnByScanPosition.getCol();
                 int row = rowColumnByScanPosition.getRow();
-                System.out.println("Крайние точки сканирования");
-                System.out.println(col + " - " + row);
+
                 if (col >= LeftExtremePoint && col <= RightExtremePoint
                         && row >= topExtremePoint && row <= lowerExtremePoint) {
-                    List<Entity> get = world.getPositionEntityMap().get(f);
-                    if (get != null) {
-                        for (Entity entity : get) {
-
-                            System.out.println(entity.getEntityTypePng());
-                            if (entity instanceof Grass) {
-                                System.out.println(" IF - " + f);
+//                    List<Entity> get = world.getPositionEntityMap().get(f);
+                    List<Entity> e = world.getEntitysByPosition(f);
+                    if (e != null) {
+                        System.out.println("e!=null");
+                        if (!e.isEmpty()) {
+                            System.out.println("e!=empty");
+                            for (Entity entity : e) {
+                                if (entity instanceof Grass) {
+                                System.out.println("instanceof");
                                 creature.setTargetPosition(f);
                             }
-
+                            }
+                            
                         }
                     }
+
+//                    if (get != null) {
+//                        for (Entity entity : get) {
+//
+//                            if (entity instanceof Grass) {
+//
+//                                creature.setTargetPosition(f);
+//                            }
+//
+//                        }
+//                    }
                 } else {
-                    System.out.println("Skip scan position");
+
                 }
 
             }

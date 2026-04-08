@@ -1,7 +1,9 @@
 package simulation.Model.Entity;
 
+import java.util.ArrayDeque;
 import simulation.Model.Entity.Entity;
 import java.util.ArrayList;
+import java.util.List;
 import simulation.Model.Action;
 import simulation.Model.Eater;
 import simulation.Model.Generation;
@@ -28,7 +30,8 @@ public abstract class Creature extends Entity implements
     protected int targetPosition;
 
     // Массив (Путь из индексов)
-    protected ArrayList<Integer> path = new ArrayList<>();
+    protected ArrayDeque<Integer> path = new ArrayDeque<>();
+//    protected ArrayList<Integer> path = new ArrayList<>();
 
     public boolean isTarget(int targetPosition) {
         return this.targetPosition == targetPosition;
@@ -74,11 +77,11 @@ public abstract class Creature extends Entity implements
         this.targetPosition = targetPosition;
     }
 
-    public ArrayList<Integer> getPath() {
+    public ArrayDeque<Integer> getPath() {
         return path;
     }
 
-    public void setPath(ArrayList<Integer> path) {
+    public void setPath(ArrayDeque<Integer> path) {
         this.path = path;
     }
 

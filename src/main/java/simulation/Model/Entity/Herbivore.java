@@ -26,7 +26,7 @@ public class Herbivore extends Creature {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setInititive(5);
-        setRangeOfView(6);
+        setRangeOfView(15);
         setSpeed(2);
         this.squareViewer = new SquareViewer(this);
 
