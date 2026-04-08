@@ -25,7 +25,7 @@ public class World {
     private List<Entity>[] entitys;
     private final int STONESATURATION = 0;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 0;
-    private final int GRASSSATURATION = 3;
+    private final int GRASSSATURATION = 12;
     private final int PREDATORSATURATION = 0;
     private final int HERBIVORESATURATION = 1;
 
