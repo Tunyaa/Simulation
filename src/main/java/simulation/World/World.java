@@ -23,10 +23,10 @@ public class World {
     private WorldField worldFeld; // Поле
     private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
     private List<Entity>[] entitys;
-    private final int STONESATURATION = 0;// Плотность камня на поле (количество клеток / cons)
-    private final int THREESATURATION = 0;
+    private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
+    private final int THREESATURATION = 5;
     private final int GRASSSATURATION = 12;
-    private final int PREDATORSATURATION = 0;
+    private final int PREDATORSATURATION = 3;
     private final int HERBIVORESATURATION = 1;
 
     private Random random = new Random();
@@ -170,9 +170,9 @@ public class World {
     }
 
     // Возвращает карту
-    public Map<Integer, List<Entity>> getPositionEntityMap() {
-        return positionEntityMap;
-    }
+//    public Map<Integer, List<Entity>> getPositionEntityMap() {
+//        return positionEntityMap;
+//    }
 
     // Проверка. Позиция не выходит за край.
 //    public boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {

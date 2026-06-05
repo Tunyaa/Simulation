@@ -37,6 +37,8 @@ public class Simulation {
                 }
             }
         }
+        
+        // не корректно(если в одной точке не трава а другая сущность) 
         if (entitys[el.getPosition()].size() > 1) {
             entitys[el.getPosition()].remove(0);
             ((Herbivore)el).setTargetPosition(0);
@@ -54,7 +56,7 @@ public class Simulation {
             ((Herbivore) el).move(world);
             System.out.println("MOVE OFF");
 
-        }
+        }   
 
 //        for (List<Entity> value : values) {
 //            for (Entity entity : value) {

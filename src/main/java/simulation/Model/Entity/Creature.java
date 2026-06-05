@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import simulation.Model.Entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
-import simulation.Model.Action;
+import simulation.Model.Action.Action;
 import simulation.Model.Eater;
 import simulation.Model.Generation;
 import simulation.Model.LifeCycle;
@@ -17,7 +17,7 @@ public abstract class Creature extends Entity implements
         //        Reproduser,
         //        Existance,
         LifeCycle,
-        Action,
+        //        Action,
         Generation,
         //        Viewer,
         //        Mover,

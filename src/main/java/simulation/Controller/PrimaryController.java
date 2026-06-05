@@ -49,7 +49,7 @@ public class PrimaryController {
         System.out.println("START");
 
         turnTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), event -> {
+                new KeyFrame(Duration.seconds(0.5), event -> {
 
                     primaryService.startSimulation();
                     primaryService.render(canvas);
