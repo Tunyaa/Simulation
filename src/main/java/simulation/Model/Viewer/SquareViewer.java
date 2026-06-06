@@ -73,7 +73,8 @@ public class SquareViewer implements Viewer {
                                 System.out.println(entity.getClass().getName());
                                 System.out.println(target.getName());
                                 System.out.println("instanceof");
-                                if (entity.getClass().isInstance(target)) {
+                                if (target.isInstance(entity)) {
+//                                if (entity.getClass().isInstance(target)) {
                                 System.out.println("      YESSS");
                                 creature.setTargetPosition(f);
                             }
