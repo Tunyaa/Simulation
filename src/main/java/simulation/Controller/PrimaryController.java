@@ -47,16 +47,18 @@ public class PrimaryController {
     @FXML // Начало симуляции
     private void startSimulation() {
         System.out.println("START");
+        primaryService.startSimulation();
+        primaryService.render(canvas);
 
-        turnTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.5), event -> {
-
-                    primaryService.startSimulation();
-                    primaryService.render(canvas);
-                })
-        );
-        turnTimeline.setCycleCount(Timeline.INDEFINITE);
-        turnTimeline.play();
+//        turnTimeline = new Timeline(
+//                new KeyFrame(Duration.seconds(0.5), event -> {
+//
+//                    primaryService.startSimulation();
+//                    primaryService.render(canvas);
+//                })
+//        );
+//        turnTimeline.setCycleCount(Timeline.INDEFINITE);
+//        turnTimeline.play();
     }
 //    @FXML // Начало симуляции
 //    private void startSimulation() {

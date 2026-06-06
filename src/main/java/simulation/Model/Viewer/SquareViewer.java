@@ -65,17 +65,13 @@ public class SquareViewer implements Viewer {
 //                    List<Entity> get = world.getPositionEntityMap().get(f);
                     List<Entity> e = world.getEntitysByPosition(f);
                     if (e != null) {
-                        System.out.println("e!=null");
+                        
                         if (!e.isEmpty()) {
-                            System.out.println("e!=empty");
+                            
                             for (Entity entity : e) {
-                                System.out.println("CLASSES ++++++++++++++++++++++");
-                                System.out.println(entity.getClass().getName());
-                                System.out.println(target.getName());
-                                System.out.println("instanceof");
+                               
                                 if (target.isInstance(entity)) {
-//                                if (entity.getClass().isInstance(target)) {
-                                System.out.println("      YESSS");
+
                                 creature.setTargetPosition(f);
                             }
                             }

@@ -2,6 +2,7 @@ package simulation.Model.Entity;
 
 import simulation.Model.Action.HerbivoreAction;
 import simulation.Model.Mover.Mover;
+import simulation.Model.Mover.PredatorStraightPathMover;
 import simulation.Model.Mover.StraightPathMover;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.View.EntityTypePng;
@@ -15,13 +16,13 @@ public class Predator extends Creature {
 
     private SquareViewer squareViewer;
 
-    private final Mover mover = new StraightPathMover();
+    private final Mover mover = new PredatorStraightPathMover();
 
     public Predator() {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
         setInititive(5);
-        setRangeOfView(3);
+        setRangeOfView(5);
         setSpeed(2);
         this.squareViewer = new SquareViewer(this, Herbivore.class);
 //        this.action = new HerbivoreAction();
@@ -34,6 +35,10 @@ public class Predator extends Creature {
     public void viev(World world) {
 
         squareViewer.viev(world);
+    }
+    
+    public void move(World world) {
+        mover.move(world, this);
     }
 
 }

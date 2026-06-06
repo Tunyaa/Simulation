@@ -27,7 +27,7 @@ public class World {
     private final int THREESATURATION = 5;
     private final int GRASSSATURATION = 12;
     private final int PREDATORSATURATION = 3;
-    private final int HERBIVORESATURATION = 1;
+    private final int HERBIVORESATURATION = 3;
 
     private List<Predator> predtors;
     private List<Herbivore> herbivores;
@@ -148,7 +148,7 @@ public class World {
     public List<Entity> getEntitysByPosition(int position) {
         int length = entitys.length;
         if (position >= 1 && position <= length - 1) {
-            System.out.println("getEntitysByPosition");
+            
             return entitys[position];
         }
         return null;
