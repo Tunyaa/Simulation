@@ -14,9 +14,11 @@ import simulation.World.World;
 public class SquareViewer implements Viewer {
 
     private Creature creature;
+    private  Class<?> target;
 
-    public SquareViewer(Creature creature) {
+    public SquareViewer(Creature creature, Class<?> target) {
         this.creature = creature;
+        this.target = target;
     }
 
     @Override
@@ -67,8 +69,12 @@ public class SquareViewer implements Viewer {
                         if (!e.isEmpty()) {
                             System.out.println("e!=empty");
                             for (Entity entity : e) {
-                                if (entity instanceof Grass) {
+                                System.out.println("CLASSES ++++++++++++++++++++++");
+                                System.out.println(entity.getClass().getName());
+                                System.out.println(target.getName());
                                 System.out.println("instanceof");
+                                if (entity.getClass().isInstance(target)) {
+                                System.out.println("      YESSS");
                                 creature.setTargetPosition(f);
                             }
                             }

@@ -23,7 +23,7 @@ public class Predator extends Creature {
         setInititive(5);
         setRangeOfView(3);
         setSpeed(2);
-        this.squareViewer = new SquareViewer(this);
+        this.squareViewer = new SquareViewer(this, Herbivore.class);
 //        this.action = new HerbivoreAction();
     }
 

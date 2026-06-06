@@ -31,7 +31,7 @@ public class Herbivore extends Creature {
         setInititive(5);
         setRangeOfView(3);
         setSpeed(2);
-        this.squareViewer = new SquareViewer(this);
+        this.squareViewer = new SquareViewer(this, Grass.class);
         this.action = new HerbivoreAction();
 
     }
