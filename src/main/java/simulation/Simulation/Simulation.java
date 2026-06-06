@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import simulation.Model.Entity.Creature;
 import simulation.Model.Entity.Entity;
 import simulation.Model.Entity.Herbivore;
+import simulation.Model.Entity.Predator;
 import simulation.Model.Mover.StraightPathMover;
 import simulation.World.World;
 
@@ -16,11 +18,29 @@ import simulation.World.World;
 public class Simulation {
 
     private TurnProcessor turnProcessor;
+    private int turnCounter;
+    private boolean isRunning;
+
+    public boolean isIsRunning() {
+        return isRunning;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
 
     public Simulation() {
         this.turnProcessor = new TurnProcessor();
     }
 
+    private void turn(World world){
+        List<Predator> predtors = world.getPredtors();
+        for (Predator predtor : predtors) {
+            if (predtor.getTargetPosition() == 0) {
+                predtor.viev(world);
+            }
+        }
+    }
     public void startSimulation(World world) {
 //        Map<Integer, List<Entity>> positionEntityMap = world.getPositionEntityMap();
         List<Entity>[] entitys = world.getEntitys();
@@ -58,22 +78,7 @@ public class Simulation {
 
         }   
 
-//        for (List<Entity> value : values) {
-//            for (Entity entity : value) {
-//                if (entity instanceof Herbivore) {
-//                    System.out.println("Herbivore" + entity.getPosition());
-//
-//                    ((Herbivore) entity).viev(world);
-//                    if (((Herbivore) entity).getTargetPosition() != 0) {
-//                        ((Herbivore) entity).move(world);
-//                    }
-//
-//                }
-    
 
-////                System.out.println(entity.getEntityTypePng() + "  -  " + entity.getPosition());
-//            }
-//        }
     }
 
 }

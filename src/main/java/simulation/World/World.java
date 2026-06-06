@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import simulation.Model.Entity.Creature;
 import simulation.Model.Entity.Entity;
 import simulation.Model.Entity.Grass;
 import simulation.Model.Entity.Herbivore;
@@ -21,7 +22,6 @@ import simulation.Model.Entity.Three;
 public class World {
 
     private WorldField worldFeld; // Поле
-    private Map<Integer, List<Entity>> positionEntityMap; // Карта <Позиция, Сущность>
     private List<Entity>[] entitys;
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 5;
@@ -29,11 +29,15 @@ public class World {
     private final int PREDATORSATURATION = 3;
     private final int HERBIVORESATURATION = 1;
 
+    private List<Predator> predtors;
+    private List<Herbivore> herbivores;
+
     private Random random = new Random();
 
     public World() {
         this.worldFeld = new WorldField();
-        this.positionEntityMap = new HashMap<>();
+        this.predtors = new ArrayList<>();
+        this.herbivores = new ArrayList<>();
     }
 
     // Создать новое поле
@@ -50,12 +54,22 @@ public class World {
     // Заполняет карту сущностями
     public void generateEntitysOnWorldField() {
 
-        generateEntity(Stone.class, STONESATURATION);
+//        generateEntity(Stone.class, STONESATURATION);
         generateEntity(Grass.class, GRASSSATURATION);
         generateEntity(Three.class, THREESATURATION);
         generateEntity(Predator.class, PREDATORSATURATION);
         generateEntity(Herbivore.class, HERBIVORESATURATION);
 
+        setPredtors();
+        setHerbivores();
+
+        for (Predator predtor : predtors) {
+            System.out.println("Predator -" + predtor.getPosition());
+        }
+
+        for (Herbivore herbivore : herbivores) {
+            System.out.println("Herbi -  " + herbivore.getPosition());
+        }
     }
 
 // Заполняет карту конкретной сущностью 
@@ -98,28 +112,13 @@ public class World {
                 entitys[position].add(entity);
                 entityCount++;
             }
-            if (positionEntityMap.get(position) == null) { // Если в позиции пусто
-                Entity entity = entityFactory(entityClass);
-                entity.setPosition(position);
-                positionEntityMap.putIfAbsent(position, new ArrayList<>());
-                positionEntityMap.get(position).add(entity);
-//                entityCount++;
-            }
-
-//            int newPosition = position + ary[direction];
-            // Если новая позиция не выходит за край поля
-//            if (isPositionNotOutOfBorder(position, newPosition, direction)) {
-//                position = newPosition;
-//            } else {
-//                break;
-//            }
         }
+
         return entityCount;
     }
 
     // Очищает поле и карту
     public void clearWorldMap() {
-//        positionEntityMap.clear();
         for (List<Entity> entity : entitys) {
             entity.clear();
         }
@@ -148,7 +147,7 @@ public class World {
     // Возвращает сущности по позиции
     public List<Entity> getEntitysByPosition(int position) {
         int length = entitys.length;
-        if (position >= 1 && position <= length-1) {
+        if (position >= 1 && position <= length - 1) {
             System.out.println("getEntitysByPosition");
             return entitys[position];
         }
@@ -168,11 +167,6 @@ public class World {
     public WorldField getWorldField() {
         return worldFeld;
     }
-
-    // Возвращает карту
-//    public Map<Integer, List<Entity>> getPositionEntityMap() {
-//        return positionEntityMap;
-//    }
 
     // Проверка. Позиция не выходит за край.
 //    public boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {
@@ -219,4 +213,32 @@ public class World {
 //        }
 //        return true;
 //    }
+    private void setPredtors() {
+        for (List<Entity> entity : entitys) {
+            for (Entity entity1 : entity) {
+                if (entity1 instanceof Predator) {
+                    this.predtors.add((Predator)entity1);
+                }
+            }
+        }
+    }
+
+    private void setHerbivores() {
+        for (List<Entity> entity : entitys) {
+            for (Entity entity1 : entity) {
+                if (entity1 instanceof Herbivore) {
+                    this.herbivores.add((Herbivore)entity1);
+                }
+            }
+        }
+    }
+
+    public List<Predator> getPredtors() {
+        return predtors;
+    }
+
+    public List<Herbivore> getHerbivores() {
+        return herbivores;
+    }
+
 }
