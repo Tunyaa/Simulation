@@ -24,10 +24,10 @@ public class World {
     private WorldField worldFeld; // Поле
     private List<Entity>[] entitys;
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
-    private final int THREESATURATION = 5;
-    private final int GRASSSATURATION = 12;
-    private final int PREDATORSATURATION = 3;
-    private final int HERBIVORESATURATION = 3;
+    private final int THREESATURATION = 1;
+    private final int GRASSSATURATION = 1;
+    private final int PREDATORSATURATION = 7;
+    private final int HERBIVORESATURATION = 2;
 
     private List<Predator> predtors;
     private List<Herbivore> herbivores;
@@ -136,19 +136,26 @@ public class World {
     }
 
     // Передвигат сужность на позицию
-    public void moveEntityToPosition(Entity e, int toPosition) {
-        if (entitys[e.getPosition()].contains(e)) {
-            entitys[e.getPosition()].remove(e);
-            e.setPosition(toPosition);
-            entitys[e.getPosition()].add(e);
-        }
+    public void moveEntityToPosition(Creature e, int toPosition) {
+        Integer moveTo = e.getPath().getFirst();
+        int position = e.getPosition();
+
+        entitys[position].remove(e);
+        entitys[moveTo].add(e);
+        e.setPosition(moveTo);
+
+//        if (entitys[e.getPosition()].contains(e)) {
+//            entitys[e.getPosition()].remove(e);
+//            e.setPosition(toPosition);
+//            entitys[e.getPosition()].add(e);
+//        }
     }
 
     // Возвращает сущности по позиции
     public List<Entity> getEntitysByPosition(int position) {
         int length = entitys.length;
         if (position >= 1 && position <= length - 1) {
-            
+
             return entitys[position];
         }
         return null;
@@ -217,7 +224,7 @@ public class World {
         for (List<Entity> entity : entitys) {
             for (Entity entity1 : entity) {
                 if (entity1 instanceof Predator) {
-                    this.predtors.add((Predator)entity1);
+                    this.predtors.add((Predator) entity1);
                 }
             }
         }
@@ -227,7 +234,7 @@ public class World {
         for (List<Entity> entity : entitys) {
             for (Entity entity1 : entity) {
                 if (entity1 instanceof Herbivore) {
-                    this.herbivores.add((Herbivore)entity1);
+                    this.herbivores.add((Herbivore) entity1);
                 }
             }
         }

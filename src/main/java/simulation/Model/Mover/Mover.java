@@ -9,4 +9,5 @@ import simulation.World.World;
  */
 public interface Mover {
     void move(World world, Creature creature);
+    void randomMove(World world, Creature creature);
 }

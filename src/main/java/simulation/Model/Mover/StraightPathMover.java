@@ -21,6 +21,11 @@ public class StraightPathMover implements Mover {
     ArrayList<Integer> tempIndixes = new ArrayList<>();
 
     @Override
+    public void randomMove(World world, Creature creature) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
     public void move(World world, Creature creature) {
         System.out.println("Metod start");
         System.out.println("Проверка пути");
@@ -43,7 +48,7 @@ public class StraightPathMover implements Mover {
 //            int newPosition = path.getFirst();
             creature.getPath().removeFirst();
 //            path.removeFirst();
-            
+
             world.moveEntityToPosition(creature, newPosition);
 //            creature.setPosition(newPosition);
 //            map.putIfAbsent(newPosition, new ArrayList<>());

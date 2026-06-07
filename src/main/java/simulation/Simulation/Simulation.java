@@ -10,6 +10,7 @@ import simulation.Model.Entity.Entity;
 import simulation.Model.Entity.Herbivore;
 import simulation.Model.Entity.Predator;
 import simulation.Model.Mover.StraightPathMover;
+import simulation.World.RowColumn;
 import simulation.World.World;
 
 /**
@@ -42,17 +43,21 @@ public class Simulation {
                 System.out.println(" Я " + predtor.getClass().getName() + " - " + predtor.getPosition() + " и у меня цель - " + predtor.getTargetPosition());
                 if (predtor.getTargetPosition() == 0) {
                     // RandomMove
-                    continue;
-                }
+                    predtor.randomMove(world);
+                }else{
+                    
                 predtor.move(world);
-                
+                }
+                //-
             ArrayDeque<Integer> path = predtor.getPath();
             
             System.out.println("Мой путь");
             for (Integer integer : path) {
                 System.out.println(integer);
             }
+            //-
             
+            world.moveEntityToPosition(predtor, turnCounter);
         }
     }
 

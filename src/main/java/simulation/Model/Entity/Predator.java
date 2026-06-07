@@ -22,7 +22,7 @@ public class Predator extends Creature {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
         setInititive(5);
-        setRangeOfView(5);
+        setRangeOfView(7);
         setSpeed(2);
         this.squareViewer = new SquareViewer(this, Herbivore.class);
 //        this.action = new HerbivoreAction();
@@ -36,9 +36,13 @@ public class Predator extends Creature {
 
         squareViewer.viev(world);
     }
-    
+
     public void move(World world) {
         mover.move(world, this);
+    }
+
+    public void randomMove(World world) {
+    mover.randomMove(world, this);
     }
 
 }

@@ -33,7 +33,7 @@ public class WorldField {
 
     // Возвращает позицию по ряд \ колонна
     public int getPositionByRowСolumn(int row, int column) {
-        return (row - 1) * len + column;
+        return (row - 1) * width + column;
     }
 
     // Возвращает ряд \ колонна по позиции

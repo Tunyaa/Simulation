@@ -1,7 +1,11 @@
 package simulation.Model.Mover;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import simulation.Model.Entity.Creature;
+import simulation.World.RowColumn;
 import simulation.World.World;
 
 /**
@@ -18,8 +22,35 @@ public class PredatorStraightPathMover implements Mover {
         pathFinder(world, creature);
     }
 
-    private void pathFinder(World world, Creature creature) {
+    @Override
+    public void randomMove(World world, Creature creature) {
 
+        creature.getPath().clear();
+        System.out.println("RAndom MOVE");
+        int row = ThreadLocalRandom.current().nextInt(-1, 2);
+        int col = ThreadLocalRandom.current().nextInt(-1, 2);
+
+        RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(creature.getPosition());
+        System.out.println(rowColumnByPosition.getRow() + " & " + rowColumnByPosition.getCol());
+        col = rowColumnByPosition.getCol() + col;
+        row = rowColumnByPosition.getRow() + row;
+        col = col >= 1 ? col : 1;
+        col = col <= world.getWorldField().getWidth() ? col : world.getWorldField().getWidth();
+
+        row = row >= 1 ? row : 1;
+        row = row <= world.getWorldField().getHeight() ? row : world.getWorldField().getHeight();
+
+        System.out.println(row + " & " + col);
+        int r = world.getWorldField().getPositionByRowСolumn(3, 3);
+        System.out.println("Проверка позиции 3-3 " + r);
+        int positionByRowСolumn = world.getWorldField().getPositionByRowСolumn(row, col);
+        System.out.println(positionByRowСolumn + " рандомная цель");
+        ArrayDeque<Integer> path = creature.getPath();
+        path.addFirst(positionByRowСolumn);
+    }
+
+    private void pathFinder(World world, Creature creature) {
+        creature.getPath().clear();
         System.out.println("Move Else");
         // Поиск пути
         // Текущая позиция
@@ -35,7 +66,7 @@ public class PredatorStraightPathMover implements Mover {
         // Проверка: массив пустой?
         // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
         while (!tempIndixes.isEmpty()) {
-            
+
             // 1: Проверка: Точка рядом?
             if (world.getWorldField().isLocatedNearby(position, targetPosition)) {
 
@@ -49,7 +80,7 @@ public class PredatorStraightPathMover implements Mover {
 
                 if (creature.isTarget(targetPosition)) {
                     // Дошли до целевой точки.
-                    
+
 //                        creature.setPath(path.toArray());
                     // Конец метода
                     break;
@@ -73,9 +104,9 @@ public class PredatorStraightPathMover implements Mover {
         }
 
     }
-    
-    private void mover(World world, Creature creature){
-        
+
+    private void mover(World world, Creature creature) {
+
     }
 
 }
