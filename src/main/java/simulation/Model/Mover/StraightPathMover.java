@@ -22,7 +22,60 @@ public class StraightPathMover implements Mover {
 
     @Override
     public void randomMove(World world, Creature creature) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        creature.getPath().clear();
+        System.out.println("Move Else");
+        // Поиск пути
+        // Текущая позиция
+        int position = creature.getPosition();
+
+        // Целевая точка
+        // ОБРАТОБАТЬ ЕСЛИ ТОЧКИ ЦЕЛЕВОЙ НЕТ!!!!
+        int targetPosition = creature.getTargetPosition();
+
+        // Добавляем целевую точку в промежуточный путь
+        tempIndixes.add(targetPosition);
+
+        // Проверка: массив пустой?
+        // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
+        while (!tempIndixes.isEmpty()) {
+
+            // 1: Проверка: Точка рядом?
+            if (world.getWorldField().isLocatedNearby(position, targetPosition)) {
+
+                // 2.2 Записать точку в массив
+                creature.getPath().add(targetPosition);
+//                    path.add(targetPosition);
+                // Удалить эту точку из промежуточного массива
+                tempIndixes.remove(tempIndixes.size() - 1);
+                // Проверка: Эта точка целевая?
+                // SET targetPosition
+
+                if (creature.isTarget(targetPosition)) {
+                    // Дошли до целевой точки.
+
+//                        creature.setPath(path.toArray());
+                    // Конец метода
+                    break;
+                }
+
+                position = targetPosition;
+                targetPosition = tempIndixes.get(tempIndixes.size() - 1);
+            } else {
+
+                // 2.1: Поиск пути:
+                // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
+//                RowColumn halfRelativeRowColumn = getHalfRelativePosition(world, position, targetPosition);
+//            RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(position);
+                targetPosition = world.getWorldField().getHalfRelativePosition(position, targetPosition);
+//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
+
+                // Записываем в промежуточный массив
+                tempIndixes.add(targetPosition);
+            }
+
+        }
+
     }
 
     @Override

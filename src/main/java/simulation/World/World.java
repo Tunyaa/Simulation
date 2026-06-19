@@ -25,9 +25,9 @@ public class World {
     private List<Entity>[] entitys;
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 1;
-    private final int GRASSSATURATION = 1;
-    private final int PREDATORSATURATION = 7;
-    private final int HERBIVORESATURATION = 2;
+    private final int GRASSSATURATION = 10;
+    private final int PREDATORSATURATION = 1;
+    private final int HERBIVORESATURATION = 1;
 
     private List<Predator> predtors;
     private List<Herbivore> herbivores;
@@ -55,10 +55,13 @@ public class World {
     public void generateEntitysOnWorldField() {
 
 //        generateEntity(Stone.class, STONESATURATION);
-        generateEntity(Grass.class, GRASSSATURATION);
+//        generateEntity(Grass.class, GRASSSATURATION);
+        generateEntity(Grass.class, 5);
         generateEntity(Three.class, THREESATURATION);
-        generateEntity(Predator.class, PREDATORSATURATION);
-        generateEntity(Herbivore.class, HERBIVORESATURATION);
+        generateEntity(Predator.class, 1);
+//        generateEntity(Predator.class, PREDATORSATURATION);
+//        generateEntity(Herbivore.class, HERBIVORESATURATION);
+        generateEntity(Herbivore.class, 5);
 
         setPredtors();
         setHerbivores();
@@ -133,6 +136,21 @@ public class World {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    // Удаляет сущность
+    public void removeEntity(Entity entity) {
+        int position = entity.getPosition();
+        if (entity instanceof Herbivore) {
+            herbivores.remove(entity);
+            System.out.println("Herbivore REmove");
+        } else if (entity instanceof Predator) {
+            predtors.remove(entity);
+            System.out.println("Predtor Remove!!!");
+        }
+
+        entitys[position].remove(entity);
+        System.out.println("Entity Remove");
     }
 
     // Передвигат сужность на позицию
@@ -246,6 +264,24 @@ public class World {
 
     public List<Herbivore> getHerbivores() {
         return herbivores;
+    }
+
+    public void regenerte() {
+        generateEntity(Grass.class, GRASSSATURATION);
+    }
+
+    public void regenerteHerbivore() {
+
+        generateEntity(Herbivore.class, HERBIVORESATURATION);
+
+        setHerbivores();
+    }
+
+    public void regenertePredator() {
+
+        generateEntity(Predator.class, PREDATORSATURATION);
+
+        setPredtors();
     }
 
 }

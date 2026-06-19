@@ -52,7 +52,7 @@ public class PrimaryController {
 //        primaryService.render(canvas);
 
         turnTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.05), event -> {
+                new KeyFrame(Duration.seconds(0.1), event -> {
 
                     primaryService.startSimulation();
                     primaryService.render(canvas);

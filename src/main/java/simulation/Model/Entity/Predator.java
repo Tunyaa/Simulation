@@ -1,6 +1,7 @@
 package simulation.Model.Entity;
 
 import simulation.Model.Action.HerbivoreAction;
+import simulation.Model.Eatable;
 import simulation.Model.Mover.Mover;
 import simulation.Model.Mover.PredatorStraightPathMover;
 import simulation.Model.Mover.StraightPathMover;
@@ -22,7 +23,7 @@ public class Predator extends Creature {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
         setInititive(5);
-        setRangeOfView(7);
+        setRangeOfView(5);
         setSpeed(2);
         this.squareViewer = new SquareViewer(this, Herbivore.class);
 //        this.action = new HerbivoreAction();
@@ -32,17 +33,24 @@ public class Predator extends Creature {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public void eat(Eatable el) {
+        hp += 20;
+    }
+
     public void viev(World world) {
 
         squareViewer.viev(world);
     }
 
     public void move(World world) {
+        hp -= 1;
         mover.move(world, this);
     }
 
     public void randomMove(World world) {
-    mover.randomMove(world, this);
+        hp -= 1;
+        mover.randomMove(world, this);
     }
 
 }

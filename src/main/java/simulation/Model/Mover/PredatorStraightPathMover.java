@@ -26,12 +26,12 @@ public class PredatorStraightPathMover implements Mover {
     public void randomMove(World world, Creature creature) {
 
         creature.getPath().clear();
-        System.out.println("RAndom MOVE");
+//        System.out.println("RAndom MOVE");
         int row = ThreadLocalRandom.current().nextInt(-1, 2);
         int col = ThreadLocalRandom.current().nextInt(-1, 2);
 
         RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(creature.getPosition());
-        System.out.println(rowColumnByPosition.getRow() + " & " + rowColumnByPosition.getCol());
+//        System.out.println(rowColumnByPosition.getRow() + " & " + rowColumnByPosition.getCol());
         col = rowColumnByPosition.getCol() + col;
         row = rowColumnByPosition.getRow() + row;
         col = col >= 1 ? col : 1;
@@ -40,18 +40,18 @@ public class PredatorStraightPathMover implements Mover {
         row = row >= 1 ? row : 1;
         row = row <= world.getWorldField().getHeight() ? row : world.getWorldField().getHeight();
 
-        System.out.println(row + " & " + col);
+//        System.out.println(row + " & " + col);
         int r = world.getWorldField().getPositionByRowСolumn(3, 3);
-        System.out.println("Проверка позиции 3-3 " + r);
+//        System.out.println("Проверка позиции 3-3 " + r);
         int positionByRowСolumn = world.getWorldField().getPositionByRowСolumn(row, col);
-        System.out.println(positionByRowСolumn + " рандомная цель");
+//        System.out.println(positionByRowСolumn + " рандомная цель");
         ArrayDeque<Integer> path = creature.getPath();
         path.addFirst(positionByRowСolumn);
     }
 
     private void pathFinder(World world, Creature creature) {
         creature.getPath().clear();
-        System.out.println("Move Else");
+//        System.out.println("Move Else");
         // Поиск пути
         // Текущая позиция
         int position = creature.getPosition();
