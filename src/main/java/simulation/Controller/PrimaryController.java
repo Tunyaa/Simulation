@@ -34,10 +34,8 @@ public class PrimaryController {
     @FXML
     private TextField heightWorldMapField;
 
-//    @FXML
-//    private void switchToSecondary() throws IOException {
-//        App.setRoot("secondary");
-//    }
+    private float speedSIm;
+
     @FXML// Генерация поля. Заполнение сущностями.
     private void createWorldMap() {
         primaryService.createWorldMap(widthWorldMapField, heightWorldMapField);
@@ -47,9 +45,6 @@ public class PrimaryController {
     @FXML // Начало симуляции
     private void startSimulation() {
         System.out.println("START");
-
-//        primaryService.startSimulation();
-//        primaryService.render(canvas);
 
         turnTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
@@ -61,12 +56,6 @@ public class PrimaryController {
         turnTimeline.setCycleCount(Timeline.INDEFINITE);
         turnTimeline.play();
     }
-//    @FXML // Начало симуляции
-//    private void startSimulation() {
-//        System.out.println("START");
-//        primaryService.startSimulation();
-//        primaryService.render(canvas);
-//    }
 
     @FXML
     private void stopSimulation() {
@@ -83,6 +72,22 @@ public class PrimaryController {
 
     public void setPrimaryService(PrimaryService primaryService) {
         this.primaryService = primaryService;
+    }
+
+    public void sim() {
+
+        turnTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(0.1), event -> {
+                    if (true) {
+
+                    }
+                    primaryService.startSimulation();
+                    primaryService.render(canvas);
+                })
+        );
+        
+        turnTimeline.setCycleCount(Timeline.INDEFINITE);
+        turnTimeline.play();
     }
 
 }
