@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -34,7 +35,8 @@ public class PrimaryController {
     @FXML
     private TextField heightWorldMapField;
 
-    private float speedSIm;
+    @FXML
+    private Slider speedSimulationSlider;
     private boolean running;
 
     @FXML// Генерация поля. Заполнение сущностями.
