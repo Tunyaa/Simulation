@@ -35,6 +35,7 @@ public class PrimaryController {
     private TextField heightWorldMapField;
 
     private float speedSIm;
+    private boolean running;
 
     @FXML// Генерация поля. Заполнение сущностями.
     private void createWorldMap() {
@@ -44,21 +45,26 @@ public class PrimaryController {
 
     @FXML // Начало симуляции
     private void startSimulation() {
-        System.out.println("START");
 
-        turnTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), event -> {
-
-                    primaryService.startSimulation();
-                    primaryService.render(canvas);
-                })
-        );
-        turnTimeline.setCycleCount(Timeline.INDEFINITE);
-        turnTimeline.play();
+        running = true;
+        sim();
+//        System.out.println("START");
+//
+//        turnTimeline = new Timeline(
+//                new KeyFrame(Duration.seconds(0.1), event -> {
+//
+//                    primaryService.startSimulation();
+//                    primaryService.render(canvas);
+//                })
+//        );
+//        turnTimeline.setCycleCount(Timeline.INDEFINITE);
+//        turnTimeline.play();
     }
 
     @FXML
     private void stopSimulation() {
+        System.out.println("STOP&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        running = false;
     }
 
     @FXML
@@ -78,16 +84,17 @@ public class PrimaryController {
 
         turnTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
-                    if (true) {
-
+                    if (running == false) {
+                        turnTimeline.stop();
                     }
                     primaryService.startSimulation();
                     primaryService.render(canvas);
                 })
         );
-        
+
         turnTimeline.setCycleCount(Timeline.INDEFINITE);
         turnTimeline.play();
+
     }
 
 }

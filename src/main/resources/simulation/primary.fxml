@@ -45,7 +45,7 @@
                </VBox.margin>
             </Slider>
             <Button fx:id="startSimulationButton" mnemonicParsing="false" onAction="#startSimulation" text="Старт" />
-            <Button fx:id="stopSimulationButton" mnemonicParsing="false" text="Стоп">
+            <Button fx:id="stopSimulationButton" mnemonicParsing="false" onAction="#stopSimulation" text="Стоп">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
