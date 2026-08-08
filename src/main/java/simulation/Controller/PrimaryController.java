@@ -5,6 +5,8 @@ import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -39,10 +41,30 @@ public class PrimaryController {
     private Slider speedSimulationSlider;
     private boolean running;
 
+    @FXML
+    public void initialize() {
+        // Добавляем слушатель на изменение значения
+        speedSimulationSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                double newSpeed = newValue.doubleValue();
+                // Передаём новое значение в ваш класс
+//                myService.setSpeed(newSpeed);
+                if (running == true) {
+                    running = false;
+                    startSimulation();
+                }
+
+            }
+        });
+    }
+
     @FXML// Генерация поля. Заполнение сущностями.
     private void createWorldMap() {
         primaryService.createWorldMap(widthWorldMapField, heightWorldMapField);
         primaryService.render(canvas);
+
     }
 
     @FXML // Начало симуляции
@@ -75,20 +97,22 @@ public class PrimaryController {
         primaryService.render(canvas);
     }
 
-    public void initialize() {
-    }
-
+//    public void initialize() {
+//    }
     public void setPrimaryService(PrimaryService primaryService) {
         this.primaryService = primaryService;
     }
 
     public void sim() {
 
+        double speed = speedSimulationSlider.getValue();
+
         turnTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), event -> {
+                new KeyFrame(Duration.seconds(speed), event -> {
                     if (running == false) {
                         turnTimeline.stop();
                     }
+
                     primaryService.startSimulation();
                     primaryService.render(canvas);
                 })
