@@ -56,7 +56,7 @@ public class World {
 
 //        generateEntity(Stone.class, STONESATURATION);
 //        generateEntity(Grass.class, GRASSSATURATION);
-        generateEntity(Grass.class, 5);
+        generateEntity(Grass.class, 2);
         generateEntity(Three.class, THREESATURATION);
         generateEntity(Predator.class, 1);
 //        generateEntity(Predator.class, PREDATORSATURATION);

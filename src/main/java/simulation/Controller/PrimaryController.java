@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,7 +41,9 @@ public class PrimaryController {
     @FXML
     private Slider speedSimulationSlider;
     private boolean running;
+    private PauseTransition pause = new PauseTransition(Duration.millis(300));
 
+    // Прослушивание слайдера. Изменение скорости симуляции.
     @FXML
     public void initialize() {
         // Добавляем слушатель на изменение значения
@@ -48,14 +51,15 @@ public class PrimaryController {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
-                double newSpeed = newValue.doubleValue();
-                // Передаём новое значение в ваш класс
-//                myService.setSpeed(newSpeed);
-                if (running == true) {
-                    running = false;
-                    startSimulation();
-                }
-
+                pause.setOnFinished(e -> {
+                    // Если симуляция запущена, она перезапускается с новым аргументом задержки
+                    if (running == true) {
+                        turnTimeline.stop();
+                        running = false;
+                        startSimulation();
+                    }
+                });
+                pause.playFromStart();
             }
         });
     }
@@ -69,46 +73,32 @@ public class PrimaryController {
 
     @FXML // Начало симуляции
     private void startSimulation() {
-
-        running = true;
-        sim();
-//        System.out.println("START");
-//
-//        turnTimeline = new Timeline(
-//                new KeyFrame(Duration.seconds(0.1), event -> {
-//
-//                    primaryService.startSimulation();
-//                    primaryService.render(canvas);
-//                })
-//        );
-//        turnTimeline.setCycleCount(Timeline.INDEFINITE);
-//        turnTimeline.play();
+        if (running == false) {
+            running = true;
+            sim();
+        }
     }
 
     @FXML
     private void stopSimulation() {
-        System.out.println("STOP&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
         running = false;
     }
 
     @FXML
     private void clearWorldMap() {
+        stopSimulation();
         primaryService.clearWorldMap();
         primaryService.render(canvas);
     }
 
-//    public void initialize() {
-//    }
     public void setPrimaryService(PrimaryService primaryService) {
         this.primaryService = primaryService;
     }
 
     public void sim() {
 
-        double speed = speedSimulationSlider.getValue();
-
         turnTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(speed), event -> {
+                new KeyFrame(Duration.seconds(speedSimulationSlider.getValue()), event -> {
                     if (running == false) {
                         turnTimeline.stop();
                     }
