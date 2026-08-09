@@ -79,11 +79,13 @@ public class PrimaryController {
         }
     }
 
+    // Останавливает симуляцию
     @FXML
     private void stopSimulation() {
         running = false;
     }
 
+    // Очищает карту мира
     @FXML
     private void clearWorldMap() {
         stopSimulation();
@@ -95,6 +97,7 @@ public class PrimaryController {
         this.primaryService = primaryService;
     }
 
+    // Запускает цикл симуляции.
     public void sim() {
 
         turnTimeline = new Timeline(
