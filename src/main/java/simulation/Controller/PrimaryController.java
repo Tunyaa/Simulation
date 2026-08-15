@@ -30,29 +30,35 @@ public class PrimaryController {
 
     private PrimaryService primaryService;
 
-    @FXML
+    @FXML// Сцена
     private Canvas canvas;
+
+    // Цикл симуляции
     private Timeline turnTimeline;
-    @FXML
+
+    @FXML// Ширина создаваемого поля
     private TextField widthWorldMapField;
-    @FXML
+
+    @FXML// Высота создаваемого поля
     private TextField heightWorldMapField;
 
-    @FXML
+    @FXML// Слайдер регулировки скорости симуляции
     private Slider speedSimulationSlider;
-    private boolean running;
+    // Задержка перед тем как значение со слайдера будет принято
     private PauseTransition pause = new PauseTransition(Duration.millis(300));
 
-    // Прослушивание слайдера. Изменение скорости симуляции.
-    @FXML
+    // Флаг. Цикл запущен или нет
+    private boolean running;
+
+    @FXML// Прослушивание слайдера. Изменение скорости симуляции.
     public void initialize() {
-        // Добавляем слушатель на изменение значения
+        // Добавляет слушатель на изменение значения
         speedSimulationSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
                 pause.setOnFinished(e -> {
-                    // Если симуляция запущена, она перезапускается с новым аргументом задержки
+                    // Если симуляция запущена, она перезапускается после паузы с новым аргументом задержки
                     if (running == true) {
                         turnTimeline.stop();
                         running = false;
@@ -68,7 +74,6 @@ public class PrimaryController {
     private void createWorldMap() {
         primaryService.createWorldMap(widthWorldMapField, heightWorldMapField);
         primaryService.render(canvas);
-
     }
 
     @FXML // Начало симуляции
@@ -79,14 +84,13 @@ public class PrimaryController {
         }
     }
 
-    // Останавливает симуляцию
-    @FXML
+    @FXML  // Останавливает симуляцию
     private void stopSimulation() {
         running = false;
     }
 
-    // Очищает карту мира
-    @FXML
+   
+    @FXML // Очищает карту мира
     private void clearWorldMap() {
         stopSimulation();
         primaryService.clearWorldMap();
