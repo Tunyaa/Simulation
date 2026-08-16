@@ -32,8 +32,8 @@ public class PrimaryService {
         world.generateEntitysOnWorldField();
     }
 
-    public void render(Canvas canvas) {
-        view.render(world,canvas);
+    public void render() {
+        view.render();
     }
 
     public void clearWorldMap() {

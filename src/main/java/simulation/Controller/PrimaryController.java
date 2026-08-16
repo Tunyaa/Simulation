@@ -52,6 +52,7 @@ public class PrimaryController {
 
     @FXML// Прослушивание слайдера. Изменение скорости симуляции.
     public void initialize() {
+        System.out.println("CANVAS Controller init - " + canvas);
         // Добавляет слушатель на изменение значения
         speedSimulationSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -73,7 +74,7 @@ public class PrimaryController {
     @FXML// Генерация поля. Заполнение сущностями.
     private void createWorldMap() {
         primaryService.createWorldMap(widthWorldMapField, heightWorldMapField);
-        primaryService.render(canvas);
+        primaryService.render();
     }
 
     @FXML // Начало симуляции
@@ -89,12 +90,11 @@ public class PrimaryController {
         running = false;
     }
 
-   
     @FXML // Очищает карту мира
     private void clearWorldMap() {
         stopSimulation();
         primaryService.clearWorldMap();
-        primaryService.render(canvas);
+        primaryService.render();
     }
 
     public void setPrimaryService(PrimaryService primaryService) {
@@ -111,13 +111,18 @@ public class PrimaryController {
                     }
 
                     primaryService.startSimulation();
-                    primaryService.render(canvas);
+                    primaryService.render();
                 })
         );
 
         turnTimeline.setCycleCount(Timeline.INDEFINITE);
         turnTimeline.play();
 
+    }
+
+    // Передаёт Canvas в метод start() класса App для создания рендерера
+    public Canvas getCanvas() {
+        return canvas;
     }
 
 }

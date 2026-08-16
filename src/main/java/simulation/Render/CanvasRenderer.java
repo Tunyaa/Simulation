@@ -23,14 +23,17 @@ import simulation.World.WorldField;
  */
 public class CanvasRenderer implements Renderer {
 
-    @Override
-    public void render(World world, Canvas canvas) {
+    final World world;
+    final Canvas canvas;
 
-//        Image p = new Image(getClass().getResourceAsStream(EntityTypePng.PREDATOR.getDisplayName()));
-//        Image pp = new Image(getClass().getResourceAsStream(EntityTypePng.HERBIVORE.getDisplayName()));
-//        Image g = new Image(getClass().getResourceAsStream(EntityTypePng.GRASS.getDisplayName()));
-//        Image s = new Image(getClass().getResourceAsStream(EntityTypePng.STONE.getDisplayName()));
-//        Image t = new Image(getClass().getResourceAsStream(EntityTypePng.THREE.getDisplayName()));
+    public CanvasRenderer(World world, Canvas canvas) {
+        this.world = world;
+        this.canvas = canvas;
+    }
+    
+    @Override
+    public void render() {
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -38,9 +41,6 @@ public class CanvasRenderer implements Renderer {
         gc.setFill(Color.BISQUE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-//        int h = world.getWorldField().getHeight();
-//        int w = world.getWorldField().getWidth();
-//        Map<Integer, List<Entity>> map = world.getPositionEntityMap();
         List<Entity>[] entitys = world.getEntitys();
         for (int i = 1; i < entitys.length; i++) {
             if (!entitys[i].isEmpty()) {
@@ -52,28 +52,60 @@ public class CanvasRenderer implements Renderer {
             }
         }
 
-//        map.forEach((k, v) -> {
-    
-
-////            for (int i = 0; i < 10; i++) {
-////                
-////            }
-////Взять позицию первого элемента, если он есть.
-//            double position = v.get(0).getPosition();//  На 0 позиции может не быть элемента использовать деку
-////            полчаем координаты
-//            int positionH = (int) Math.ceil(position / w);
-//            double positionW = w - (positionH * w - position);
-//            // формат в пикчелях
-//            int pngFormat = 20;
-//            // получаем картинку
-//            Image image = new Image(getClass().getResourceAsStream(v.get(0).getEntityTypePng().getDisplayName()));
-//
-//            gc.drawImage(image, positionW * pngFormat, positionH * pngFormat, pngFormat, pngFormat);
-//        });
-
     }
 
 }
+//    @Override
+//    public void render(World world, Canvas canvas) {
+//
+////        Image p = new Image(getClass().getResourceAsStream(EntityTypePng.PREDATOR.getDisplayName()));
+////        Image pp = new Image(getClass().getResourceAsStream(EntityTypePng.HERBIVORE.getDisplayName()));
+////        Image g = new Image(getClass().getResourceAsStream(EntityTypePng.GRASS.getDisplayName()));
+////        Image s = new Image(getClass().getResourceAsStream(EntityTypePng.STONE.getDisplayName()));
+////        Image t = new Image(getClass().getResourceAsStream(EntityTypePng.THREE.getDisplayName()));
+//        GraphicsContext gc = canvas.getGraphicsContext2D();
+//
+//        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//
+//        gc.setFill(Color.BISQUE);
+//        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//
+////        int h = world.getWorldField().getHeight();
+////        int w = world.getWorldField().getWidth();
+////        Map<Integer, List<Entity>> map = world.getPositionEntityMap();
+//        List<Entity>[] entitys = world.getEntitys();
+//        for (int i = 1; i < entitys.length; i++) {
+//            if (!entitys[i].isEmpty()) {
+//                RowColumn rC = world.getWorldField().getRowColumnByPosition(i);
+//                int pngFormat = 20;
+//                // получаем картинку
+//                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
+//                gc.drawImage(image, rC.getCol() * pngFormat, rC.getRow() * pngFormat, pngFormat, pngFormat);
+//            }
+//        }
+//
+////        map.forEach((k, v) -> {
+//    
+//
+//////            for (int i = 0; i < 10; i++) {
+//////                
+//////            }
+//////Взять позицию первого элемента, если он есть.
+////            double position = v.get(0).getPosition();//  На 0 позиции может не быть элемента использовать деку
+//////            полчаем координаты
+////            int positionH = (int) Math.ceil(position / w);
+////            double positionW = w - (positionH * w - position);
+////            // формат в пикчелях
+////            int pngFormat = 20;
+////            // получаем картинку
+////            Image image = new Image(getClass().getResourceAsStream(v.get(0).getEntityTypePng().getDisplayName()));
+////
+////            gc.drawImage(image, positionW * pngFormat, positionH * pngFormat, pngFormat, pngFormat);
+////        });
+//
+//    }
+//
+//}
 
 //    @Override
 //    public void render(World world, Canvas canvas) {

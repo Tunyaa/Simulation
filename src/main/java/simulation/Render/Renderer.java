@@ -10,5 +10,5 @@ import simulation.World.WorldField;
  */
 public interface Renderer {
 
-    void render(World world,Canvas canvas);
+    void render();
 }
