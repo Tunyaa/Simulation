@@ -21,7 +21,6 @@ import simulation.World.World;
  */
 public class Simulation {
 
-    private TurnProcessor turnProcessor;
     private int turnCounter;
     private boolean isRunning;
 
@@ -33,10 +32,8 @@ public class Simulation {
         this.isRunning = isRunning;
     }
 
-    public Simulation() {
-        this.turnProcessor = new TurnProcessor();
-    }
 
+    // Описывает цикл одного хода
     private void turn(World world) {
         System.out.println("Ход - " + turnCounter++);
         if (turnCounter % 20 == 0) {

@@ -21,9 +21,6 @@ import simulation.World.World;
 public class App extends Application {
 
     private static Scene scene;
-//
-//    @FXML// Сцена
-//    private Canvas canvas;
 
     @Override
     public void start(Stage stage) throws IOException {
