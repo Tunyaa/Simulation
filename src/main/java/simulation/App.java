@@ -10,7 +10,7 @@ import java.io.IOException;
 import simulation.Controller.PrimaryController;
 import simulation.Service.PrimaryService;
 import simulation.Simulation.Simulation;
-import simulation.View.CanvasRenderer;
+import simulation.Render.CanvasRenderer;
 import simulation.World.World;
 
 /**

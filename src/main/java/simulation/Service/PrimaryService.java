@@ -4,7 +4,7 @@ import java.util.Map;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextField;
 import simulation.Simulation.Simulation;
-import simulation.View.CanvasRenderer;
+import simulation.Render.CanvasRenderer;
 import simulation.World.World;
 import simulation.World.WorldField;
 

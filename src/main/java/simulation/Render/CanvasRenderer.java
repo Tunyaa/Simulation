@@ -1,4 +1,4 @@
-package simulation.View;
+package simulation.Render;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package simulation.Model.Entity;
 
-import simulation.View.EntityTypePng;
+import simulation.Render.EntityTypePng;
 
 /**
  *

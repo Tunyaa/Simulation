@@ -6,7 +6,7 @@ import simulation.Model.Mover.Mover;
 import simulation.Model.Mover.PredatorStraightPathMover;
 import simulation.Model.Mover.StraightPathMover;
 import simulation.Model.Viewer.SquareViewer;
-import simulation.View.EntityTypePng;
+import simulation.Render.EntityTypePng;
 import simulation.World.World;
 
 /**

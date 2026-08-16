@@ -21,8 +21,8 @@ import simulation.App;
 import simulation.App;
 import simulation.Service.PrimaryService;
 import simulation.Simulation.Simulation;
-import simulation.View.EntityTypePng;
-import simulation.View.CanvasRenderer;
+import simulation.Render.EntityTypePng;
+import simulation.Render.CanvasRenderer;
 import simulation.World.World;
 import simulation.World.WorldField;
 
