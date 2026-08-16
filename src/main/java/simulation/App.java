@@ -25,8 +25,8 @@ public class App extends Application {
         // Создание постоянных объектов
         World world = new World();
         Simulation simulation = new Simulation();
-        CanvasRenderer view = new CanvasRenderer();
-        PrimaryService primaryService = new PrimaryService(world, simulation, view);
+        CanvasRenderer renderer = new CanvasRenderer();
+        PrimaryService primaryService = new PrimaryService(world, simulation, renderer);
 
         // 2. Загружаем FXML и получаем контроллер
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("primary.fxml"));
@@ -40,7 +40,7 @@ public class App extends Application {
         // Для этого нужно, чтобы у контроллера был метод getCanvas() или
         // чтобы контроллер сам передал Canvas во CanvasRenderer в initialize()
         // Например, можно добавить в контроллер:
-        // view.setCanvas(canvas); прямо в initialize()
+        // renderer.setCanvas(canvas); прямо в initialize()
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
