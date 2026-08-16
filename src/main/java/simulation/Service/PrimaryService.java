@@ -4,7 +4,7 @@ import java.util.Map;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextField;
 import simulation.Simulation.Simulation;
-import simulation.View.View;
+import simulation.View.CanvasRenderer;
 import simulation.World.World;
 import simulation.World.WorldField;
 
@@ -16,9 +16,9 @@ public class PrimaryService {
 
     private World world;
     private Simulation simulation;
-    private View view;
+    private CanvasRenderer view;
 
-    public PrimaryService(World world, Simulation simulation, View view) {
+    public PrimaryService(World world, Simulation simulation, CanvasRenderer view) {
         this.world = world;
         this.simulation = simulation;
         this.view = view;

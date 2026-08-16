@@ -21,7 +21,7 @@ import simulation.World.WorldField;
  *
  * @author tunyaa
  */
-public class View implements Renderer {
+public class CanvasRenderer implements Renderer {
 
     @Override
     public void render(World world, Canvas canvas) {

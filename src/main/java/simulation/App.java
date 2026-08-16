@@ -10,7 +10,7 @@ import java.io.IOException;
 import simulation.Controller.PrimaryController;
 import simulation.Service.PrimaryService;
 import simulation.Simulation.Simulation;
-import simulation.View.View;
+import simulation.View.CanvasRenderer;
 import simulation.World.World;
 
 /**
@@ -22,9 +22,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Создание постоянных объектов
         World world = new World();
         Simulation simulation = new Simulation();
-        View view = new View();
+        CanvasRenderer view = new CanvasRenderer();
         PrimaryService primaryService = new PrimaryService(world, simulation, view);
 
         // 2. Загружаем FXML и получаем контроллер
@@ -35,9 +36,9 @@ public class App extends Application {
         // 3. Передаём сервис в контроллер
         controller.setPrimaryService(primaryService);
 
-        // 4. Передаём Canvas во View (после того как FXML загружен)
+        // 4. Передаём Canvas во CanvasRenderer (после того как FXML загружен)
         // Для этого нужно, чтобы у контроллера был метод getCanvas() или
-        // чтобы контроллер сам передал Canvas во View в initialize()
+        // чтобы контроллер сам передал Canvas во CanvasRenderer в initialize()
         // Например, можно добавить в контроллер:
         // view.setCanvas(canvas); прямо в initialize()
         scene = new Scene(root);
