@@ -113,7 +113,7 @@ public class World {
         for (int i = 0; i < steps; i++) {
 
             if (entities[position].isEmpty()) {
-                Entity entity = entityFactory(entityClass);
+                Entity entity = createEntity(entityClass);
                 entity.setPosition(position);
                 entities[position].add(entity);
                 entityCount++;
@@ -133,45 +133,34 @@ public class World {
         worldGrid.clearField();
     }
 
-    // Создает объект // !!!!!!!!!!!!!!!!!!!!!
-    private Entity entityFactory(Class<Entity> entityClass) {
+    // Создает сущность
+    private Entity createEntity(Class<Entity> entityClass) {
         try {
             return entityClass.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            throw new RuntimeException("Failed to create entity", ex);
         }
     }
 
     // Удаляет сущность
     public void removeEntity(Entity entity) {
-        int position = entity.getPosition();
         if (entity instanceof Herbivore) {
             herbivores.remove(entity);
-            System.out.println("Herbivore REmove");
         } else if (entity instanceof Predator) {
             predators.remove(entity);
-            System.out.println("Predtor Remove!!!");
         }
 
-        entities[position].remove(entity);
-        System.out.println("Entity Remove");
+        entities[entity.getPosition()].remove(entity);
     }
 
     // Передвигат сужность на позицию
-    public void moveEntityToPosition(Creature e, int toPosition) {
-        Integer moveTo = e.getPath().getFirst();
-        int position = e.getPosition();
+    public void moveEntityToPosition(Creature creature) {
+        int moveTo = creature.getPath().getFirst();
 
-        entities[position].remove(e);
-        entities[moveTo].add(e);
-        e.setPosition(moveTo);
-
-//        if (entities[e.getPosition()].contains(e)) {
-//            entities[e.getPosition()].remove(e);
-//            e.setPosition(toPosition);
-//            entities[e.getPosition()].add(e);
-//        }
+        entities[creature.getPosition()].remove(creature);
+        entities[moveTo].add(creature);
+        creature.setPosition(moveTo);
     }
 
     // Возвращает сущности по позиции

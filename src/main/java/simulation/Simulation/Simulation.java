@@ -64,7 +64,7 @@ public class Simulation {
                 predtor.move(world);
             }
 
-            world.moveEntityToPosition(predtor, turnCounter);
+            world.moveEntityToPosition(predtor);
             if (predtor.getTargetPosition() == predtor.getPosition()) {
                 System.out.println("ATTACK!!!!");
                 System.out.println("Eat");
@@ -104,7 +104,7 @@ public class Simulation {
                 herbivore.move(world);
             }
 
-            world.moveEntityToPosition(herbivore, turnCounter);
+            world.moveEntityToPosition(herbivore);
 
             if (herbivore.getTargetPosition() == herbivore.getPosition()) {
                 System.out.println("Eat");
