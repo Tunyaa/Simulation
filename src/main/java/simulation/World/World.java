@@ -155,7 +155,7 @@ public class World {
     }
 
     // Передвигат сужность на позицию
-    public void moveEntityToPosition(Creature creature) {
+    public void moveEntityToPosition(Creature creature, int moveToPosition) {
         int moveTo = creature.getPath().getFirst();
 
         entities[creature.getPosition()].remove(creature);

@@ -102,7 +102,7 @@ public class StraightPathMover implements Mover {
             creature.getPath().removeFirst();
 //            path.removeFirst();
 
-            world.moveEntityToPosition(creature);
+            world.moveEntityToPosition(creature, creature.getPath().getFirst());
 //            creature.setPosition(newPosition);
 //            map.putIfAbsent(newPosition, new ArrayList<>());
 //            map.get(newPosition).add(creature);
