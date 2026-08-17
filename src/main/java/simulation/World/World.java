@@ -22,7 +22,7 @@ import simulation.Model.Entity.Three;
 // Настройки мира
 public class World {
 
-    private WorldGrid worldFeld; // Поле
+    private WorldGrid worldGrid; // Поле
     private List<Entity>[] entitys;
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 1;
@@ -36,20 +36,35 @@ public class World {
     private Random random = new Random();
 
     public World() {
-        this.worldFeld = new WorldGrid();
+        this.worldGrid = new WorldGrid();
         this.predtors = new ArrayList<>();
         this.herbivores = new ArrayList<>();
     }
 
-    // Создаёт список размером с количество клеток на поле
-    public void createNewMap(int width, int height) {
+    //
+    public void initWorld(int width, int height) {
+//        // !!!!!!!!!!СДЕЛАТЬ ПРОВЕРКУ на размер поля
+//        entitys = new List[width * height + 1];
+//        for (int i = 0; i < entitys.length; i++) {
+//            entitys[i] = new ArrayList<>();
+//        }
+//        this.worldGrid.initField(width, height);
+        initEntitys(width, height);
+        initWorldGrid(width, height);
+    }
+
+    //  Создаёт список размером с количество клеток на поле
+    private void initEntitys(int width, int height) {
         // !!!!!!!!!!СДЕЛАТЬ ПРОВЕРКУ на размер поля
         entitys = new List[width * height + 1];
         for (int i = 0; i < entitys.length; i++) {
             entitys[i] = new ArrayList<>();
         }
-        this.worldFeld.createField(width, height);
-        System.out.println("Created World - len -" + entitys.length);
+    }
+
+    // 
+    private void initWorldGrid(int width, int height) {
+        this.worldGrid.initField(width, height);
     }
 
     // Заполняет карту сущностями
@@ -126,7 +141,7 @@ public class World {
         for (List<Entity> entity : entitys) {
             entity.clear();
         }
-        worldFeld.clearField();
+        worldGrid.clearField();
     }
 
     // Создает объект // !!!!!!!!!!!!!!!!!!!!!
@@ -191,14 +206,14 @@ public class World {
 
     // Возвращает  поле
     public WorldGrid getWorldField() {
-        return worldFeld;
+        return worldGrid;
     }
 
     // Проверка. Позиция не выходит за край.
 //    public boolean isPositionNotOutOfBorder(int position, int newPosition, int direction) {
 //        System.out.println("isPositionNotOutOfBorder");
-//        int width = worldFeld.getWidth();
-//        int len = worldFeld.getWorldLen();
+//        int width = worldGrid.getWidth();
+//        int len = worldGrid.getWorldLen();
 //
 //        switch (direction) {
 //            case 0: {// Если движение вверх
@@ -229,8 +244,8 @@ public class World {
 //    }
     // Проверка. Позиция не является крайней
 //    private boolean isPositionNotBorder(int position, World world) {
-//        int width = worldFeld.getWidth();// Ширина поля
-//        int height = worldFeld.getHeight();// Высота поля
+//        int width = worldGrid.getWidth();// Ширина поля
+//        int height = worldGrid.getHeight();// Высота поля
 //        int positionH = (int) Math.ceil((double) position / width); // Координата по высоте
 //        int positionW = width - (positionH * width - position); // Координата по ширине
 //

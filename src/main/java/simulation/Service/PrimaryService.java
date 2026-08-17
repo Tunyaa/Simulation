@@ -28,7 +28,7 @@ public class PrimaryService {
     public void createWorldMap(TextField widthWorldMapField, TextField heightWorldMapField) {
         int w = Integer.parseInt(widthWorldMapField.getText());
         int h = Integer.parseInt(heightWorldMapField.getText());
-        world.createNewMap(w, h);
+        world.initWorld(w, h);
         world.generateEntitysOnWorldField();
     }
 

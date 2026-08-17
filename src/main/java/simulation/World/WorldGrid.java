@@ -19,7 +19,7 @@ public class WorldGrid {
     private int height;   // Высота поля
     private int len;         // Количество позиций поля   
 
-    public void createField(int width, int height) {
+    public void initField(int width, int height) {
         this.width = width;
         this.height = height;
         this.len = width * height;
