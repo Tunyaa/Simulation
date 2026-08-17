@@ -24,7 +24,7 @@ public class SquareViewer implements Viewer {
     @Override
     public void viev(World world) {
         int rangeOfView = creature.getRangeOfView();
-        int width = world.getWorldField().getWidth();
+        int width = world.getWorldGrid().getWidth();
         // 
 
         for (int r = rangeOfView; r >= 0; r--) {
@@ -45,7 +45,7 @@ public class SquareViewer implements Viewer {
             for (int i : scan) {
                 int f = firstScanPOsition += i;
 
-                RowColumn rowColumn = world.getWorldField().getRowColumnByPosition(creature.getPosition());
+                RowColumn rowColumn = world.getWorldGrid().getRowColumnByPosition(creature.getPosition());
 
                 int LeftExtremePoint = rowColumn.getCol() - rangeOfView;
                 int RightExtremePoint = rowColumn.getCol() + rangeOfView;
@@ -55,8 +55,8 @@ public class SquareViewer implements Viewer {
 //                LeftExtremePoint = LeftExtremePoint < 1 ? 1 : LeftExtremePoint;
 //                RightExtremePoint = RightExtremePoint > width ? width : RightExtremePoint;
 //                topExtremePoint = topExtremePoint < 1 ? 1 : topExtremePoint;
-//                lowerExtremePoint = lowerExtremePoint > world.getWorldField().getHeight() ? 1 : lowerExtremePoint;
-                RowColumn rowColumnByScanPosition = world.getWorldField().getRowColumnByPosition(f);
+//                lowerExtremePoint = lowerExtremePoint > world.getWorldGrid().getHeight() ? 1 : lowerExtremePoint;
+                RowColumn rowColumnByScanPosition = world.getWorldGrid().getRowColumnByPosition(f);
                 int col = rowColumnByScanPosition.getCol();
                 int row = rowColumnByScanPosition.getRow();
 

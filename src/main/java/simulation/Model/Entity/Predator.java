@@ -44,7 +44,7 @@ public class Predator extends Creature {
     }
 
     public void move(World world) {
-        hp -= 1;
+        hp -= 7;
         mover.move(world, this);
     }
 

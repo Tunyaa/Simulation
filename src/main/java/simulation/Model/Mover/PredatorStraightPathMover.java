@@ -30,20 +30,20 @@ public class PredatorStraightPathMover implements Mover {
         int row = ThreadLocalRandom.current().nextInt(-1, 2);
         int col = ThreadLocalRandom.current().nextInt(-1, 2);
 
-        RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(creature.getPosition());
+        RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(creature.getPosition());
 //        System.out.println(rowColumnByPosition.getRow() + " & " + rowColumnByPosition.getCol());
         col = rowColumnByPosition.getCol() + col;
         row = rowColumnByPosition.getRow() + row;
         col = col >= 1 ? col : 1;
-        col = col <= world.getWorldField().getWidth() ? col : world.getWorldField().getWidth();
+        col = col <= world.getWorldGrid().getWidth() ? col : world.getWorldGrid().getWidth();
 
         row = row >= 1 ? row : 1;
-        row = row <= world.getWorldField().getHeight() ? row : world.getWorldField().getHeight();
+        row = row <= world.getWorldGrid().getHeight() ? row : world.getWorldGrid().getHeight();
 
 //        System.out.println(row + " & " + col);
-        int r = world.getWorldField().getPositionByRowСolumn(3, 3);
+        int r = world.getWorldGrid().getPositionByRowСolumn(3, 3);
 //        System.out.println("Проверка позиции 3-3 " + r);
-        int positionByRowСolumn = world.getWorldField().getPositionByRowСolumn(row, col);
+        int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
 //        System.out.println(positionByRowСolumn + " рандомная цель");
         ArrayDeque<Integer> path = creature.getPath();
         path.addFirst(positionByRowСolumn);
@@ -68,7 +68,7 @@ public class PredatorStraightPathMover implements Mover {
         while (!tempIndixes.isEmpty()) {
 
             // 1: Проверка: Точка рядом?
-            if (world.getWorldField().isLocatedNearby(position, targetPosition)) {
+            if (world.getWorldGrid().isLocatedNearby(position, targetPosition)) {
 
                 // 2.2 Записать точку в массив
                 creature.getPath().add(targetPosition);
@@ -93,9 +93,9 @@ public class PredatorStraightPathMover implements Mover {
                 // 2.1: Поиск пути:
                 // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
 //                RowColumn halfRelativeRowColumn = getMidPosition(world, position, targetPosition);
-//            RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(position);
-                targetPosition = world.getWorldField().getMidPosition(position, targetPosition);
-//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
+//            RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(position);
+                targetPosition = world.getWorldGrid().getMidPosition(position, targetPosition);
+//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldGrid().getWidth() * halfRelativeRowColumn.getRow());
 
                 // Записываем в промежуточный массив
                 tempIndixes.add(targetPosition);

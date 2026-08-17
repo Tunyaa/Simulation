@@ -26,11 +26,13 @@ public class CanvasRenderer implements Renderer {
     final World world;
     final Canvas canvas;
 
+    int pngSizeInPix = 20; // Размер картинки СДЕЛАТЬ ПЛАВАЮЩЕЕ ЗНАЧЕНИЕ
+
     public CanvasRenderer(World world, Canvas canvas) {
         this.world = world;
         this.canvas = canvas;
     }
-    
+
     @Override
     public void render() {
 
@@ -44,11 +46,10 @@ public class CanvasRenderer implements Renderer {
         List<Entity>[] entitys = world.getEntitys();
         for (int i = 1; i < entitys.length; i++) {
             if (!entitys[i].isEmpty()) {
-                RowColumn rC = world.getWorldField().getRowColumnByPosition(i);
-                int pngFormat = 20;
+                RowColumn rC = world.getWorldGrid().getRowColumnByPosition(i);
                 // получаем картинку
                 Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
-                gc.drawImage(image, rC.getCol() * pngFormat, rC.getRow() * pngFormat, pngFormat, pngFormat);
+                gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
             }
         }
 
@@ -76,11 +77,11 @@ public class CanvasRenderer implements Renderer {
 //        List<Entity>[] entitys = world.getEntitys();
 //        for (int i = 1; i < entitys.length; i++) {
 //            if (!entitys[i].isEmpty()) {
-//                RowColumn rC = world.getWorldField().getRowColumnByPosition(i);
-//                int pngFormat = 20;
+//                RowColumn rC = world.getWorldGrid().getRowColumnByPosition(i);
+//                int pngSizeInPix = 20;
 //                // получаем картинку
 //                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
-//                gc.drawImage(image, rC.getCol() * pngFormat, rC.getRow() * pngFormat, pngFormat, pngFormat);
+//                gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
 //            }
 //        }
 //

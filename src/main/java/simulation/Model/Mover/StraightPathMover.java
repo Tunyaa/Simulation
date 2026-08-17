@@ -41,7 +41,7 @@ public class StraightPathMover implements Mover {
         while (!tempIndixes.isEmpty()) {
 
             // 1: Проверка: Точка рядом?
-            if (world.getWorldField().isLocatedNearby(position, targetPosition)) {
+            if (world.getWorldGrid().isLocatedNearby(position, targetPosition)) {
 
                 // 2.2 Записать точку в массив
                 creature.getPath().add(targetPosition);
@@ -66,9 +66,9 @@ public class StraightPathMover implements Mover {
                 // 2.1: Поиск пути:
                 // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
 //                RowColumn halfRelativeRowColumn = getMidPosition(world, position, targetPosition);
-//            RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(position);
-                targetPosition = world.getWorldField().getMidPosition(position, targetPosition);
-//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
+//            RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(position);
+                targetPosition = world.getWorldGrid().getMidPosition(position, targetPosition);
+//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldGrid().getWidth() * halfRelativeRowColumn.getRow());
 
                 // Записываем в промежуточный массив
                 tempIndixes.add(targetPosition);
@@ -125,7 +125,7 @@ public class StraightPathMover implements Mover {
             while (!tempIndixes.isEmpty()) {
                 System.out.println("MOVE WHILE");
                 // 1: Проверка: Точка рядом?
-                if (world.getWorldField().isLocatedNearby(position, targetPosition)) {
+                if (world.getWorldGrid().isLocatedNearby(position, targetPosition)) {
 
                     // 2.2 Записать точку в массив
                     creature.getPath().add(targetPosition);
@@ -150,9 +150,9 @@ public class StraightPathMover implements Mover {
                     // 2.1: Поиск пути:
                     // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
 //                RowColumn halfRelativeRowColumn = getMidPosition(world, position, targetPosition);
-//            RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(position);
-                    targetPosition = world.getWorldField().getMidPosition(position, targetPosition);
-//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
+//            RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(position);
+                    targetPosition = world.getWorldGrid().getMidPosition(position, targetPosition);
+//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldGrid().getWidth() * halfRelativeRowColumn.getRow());
 
                     // Записываем в промежуточный массив
                     tempIndixes.add(targetPosition);

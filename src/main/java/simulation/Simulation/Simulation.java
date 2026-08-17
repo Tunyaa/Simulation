@@ -37,7 +37,7 @@ public class Simulation {
     private void turn(World world) {
         System.out.println("Ход - " + turnCounter++);
         if (turnCounter % 20 == 0) {
-            world.regenerte();
+            world.regenerteGrass();
         }
 
         // Ход хищника 
