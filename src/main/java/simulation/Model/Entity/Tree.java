@@ -7,9 +7,9 @@ import simulation.Render.EntityTypePng;
  *
  * @author tunyaa
  */
-public class Three extends Entity{
+public class Tree extends Entity{
 
-    public Three() {
+    public Tree() {
         setEntityTypePng(EntityTypePng.THREE);
     }
     

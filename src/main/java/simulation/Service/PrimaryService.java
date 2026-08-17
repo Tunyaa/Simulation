@@ -29,7 +29,7 @@ public class PrimaryService {
         int w = Integer.parseInt(widthWorldMapField.getText());
         int h = Integer.parseInt(heightWorldMapField.getText());
         world.initWorld(w, h);
-        world.generateEntitysOnWorldField();
+        world.spawnEntitiesOnWorldGrid();
     }
 
     public void render() {
@@ -37,7 +37,7 @@ public class PrimaryService {
     }
 
     public void clearWorldMap() {
-        world.clearWorldMap();
+        world.clearWorld();
     }
 
     public void startSimulation() {

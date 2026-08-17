@@ -79,6 +79,7 @@ public class PrimaryController {
 
     @FXML // Начало симуляции
     private void startSimulation() {
+        // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН
         if (running == false) {
             running = true;
             sim();

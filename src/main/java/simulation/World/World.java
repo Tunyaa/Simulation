@@ -13,7 +13,7 @@ import simulation.Model.Entity.Grass;
 import simulation.Model.Entity.Herbivore;
 import simulation.Model.Entity.Predator;
 import simulation.Model.Entity.Stone;
-import simulation.Model.Entity.Three;
+import simulation.Model.Entity.Tree;
 
 /**
  *
@@ -22,33 +22,28 @@ import simulation.Model.Entity.Three;
 // Настройки мира
 public class World {
 
-    private WorldGrid worldGrid; // Поле
-    private List<Entity>[] entitys;
+    private WorldGrid worldGrid; // Сетка
+
+    private List<Entity>[] entities;
+    private List<Predator> predators;
+    private List<Herbivore> herbivores;
+
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
-    private final int THREESATURATION = 1;
+    private final int TREESATURATION = 1;
     private final int GRASSSATURATION = 10;
     private final int PREDATORSATURATION = 1;
     private final int HERBIVORESATURATION = 1;
-
-    private List<Predator> predtors;
-    private List<Herbivore> herbivores;
 
     private Random random = new Random();
 
     public World() {
         this.worldGrid = new WorldGrid();
-        this.predtors = new ArrayList<>();
+        this.predators = new ArrayList<>();
         this.herbivores = new ArrayList<>();
     }
 
-    //
+    // Создаёт список индексов и задаёт ширину и высоту сетки
     public void initWorld(int width, int height) {
-//        // !!!!!!!!!!СДЕЛАТЬ ПРОВЕРКУ на размер поля
-//        entitys = new List[width * height + 1];
-//        for (int i = 0; i < entitys.length; i++) {
-//            entitys[i] = new ArrayList<>();
-//        }
-//        this.worldGrid.initField(width, height);
         initEntitys(width, height);
         initWorldGrid(width, height);
     }
@@ -56,43 +51,35 @@ public class World {
     //  Создаёт список размером с количество клеток на поле
     private void initEntitys(int width, int height) {
         // !!!!!!!!!!СДЕЛАТЬ ПРОВЕРКУ на размер поля
-        entitys = new List[width * height + 1];
-        for (int i = 0; i < entitys.length; i++) {
-            entitys[i] = new ArrayList<>();
+        entities = new List[width * height + 1];
+        for (int i = 0; i < entities.length; i++) {
+            entities[i] = new ArrayList<>();
         }
     }
 
-    // 
+    // Задаёт ширину и высоту сетки
     private void initWorldGrid(int width, int height) {
         this.worldGrid.initField(width, height);
     }
 
     // Заполняет карту сущностями
-    public void generateEntitysOnWorldField() {
+    public void spawnEntitiesOnWorldGrid() {
 
-//        generateEntity(Stone.class, STONESATURATION);
-//        generateEntity(Grass.class, GRASSSATURATION);
-        generateEntity(Grass.class, 2);
-        generateEntity(Three.class, THREESATURATION);
-        generateEntity(Predator.class, 1);
-//        generateEntity(Predator.class, PREDATORSATURATION);
-//        generateEntity(Herbivore.class, HERBIVORESATURATION);
-        generateEntity(Herbivore.class, 5);
+//        spawnEntity(Stone.class, STONESATURATION);
+//        spawnEntity(Grass.class, GRASSSATURATION);
+        spawnEntity(Grass.class, 2);
+        spawnEntity(Tree.class, TREESATURATION);
+        spawnEntity(Predator.class, 1);
+//        spawnEntity(Predator.class, PREDATORSATURATION);
+//        spawnEntity(Herbivore.class, HERBIVORESATURATION);
+        spawnEntity(Herbivore.class, 5);
 
-        setPredtors();
-        setHerbivores();
-
-        for (Predator predtor : predtors) {
-            System.out.println("Predator -" + predtor.getPosition());
-        }
-
-        for (Herbivore herbivore : herbivores) {
-            System.out.println("Herbi -  " + herbivore.getPosition());
-        }
+        buildPredatorsList();
+        buildHerbivoresList();
     }
 
 // Заполняет карту конкретной сущностью 
-    private void generateEntity(Class entityClass, int saturation) {
+    private void spawnEntity(Class entityClass, int saturation) {
         // Переменная хранит количество камня на карте
         int entityCount = 0;
         // Проверяет что (количество камня < len/cons)
@@ -125,10 +112,10 @@ public class World {
 //        steps = random.nextInt(steps);// Количество камней в линии
         for (int i = 0; i < steps; i++) {
 
-            if (entitys[position].isEmpty()) {
+            if (entities[position].isEmpty()) {
                 Entity entity = entityFactory(entityClass);
                 entity.setPosition(position);
-                entitys[position].add(entity);
+                entities[position].add(entity);
                 entityCount++;
             }
         }
@@ -137,10 +124,12 @@ public class World {
     }
 
     // Очищает поле и карту
-    public void clearWorldMap() {
-        for (List<Entity> entity : entitys) {
+    public void clearWorld() {
+        for (List<Entity> entity : entities) {
             entity.clear();
         }
+        predators.clear();
+        herbivores.clear();
         worldGrid.clearField();
     }
 
@@ -161,11 +150,11 @@ public class World {
             herbivores.remove(entity);
             System.out.println("Herbivore REmove");
         } else if (entity instanceof Predator) {
-            predtors.remove(entity);
+            predators.remove(entity);
             System.out.println("Predtor Remove!!!");
         }
 
-        entitys[position].remove(entity);
+        entities[position].remove(entity);
         System.out.println("Entity Remove");
     }
 
@@ -174,34 +163,34 @@ public class World {
         Integer moveTo = e.getPath().getFirst();
         int position = e.getPosition();
 
-        entitys[position].remove(e);
-        entitys[moveTo].add(e);
+        entities[position].remove(e);
+        entities[moveTo].add(e);
         e.setPosition(moveTo);
 
-//        if (entitys[e.getPosition()].contains(e)) {
-//            entitys[e.getPosition()].remove(e);
+//        if (entities[e.getPosition()].contains(e)) {
+//            entities[e.getPosition()].remove(e);
 //            e.setPosition(toPosition);
-//            entitys[e.getPosition()].add(e);
+//            entities[e.getPosition()].add(e);
 //        }
     }
 
     // Возвращает сущности по позиции
     public List<Entity> getEntitysByPosition(int position) {
-        int length = entitys.length;
+        int length = entities.length;
         if (position >= 1 && position <= length - 1) {
 
-            return entitys[position];
+            return entities[position];
         }
         return null;
     }
 
     // Возвращает карту сущностей
     public List<Entity>[] getEntitys() {
-        return entitys;
+        return entities;
     }
 
     public void setEntitys(List<Entity>[] entitys) {
-        this.entitys = entitys;
+        this.entities = entitys;
     }
 
     // Возвращает  поле
@@ -254,18 +243,18 @@ public class World {
 //        }
 //        return true;
 //    }
-    private void setPredtors() {
-        for (List<Entity> entity : entitys) {
+    private void buildPredatorsList() {
+        for (List<Entity> entity : entities) {
             for (Entity entity1 : entity) {
                 if (entity1 instanceof Predator) {
-                    this.predtors.add((Predator) entity1);
+                    this.predators.add((Predator) entity1);
                 }
             }
         }
     }
 
-    private void setHerbivores() {
-        for (List<Entity> entity : entitys) {
+    private void buildHerbivoresList() {
+        for (List<Entity> entity : entities) {
             for (Entity entity1 : entity) {
                 if (entity1 instanceof Herbivore) {
                     this.herbivores.add((Herbivore) entity1);
@@ -275,7 +264,7 @@ public class World {
     }
 
     public List<Predator> getPredtors() {
-        return predtors;
+        return predators;
     }
 
     public List<Herbivore> getHerbivores() {
@@ -283,21 +272,21 @@ public class World {
     }
 
     public void regenerte() {
-        generateEntity(Grass.class, GRASSSATURATION);
+        spawnEntity(Grass.class, GRASSSATURATION);
     }
 
     public void regenerteHerbivore() {
 
-        generateEntity(Herbivore.class, HERBIVORESATURATION);
+        spawnEntity(Herbivore.class, HERBIVORESATURATION);
 
-        setHerbivores();
+        buildHerbivoresList();
     }
 
     public void regenertePredator() {
 
-        generateEntity(Predator.class, PREDATORSATURATION);
+        spawnEntity(Predator.class, PREDATORSATURATION);
 
-        setPredtors();
+        buildPredatorsList();
     }
 
 }
