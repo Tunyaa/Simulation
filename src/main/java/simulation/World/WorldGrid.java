@@ -12,7 +12,8 @@ import simulation.Model.Entity.Entity;
  *
  * @author tunyaa
  */
-public class WorldField {
+// Методы для взаимодействия с мировым полем
+public class WorldGrid {
 
     private int width;     // Ширина поля
     private int height;   // Высота поля
@@ -24,7 +25,7 @@ public class WorldField {
         this.len = width * height;
     }
 
-    // Очистить карту
+    // Очистить карту !!!!!!!!!!!!!!ИЗМЕНИТЬ УБРАТЬ 0
     public void clearField() {
         this.width = 0;
         this.height = 0;
@@ -36,16 +37,16 @@ public class WorldField {
         return (row - 1) * width + column;
     }
 
-    // Возвращает ряд \ колонна по позиции
-    public int[] getRowСolumnByPosition(int position) {
-
-        int[] rowColumn = new int[2];
-        // Присваевает номер линии
-        rowColumn[0] = (int) Math.ceil((double) position / width);
-        // Присваивает номер колонны
-        rowColumn[1] = width - (rowColumn[0] * width - position);
-        return rowColumn;
-    }
+//    // Возвращает ряд \ колонна по позиции
+//    public int[] getRowСolumnByPosition(int position) {
+//
+//        int[] rowColumn = new int[2];
+//        // Присваевает номер линии
+//        rowColumn[0] = (int) Math.ceil((double) position / width);
+//        // Присваивает номер колонны
+//        rowColumn[1] = width - (rowColumn[0] * width - position);
+//        return rowColumn;
+//    }
 
     // Проверка: Цель рядом с позицией? (в диапазоне 1й клетки от позиции)
     public boolean isLocatedNearby(int position, int targetPosition) {
@@ -74,12 +75,11 @@ public class WorldField {
     }
 
     // Возвращает середину между позицией и целью
-    public int getHalfRelativePosition(int position, int targetPosition) {
+    public int getMidPosition(int position, int targetPosition) {
 
         RowColumn relativeRowColumn = getRelativeRowColumn(position, targetPosition);
 
-        // Берем половину     (+6w+7 => +3w+3) округление в меньшую сторону
-        // Берем позицию
+        
         int row = relativeRowColumn.getRow() / 2;
         int col = relativeRowColumn.getCol() / 2;
         relativeRowColumn.setRow(row);

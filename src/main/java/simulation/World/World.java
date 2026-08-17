@@ -19,9 +19,10 @@ import simulation.Model.Entity.Three;
  *
  * @author tunyaa
  */
+// Настройки мира
 public class World {
 
-    private WorldField worldFeld; // Поле
+    private WorldGrid worldFeld; // Поле
     private List<Entity>[] entitys;
     private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
     private final int THREESATURATION = 1;
@@ -35,12 +36,12 @@ public class World {
     private Random random = new Random();
 
     public World() {
-        this.worldFeld = new WorldField();
+        this.worldFeld = new WorldGrid();
         this.predtors = new ArrayList<>();
         this.herbivores = new ArrayList<>();
     }
 
-    // Создать новое поле
+    // Создаёт список размером с количество клеток на поле
     public void createNewMap(int width, int height) {
         // !!!!!!!!!!СДЕЛАТЬ ПРОВЕРКУ на размер поля
         entitys = new List[width * height + 1];
@@ -189,7 +190,7 @@ public class World {
     }
 
     // Возвращает  поле
-    public WorldField getWorldField() {
+    public WorldGrid getWorldField() {
         return worldFeld;
     }
 

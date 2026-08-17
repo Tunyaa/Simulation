@@ -92,9 +92,9 @@ public class PredatorStraightPathMover implements Mover {
 
                 // 2.1: Поиск пути:
                 // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
-//                RowColumn halfRelativeRowColumn = getHalfRelativePosition(world, position, targetPosition);
+//                RowColumn halfRelativeRowColumn = getMidPosition(world, position, targetPosition);
 //            RowColumn rowColumnByPosition = world.getWorldField().getRowColumnByPosition(position);
-                targetPosition = world.getWorldField().getHalfRelativePosition(position, targetPosition);
+                targetPosition = world.getWorldField().getMidPosition(position, targetPosition);
 //                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldField().getWidth() * halfRelativeRowColumn.getRow());
 
                 // Записываем в промежуточный массив

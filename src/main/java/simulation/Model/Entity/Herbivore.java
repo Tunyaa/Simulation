@@ -11,7 +11,7 @@ import simulation.Model.Viewer.SquareViewer;
 import simulation.Model.Mover.StraightPathMover;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
-import simulation.World.WorldField;
+import simulation.World.WorldGrid;
 
 /**
  *

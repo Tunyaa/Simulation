@@ -1,7 +1,7 @@
 package simulation.Model.Viewer;
 
 import simulation.World.World;
-import simulation.World.WorldField;
+import simulation.World.WorldGrid;
 
 /**
  *

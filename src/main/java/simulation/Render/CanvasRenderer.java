@@ -15,7 +15,7 @@ import javafx.scene.text.Font;
 import simulation.Model.Entity.Entity;
 import simulation.World.RowColumn;
 import simulation.World.World;
-import simulation.World.WorldField;
+import simulation.World.WorldGrid;
 
 /**
  *
