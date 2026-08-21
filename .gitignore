@@ -1,2 +1,7 @@
 /nbproject/
 /target/
+Simulation/
+nb-configuration.xml
+nbactions.xml
+simulationDist/
+
