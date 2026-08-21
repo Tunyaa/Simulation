@@ -37,7 +37,8 @@ public class Simulation {
     private void turn(World world) {
         System.out.println("Ход - " + turnCounter++);
         if (turnCounter % 20 == 0) {
-            world.regenerteGrass();
+//            world.regenerteGrass();
+            world.reproduceEntity(Grass.class);
         }
 
         // Ход хищника 
@@ -52,7 +53,8 @@ public class Simulation {
             if (predtor.getHp() > 180) {
                 System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                 predtor.setHp(90);
-                world.regenertePredator();
+//                world.regenertePredator();
+                world.reproduceEntity(Predator.class);
             }
             predtor.viev(world);
             System.out.println(" Я " + predtor.getClass().getName() + " - " + predtor.getPosition() + " и у меня цель - " + predtor.getTargetPosition());
@@ -92,7 +94,8 @@ public class Simulation {
             System.out.println(herbivore.getHp() + " Herbi HP");
             if (herbivore.getHp() > 200) {
                 herbivore.setHp(100);
-                world.regenerteHerbivore();
+//                world.regenerteHerbivore();
+                world.reproduceEntity(Herbivore.class);
             }
 //            if (herbivore.getTargetPosition() == 0) {
 //                herbivore.viev(world);

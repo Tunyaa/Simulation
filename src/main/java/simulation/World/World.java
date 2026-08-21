@@ -76,7 +76,6 @@ public class World {
 
 //        buildPredatorsList();
 //        buildHerbivoresList();
-
         buildEntityList(Predator.class, predators);
         buildEntityList(Herbivore.class, herbivores);
     }
@@ -211,33 +210,45 @@ public class World {
 //            }
 //        }
 //    }
-    
-    
+    // Заполняет выбранный список из общего списка, сущностями выбранного типа
     private <T extends Entity> void buildEntityList(Class<T> entityType, List<T> targetList) {
-    for (List<Entity> entitiesList : entities) {
-        for (Entity entity : entitiesList) {
-            if (entityType.isInstance(entity)) {
-                targetList.add(entityType.cast(entity));
+        for (List<Entity> entitiesList : entities) {
+            for (Entity entity : entitiesList) {
+                if (entityType.isInstance(entity)) {
+                    targetList.add(entityType.cast(entity));
+                }
             }
         }
     }
-}
-    
 
-    public void regenerteGrass() {
-        spawnEntity(Grass.class, GRASSSATURATION);
-    }
+// TODO УДАЛИТЬ
+//    public void regenerteGrass() {
+//        spawnEntity(Grass.class, GRASSSATURATION);
+//    }
+//
+//    public void regenerteHerbivore() {
+//        spawnEntity(Herbivore.class, HERBIVORESATURATION);
+//
+//        buildEntityList(Herbivore.class, herbivores);
+//    }
+//
+//    public void regenertePredator() {
+//        spawnEntity(Predator.class, PREDATORSATURATION);
+//
+//        buildEntityList(Predator.class, predators);
+//    }
 
-    public void regenerteHerbivore() {
-        spawnEntity(Herbivore.class, HERBIVORESATURATION);
-
-        buildEntityList(Herbivore.class, herbivores);
-    }
-
-    public void regenertePredator() {
-        spawnEntity(Predator.class, PREDATORSATURATION);
-
-        buildEntityList(Predator.class, predators);
+    // Воспроизводство сущности TODO переделать count, под рандом 1-3. 
+//    Переделать количество воспроизведения в количество вызова метода в цикле
+    public <T extends Entity> void reproduceEntity(Class<T> entityType) {
+        int count = 2;
+        spawnEntity(entityType, count);
+        if (entityType == Herbivore.class) {
+            buildEntityList(Herbivore.class, herbivores);
+        }
+        if (entityType == Predator.class) {
+            buildEntityList(Predator.class, predators);
+        }
     }
 
     public List<Predator> getPredtors() {
