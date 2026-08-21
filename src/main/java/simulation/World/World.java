@@ -62,7 +62,7 @@ public class World {
         this.worldGrid.initField(width, height);
     }
 
-    // Заполняет карту сущностями
+    // Заполняет карту сущностями TODO
     public void spawnEntitiesOnWorldGrid() {
 
 //        spawnEntity(Stone.class, STONESATURATION);
@@ -78,7 +78,7 @@ public class World {
         buildHerbivoresList();
     }
 
-// Заполняет карту конкретной сущностью 
+// Заполняет карту конкретной сущностью TODO
     private void spawnEntity(Class entityClass, int saturation) {
         // Переменная хранит количество камня на карте
         int entityCount = 0;
@@ -100,7 +100,7 @@ public class World {
 
     }
 
-    // Создаёт сущность в позиции
+    // Создаёт сущность в позиции TODO
     private int generateEntityFragment(int position, int steps, Class entityClass) {
         int entityCount = 0;// Количество резмещенного камня
 //        int maxSubsequence = 0;//  Максимальное количество камня в линии
@@ -176,6 +176,7 @@ public class World {
         return entities;
     }
 
+    // TODO Удалить , если не используется
     public void setEntitys(List<Entity>[] entitys) {
         System.out.println("НЕ УДАЛЯЙ МЕНЯ!!!");
         this.entities = entitys;
