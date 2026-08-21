@@ -74,8 +74,11 @@ public class World {
 //        spawnEntity(Herbivore.class, HERBIVORESATURATION);
         spawnEntity(Herbivore.class, 5);
 
-        buildPredatorsList();
-        buildHerbivoresList();
+//        buildPredatorsList();
+//        buildHerbivoresList();
+
+        buildEntityList(Predator.class, predators);
+        buildEntityList(Herbivore.class, herbivores);
     }
 
 // Заполняет карту конкретной сущностью TODO
@@ -91,7 +94,7 @@ public class World {
             // Проверяет что позиция не крайняя
 //            if (isPositionNotBorder(position, this)) {
             // Генерирует фрагмент камня
-//            generateEntityFragment(position, 1, entityClass);
+//            generateEntityFragment(position, 1, Herbivore);
             entityCount += generateEntityFragment(position, 1, entityClass);
 //            saturation--;
 //            }
@@ -187,27 +190,39 @@ public class World {
         return worldGrid;
     }
 
-    // Формирует лист хищников из общего листа
-    private void buildPredatorsList() {
-        for (List<Entity> entity : entities) {
-            for (Entity entity1 : entity) {
-                if (entity1 instanceof Predator) {
-                    this.predators.add((Predator) entity1);
-                }
+//    // Формирует лист хищников из общего листа
+//    private void buildPredatorsList() {
+//        for (List<Entity> entity : entities) {
+//            for (Entity entity1 : entity) {
+//                if (entity1 instanceof Predator) {
+//                    this.predators.add((Predator) entity1);
+//                }
+//            }
+//        }
+//    }
+//
+//    // Формирует лист тровоядныйх из общего листа
+//    private void buildHerbivoresList() {
+//        for (List<Entity> entity : entities) {
+//            for (Entity entity1 : entity) {
+//                if (entity1 instanceof Herbivore) {
+//                    this.herbivores.add((Herbivore) entity1);
+//                }
+//            }
+//        }
+//    }
+    
+    
+    private <T extends Entity> void buildEntityList(Class<T> entityType, List<T> targetList) {
+    for (List<Entity> entitiesList : entities) {
+        for (Entity entity : entitiesList) {
+            if (entityType.isInstance(entity)) {
+                targetList.add(entityType.cast(entity));
             }
         }
     }
-
-    // Формирует лист тровоядныйх из общего листа
-    private void buildHerbivoresList() {
-        for (List<Entity> entity : entities) {
-            for (Entity entity1 : entity) {
-                if (entity1 instanceof Herbivore) {
-                    this.herbivores.add((Herbivore) entity1);
-                }
-            }
-        }
-    }
+}
+    
 
     public void regenerteGrass() {
         spawnEntity(Grass.class, GRASSSATURATION);
@@ -216,13 +231,13 @@ public class World {
     public void regenerteHerbivore() {
         spawnEntity(Herbivore.class, HERBIVORESATURATION);
 
-        buildHerbivoresList();
+        buildEntityList(Herbivore.class, herbivores);
     }
 
     public void regenertePredator() {
         spawnEntity(Predator.class, PREDATORSATURATION);
 
-        buildPredatorsList();
+        buildEntityList(Predator.class, predators);
     }
 
     public List<Predator> getPredtors() {
