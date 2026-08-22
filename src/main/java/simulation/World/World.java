@@ -52,8 +52,10 @@ public class World {
 
     // Создаёт список индексов и задаёт ширину и высоту сетки
     public void initWorld(int width, int height) {
-        initEntitys(width, height);
-        initWorldGrid(width, height);
+        if (worldGrid.getWorldLen() == 0) {
+            initEntitys(width, height);
+            initWorldGrid(width, height);
+        }
     }
 
     //  Создаёт список размером с количество клеток на поле
