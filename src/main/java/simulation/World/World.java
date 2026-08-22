@@ -1,12 +1,15 @@
 package simulation.World;
 
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
+import simulation.Config.ConfigProperties;
 import simulation.Model.Entity.Creature;
 import simulation.Model.Entity.Entity;
 import simulation.Model.Entity.Grass;
@@ -28,18 +31,23 @@ public class World {
     private List<Predator> predators;        // Лист хищников
     private List<Herbivore> herbivores;     // Лист Тровоядных
 
-    private final int STONESATURATION = 5;// Плотность камня на поле (количество клеток / cons)
-    private final int TREESATURATION = 1;
-    private final int GRASSSATURATION = 20;
-    private final int PREDATORSATURATION = 1;
-    private final int HERBIVORESATURATION = 1;
-
     private Random random = new Random();
 
-    public World() {
+    private final ConfigProperties configProperties;
+    // Значения для генерации при создании мира.
+    // stoneInitialCount;
+    // treeInitialCount;
+    // grassInitialCount;
+    // predatorInitialCount;
+    // herbivoreInitialCount;
+
+    public World(ConfigProperties configProperties) {
+
         this.worldGrid = new WorldGrid();
         this.predators = new ArrayList<>();
         this.herbivores = new ArrayList<>();
+        this.configProperties = configProperties;
+
     }
 
     // Создаёт список индексов и задаёт ширину и высоту сетки
@@ -65,14 +73,11 @@ public class World {
     // Заполняет карту сущностями TODO
     public void spawnEntitiesOnWorldGrid() {
 
-//        spawnEntity(Stone.class, STONESATURATION);
-//        spawnEntity(Grass.class, GRASSSATURATION);
-        spawnEntity(Grass.class, 2);
-        spawnEntity(Tree.class, TREESATURATION);
-        spawnEntity(Predator.class, 1);
-//        spawnEntity(Predator.class, PREDATORSATURATION);
-//        spawnEntity(Herbivore.class, HERBIVORESATURATION);
-        spawnEntity(Herbivore.class, 5);
+//        spawnEntity(Stone.class, stoneInitialCount);
+        spawnEntity(Grass.class, configProperties.getGrassInitialCount());
+        spawnEntity(Tree.class, configProperties.getTreeInitialCount());
+        spawnEntity(Predator.class, configProperties.getPredatorInitialCount());
+        spawnEntity(Herbivore.class, configProperties.getHerbivoreInitialCount());
 
 //        buildPredatorsList();
 //        buildHerbivoresList();
@@ -223,21 +228,20 @@ public class World {
 
 // TODO УДАЛИТЬ
 //    public void regenerteGrass() {
-//        spawnEntity(Grass.class, GRASSSATURATION);
+//        spawnEntity(Grass.class, grassInitialCount);
 //    }
 //
 //    public void regenerteHerbivore() {
-//        spawnEntity(Herbivore.class, HERBIVORESATURATION);
+//        spawnEntity(Herbivore.class, herbivoreInitialCount);
 //
 //        buildEntityList(Herbivore.class, herbivores);
 //    }
 //
 //    public void regenertePredator() {
-//        spawnEntity(Predator.class, PREDATORSATURATION);
+//        spawnEntity(Predator.class, predatorInitionCount);
 //
 //        buildEntityList(Predator.class, predators);
 //    }
-
     // Воспроизводство сущности TODO переделать count, под рандом 1-3. 
 //    Переделать количество воспроизведения в количество вызова метода в цикле
     public <T extends Entity> void reproduceEntity(Class<T> entityType) {

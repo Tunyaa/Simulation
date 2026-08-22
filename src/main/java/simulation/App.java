@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import simulation.Config.ConfigProperties;
 import simulation.Controller.PrimaryController;
 import simulation.Service.PrimaryService;
 import simulation.Simulation.Simulation;
@@ -24,8 +25,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Чтение проперти
+        ConfigProperties configProperties = new ConfigProperties();
+        
         // Создание постоянных объектов
-        World world = new World();
+        World world = new World(configProperties);
         Simulation simulation = new Simulation();
 
         // Загружаем FXML и получаем контроллер
