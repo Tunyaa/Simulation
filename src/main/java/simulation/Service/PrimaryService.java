@@ -24,21 +24,21 @@ public class PrimaryService {
         this.view = view;
     }
 
-    public void createWorldMap(TextField widthWorldMapField, TextField heightWorldMapField) {
-        int w = Integer.parseInt(widthWorldMapField.getText());
-        int h = Integer.parseInt(heightWorldMapField.getText());
-        // Проверка на минимальный параметр
-        w = w < 7 ? 7 : w;
-        h = h < 7 ? 7 : h;
-        if (world.getWorldGrid().getWorldLen() == 0) {
-            world.initWorld(w, h);
-            world.spawnEntitiesOnWorldGrid();
+    public void createWorldMap(int w, int h) {
+        if (w > 0 && h > 0) {
+            if (world.getWorldGrid().getWorldLen() == 0) {
+                world.initWorld(w, h);
+                world.spawnEntitiesOnWorldGrid();
+                view.setPngSize();
+                render();
+            }
         }
 
     }
 
+    // TODO Убрать
     public void render() {
-        view.setPngSize();
+        // TODO перенести
         view.render();
     }
 

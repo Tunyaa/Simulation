@@ -1,6 +1,7 @@
 package simulation.Controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -72,9 +73,9 @@ public class PrimaryController {
     }
 
     @FXML// Генерация поля. Заполнение сущностями.
-    private void createWorldMap() {
-        primaryService.createWorldMap(widthWorldMapField, heightWorldMapField);
-        primaryService.render();
+    private void createWorldMap() throws ParseException {
+        primaryService.createWorldMap(parseIntDeafault(widthWorldMapField.getText()), parseIntDeafault(heightWorldMapField.getText()));
+//        primaryService.render(); TODO УБРАТЬ
     }
 
     @FXML // Начало симуляции
@@ -126,4 +127,14 @@ public class PrimaryController {
         return canvas;
     }
 
+    // Проверка на преобразование в int и на минимальное значение
+    private int parseIntDeafault(String str) {
+        try {
+            int parseInt = Integer.parseInt(str);
+            parseInt = parseInt < 7 ? 7 : parseInt;
+            return parseInt;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }
