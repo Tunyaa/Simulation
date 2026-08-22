@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simulation.Controller.PrimaryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="840.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simulation.Controller.PrimaryController">
     <left>
         <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="80.0" prefWidth="120.0" spacing="10.0" style="-fx-background-color: white;">
             <children>
@@ -60,7 +60,7 @@
         </VBox>
     </left>
    <center>
-      <Canvas fx:id="canvas" height="600.0" style="-fx-background-color: red;" width="800.0" BorderPane.alignment="TOP_LEFT">
+      <Canvas fx:id="canvas" height="560.0" style="-fx-background-color: red;" width="700.0" BorderPane.alignment="TOP_LEFT">
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin></Canvas>

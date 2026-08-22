@@ -26,11 +26,21 @@ public class CanvasRenderer implements Renderer {
     final World world;
     final Canvas canvas;
 
-    int pngSizeInPix = 20; // Размер картинки СДЕЛАТЬ ПЛАВАЮЩЕЕ ЗНАЧЕНИЕ TODO
+    int pngSizeInPix; // Размер картинки PNG
 
     public CanvasRenderer(World world, Canvas canvas) {
         this.world = world;
         this.canvas = canvas;
+
+    }
+
+    // Изменение размера png в зависимости от размера сетки
+    public void setPngSize() {
+        int sizeH = (int) (canvas.getHeight() / world.getWorldGrid().getHeight());
+        int sizeW = (int) (canvas.getHeight() / world.getWorldGrid().getWidth());
+
+        pngSizeInPix = sizeH < sizeW ? sizeH - 1 : sizeW - 1;
+
     }
 
     @Override
@@ -40,6 +50,7 @@ public class CanvasRenderer implements Renderer {
 
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+        // Цвет фона сетки
         gc.setFill(Color.BISQUE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
