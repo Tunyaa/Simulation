@@ -52,7 +52,8 @@ public class CanvasRenderer implements Renderer {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // Цвет фона сетки
-        gc.setFill(Color.BISQUE);
+        gc.setFill(Color.CADETBLUE);
+//        gc.setFill(Color.BISQUE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         List<Entity>[] entitys = world.getEntitys();

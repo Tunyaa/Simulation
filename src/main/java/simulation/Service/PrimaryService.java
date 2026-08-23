@@ -54,7 +54,9 @@ public class PrimaryService {
     }
 
     public void clearWorldMap() {
+        stopSimulation();
         world.clearWorld();
+        render();
     }
 
     // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН/ Включается симуляция с пустым миром
@@ -108,9 +110,9 @@ public class PrimaryService {
     public void stopSimulation() {
         if (isRunning()) {
             setRunning(false);
-        turnTimeline.stop();
+            turnTimeline.stop();
         }
-        
+
     }
 
 }

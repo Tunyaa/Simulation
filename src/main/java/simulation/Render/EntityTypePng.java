@@ -8,7 +8,7 @@ public enum EntityTypePng {
     PREDATOR("/static/img/wolf.png"),
     HERBIVORE("/static/img/rabbit.png"),
     GRASS("/static/img/grass.png"),
-    THREE("/static/img/three.png"),
+    THREE("/static/img/tree.png"),
     STONE("/static/img/stone.png");
 
     private String displayName;

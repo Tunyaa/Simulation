@@ -36,7 +36,6 @@ public class PrimaryController {
 
 //    // Цикл симуляции
 //    private Timeline turnTimeline;
-
     @FXML// Ширина создаваемого поля
     private TextField widthWorldMapField;
 
@@ -50,7 +49,6 @@ public class PrimaryController {
 
 //    // Флаг. Цикл запущен или нет
 //    private boolean running;
-
     @FXML// Прослушивание слайдера. Изменение скорости симуляции.
     public void initialize() {
         System.out.println("CANVAS Controller init - " + canvas);
@@ -75,8 +73,8 @@ public class PrimaryController {
 
     @FXML // Начало симуляции
     private void startSimulation() {
-        primaryService.startSimulation(speedSimulationSlider); 
-        
+        primaryService.startSimulation(speedSimulationSlider);
+
     }
 
     @FXML  // Останавливает симуляцию
@@ -86,9 +84,7 @@ public class PrimaryController {
 
     @FXML // Очищает карту мира
     private void clearWorldMap() {
-        primaryService.stopSimulation();// TODO
         primaryService.clearWorldMap();
-        primaryService.render();
     }
 
     public void setPrimaryService(PrimaryService primaryService) {
@@ -113,7 +109,6 @@ public class PrimaryController {
 //        turnTimeline.play();
 //
 //    }
-
     // Передаёт Canvas в метод start() класса App для создания рендерера
     public Canvas getCanvas() {
         return canvas;
