@@ -73,9 +73,8 @@ public class PrimaryController {
     }
 
     @FXML// Генерация поля. Заполнение сущностями.
-    private void createWorldMap() throws ParseException {
-        primaryService.createWorldMap(parseIntDeafault(widthWorldMapField.getText()), parseIntDeafault(heightWorldMapField.getText()));
-//        primaryService.render(); TODO УБРАТЬ
+    private void createWorldMap() {
+        primaryService.createWorldMap(parseIntCheckOrDeafault(widthWorldMapField.getText()), parseIntCheckOrDeafault(heightWorldMapField.getText()));
     }
 
     @FXML // Начало симуляции
@@ -128,9 +127,10 @@ public class PrimaryController {
     }
 
     // Проверка на преобразование в int и на минимальное значение
-    private int parseIntDeafault(String str) {
+    private int parseIntCheckOrDeafault(String str) {
         try {
             int parseInt = Integer.parseInt(str);
+            // Минимальное значение для создания поля 7
             parseInt = parseInt < 7 ? 7 : parseInt;
             return parseInt;
         } catch (Exception e) {
