@@ -71,11 +71,11 @@ public class World {
         this.worldGrid.initField(width, height);
     }
 
-    // Заполняет карту сущностями TODO
+    // Заполняет карту сущностями 
     public void spawnEntitiesOnWorldGrid() {
 
-        // Значение берется из конфига
-//        spawnEntity(Stone.class, stoneInitialCount);
+        // Размещает сущности на сетке, количество берется из конфига
+        spawnEntityOnGrid(Stone.class, configProperties.getGrassInitialCount());
         spawnEntityOnGrid(Grass.class, configProperties.getGrassInitialCount());
         spawnEntityOnGrid(Tree.class, configProperties.getTreeInitialCount());
         spawnEntityOnGrid(Predator.class, configProperties.getPredatorInitialCount());
@@ -85,7 +85,7 @@ public class World {
         buildEntityList(Herbivore.class, herbivores);
     }
 
-// Заполняет карту конкретной сущностью TODO
+// Заполняет карту конкретной сущностью TODO Сделать генерацтю каменного фрагмента
     private void spawnEntity(Class entityClass, int saturation) {
         // Переменная хранит количество камня на карте
         int entityCount = 0;
@@ -194,27 +194,6 @@ public class World {
         return worldGrid;
     }
 
-//    // Формирует лист хищников из общего листа
-//    private void buildPredatorsList() {
-//        for (List<Entity> entity : entities) {
-//            for (Entity entity1 : entity) {
-//                if (entity1 instanceof Predator) {
-//                    this.predators.add((Predator) entity1);
-//                }
-//            }
-//        }
-//    }
-//
-//    // Формирует лист тровоядныйх из общего листа
-//    private void buildHerbivoresList() {
-//        for (List<Entity> entity : entities) {
-//            for (Entity entity1 : entity) {
-//                if (entity1 instanceof Herbivore) {
-//                    this.herbivores.add((Herbivore) entity1);
-//                }
-//            }
-//        }
-//    }
     // Заполняет выбранный список из общего списка, сущностями выбранного типа
     private <T extends Entity> void buildEntityList(Class<T> entityType, List<T> targetList) {
         for (List<Entity> entitiesList : entities) {
@@ -226,22 +205,6 @@ public class World {
         }
     }
 
-// TODO УДАЛИТЬ
-//    public void regenerteGrass() {
-//        spawnEntity(Grass.class, grassInitialCount);
-//    }
-//
-//    public void regenerteHerbivore() {
-//        spawnEntity(Herbivore.class, herbivoreInitialCount);
-//
-//        buildEntityList(Herbivore.class, herbivores);
-//    }
-//
-//    public void regenertePredator() {
-//        spawnEntity(Predator.class, predatorInitionCount);
-//
-//        buildEntityList(Predator.class, predators);
-//    }
     // Воспроизводство сущности TODO переделать count, под рандом 1-3. 
 //    Переделать количество воспроизведения в количество вызова метода в цикле
     public <T extends Entity> void reproduceEntity(Class<T> entityType) {

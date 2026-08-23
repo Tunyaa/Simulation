@@ -43,6 +43,7 @@ public class CanvasRenderer implements Renderer {
 
     }
 
+    // TODO сделать загрузку картинок 1 раз в старте
     @Override
     public void render() {
 
@@ -58,8 +59,9 @@ public class CanvasRenderer implements Renderer {
         for (int i = 1; i < entitys.length; i++) {
             if (!entitys[i].isEmpty()) {
                 RowColumn rC = world.getWorldGrid().getRowColumnByPosition(i);
-                // получаем картинку
+                // Загружает картинку
                 Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
+                
                 gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
             }
         }
