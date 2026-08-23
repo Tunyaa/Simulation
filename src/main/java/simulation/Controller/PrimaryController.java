@@ -61,11 +61,7 @@ public class PrimaryController {
                     Number oldValue, Number newValue) {
                 pause.setOnFinished(e -> {
                     // Если симуляция запущена, она перезапускается после паузы с новым аргументом задержки
-                    if (primaryService.isRunning() == true) {// TODO
-//                        turnTimeline.stop();
-                        primaryService.setRunning(false);// TODO
-                        startSimulation();
-                    }
+                    primaryService.restartSimulation(speedSimulationSlider);
                 });
                 pause.playFromStart();
             }
@@ -79,19 +75,18 @@ public class PrimaryController {
 
     @FXML // Начало симуляции
     private void startSimulation() {
-        // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН
         primaryService.startSimulation(speedSimulationSlider); 
         
     }
 
     @FXML  // Останавливает симуляцию
     private void stopSimulation() {
-        primaryService.setRunning(false);// TODO
+        primaryService.stopSimulation();
     }
 
     @FXML // Очищает карту мира
     private void clearWorldMap() {
-        stopSimulation();
+        primaryService.stopSimulation();// TODO
         primaryService.clearWorldMap();
         primaryService.render();
     }

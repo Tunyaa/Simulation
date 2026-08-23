@@ -20,7 +20,7 @@ public class PrimaryService {
 
     private World world;
     private Simulation simulation;
-    private CanvasRenderer view;// TODO
+    private CanvasRenderer render;// TODO
 
     // Цикл симуляции
     private Timeline turnTimeline;
@@ -28,10 +28,10 @@ public class PrimaryService {
     // Флаг. Цикл запущен или нет
     private boolean running;
 
-    public PrimaryService(World world, Simulation simulation, CanvasRenderer view) {
+    public PrimaryService(World world, Simulation simulation, CanvasRenderer render) {
         this.world = world;
         this.simulation = simulation;
-        this.view = view;
+        this.render = render;
     }
 
     // Cоздание мира
@@ -40,7 +40,7 @@ public class PrimaryService {
             if (world.getWorldGrid().getWorldLen() == 0) {
                 world.initWorld(w, h);//Инициализация сетки и списка существ. Спавн существ на сетку
                 world.spawnEntitiesOnWorldGrid();
-                view.setPngSize();// Настройка размера png
+                render.setPngSize();// Настройка размера png
                 render();// Отображение сетки
             }
         }
@@ -50,35 +50,35 @@ public class PrimaryService {
     // TODO Убрать
     public void render() {
         // TODO перенести
-        view.render();
+        render.render();
     }
 
     public void clearWorldMap() {
         world.clearWorld();
     }
 
+    // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН/ Включается симуляция с пустым миром
     public void startSimulation(Slider speedSimulationSlider) {
-        if (running == false) {// TODO Перенести sim  в сервис> simul
+        if (running == false) {// TODO Перенести runTimelineCycle  в сервис> simul
             running = true;
-            sim(speedSimulationSlider);
+            runTimelineCycle(speedSimulationSlider);
         }
 
     }
 
-    public void simulation() {
-        simulation.startSimulation(world);
+    public void runSimulationCycle() {
+        simulation.runCycle(world);
     }
 
     // Запускает цикл симуляции.
-    public void sim(Slider speedSimulationSlider) {
+    private void runTimelineCycle(Slider speedSimulationSlider) {
 
         turnTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(speedSimulationSlider.getValue()), event -> {
-                    if (running == false) {
-                        turnTimeline.stop();
-                    }
-
-                    simulation();// TODO rename
+//                    if (running == false) {
+//                        turnTimeline.stop();
+//                    }
+                    runSimulationCycle();
                     render();
                 })
         );
@@ -88,12 +88,29 @@ public class PrimaryService {
 
     }
 
+    public void restartSimulation(Slider speedSimulationSlider) {
+        if (isRunning()) {// TODO
+            turnTimeline.stop();
+//            stopSimulation(); УДАЛИТЬ
+//            startSimulation(speedSimulationSlider);
+            runTimelineCycle(speedSimulationSlider);
+        }
+    }
+
     public boolean isRunning() {
         return running;
     }
 
     public void setRunning(boolean running) {
         this.running = running;
+    }
+
+    public void stopSimulation() {
+        if (isRunning()) {
+            setRunning(false);
+        turnTimeline.stop();
+        }
+        
     }
 
 }
