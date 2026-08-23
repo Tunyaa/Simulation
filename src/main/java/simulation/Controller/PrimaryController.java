@@ -34,8 +34,8 @@ public class PrimaryController {
     @FXML// Сцена
     private Canvas canvas;
 
-    // Цикл симуляции
-    private Timeline turnTimeline;
+//    // Цикл симуляции
+//    private Timeline turnTimeline;
 
     @FXML// Ширина создаваемого поля
     private TextField widthWorldMapField;
@@ -48,8 +48,8 @@ public class PrimaryController {
     // Задержка перед тем как значение со слайдера будет принято
     private PauseTransition pause = new PauseTransition(Duration.millis(300));
 
-    // Флаг. Цикл запущен или нет
-    private boolean running;
+//    // Флаг. Цикл запущен или нет
+//    private boolean running;
 
     @FXML// Прослушивание слайдера. Изменение скорости симуляции.
     public void initialize() {
@@ -61,9 +61,9 @@ public class PrimaryController {
                     Number oldValue, Number newValue) {
                 pause.setOnFinished(e -> {
                     // Если симуляция запущена, она перезапускается после паузы с новым аргументом задержки
-                    if (running == true) {
-                        turnTimeline.stop();
-                        running = false;
+                    if (primaryService.isRunning() == true) {// TODO
+//                        turnTimeline.stop();
+                        primaryService.setRunning(false);// TODO
                         startSimulation();
                     }
                 });
@@ -80,15 +80,13 @@ public class PrimaryController {
     @FXML // Начало симуляции
     private void startSimulation() {
         // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН
-        if (running == false) {// TODO Перенести sim  в сервис> simul
-            running = true;
-            sim();
-        }
+        primaryService.startSimulation(speedSimulationSlider); 
+        
     }
 
     @FXML  // Останавливает симуляцию
     private void stopSimulation() {
-        running = false;
+        primaryService.setRunning(false);// TODO
     }
 
     @FXML // Очищает карту мира
@@ -102,24 +100,24 @@ public class PrimaryController {
         this.primaryService = primaryService;
     }
 
-    // Запускает цикл симуляции.
-    public void sim() {
-
-        turnTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(speedSimulationSlider.getValue()), event -> {
-                    if (running == false) {
-                        turnTimeline.stop();
-                    }
-
-                    primaryService.startSimulation();
-                    primaryService.render();
-                })
-        );
-
-        turnTimeline.setCycleCount(Timeline.INDEFINITE);
-        turnTimeline.play();
-
-    }
+//    // Запускает цикл симуляции.
+//    public void sim() {
+//
+//        turnTimeline = new Timeline(
+//                new KeyFrame(Duration.seconds(speedSimulationSlider.getValue()), event -> {
+//                    if (running == false) {
+//                        turnTimeline.stop();
+//                    }
+//
+//                    primaryService.startSimulation();
+//                    primaryService.render();
+//                })
+//        );
+//
+//        turnTimeline.setCycleCount(Timeline.INDEFINITE);
+//        turnTimeline.play();
+//
+//    }
 
     // Передаёт Canvas в метод start() класса App для создания рендерера
     public Canvas getCanvas() {
