@@ -76,13 +76,11 @@ public class World {
 
         // Значение берется из конфига
 //        spawnEntity(Stone.class, stoneInitialCount);
-        spawnEntity(Grass.class, configProperties.getGrassInitialCount());
-        spawnEntity(Tree.class, configProperties.getTreeInitialCount());
-        spawnEntity(Predator.class, configProperties.getPredatorInitialCount());
-        spawnEntity(Herbivore.class, configProperties.getHerbivoreInitialCount());
+        spawnEntityOnGrid(Grass.class, configProperties.getGrassInitialCount());
+        spawnEntityOnGrid(Tree.class, configProperties.getTreeInitialCount());
+        spawnEntityOnGrid(Predator.class, configProperties.getPredatorInitialCount());
+        spawnEntityOnGrid(Herbivore.class, configProperties.getHerbivoreInitialCount());
 
-//        buildPredatorsList();
-//        buildHerbivoresList();
         buildEntityList(Predator.class, predators);
         buildEntityList(Herbivore.class, herbivores);
     }
@@ -264,50 +262,19 @@ public class World {
     public List<Herbivore> getHerbivores() {
         return herbivores;
     }
-    
-    // Заполняет карту конкретной сущностью TODO
-    private void newspawnEntity(Class entityClass, int saturation) {
-        // Переменная хранит количество камня на карте
-        int entityCount = 0;
-        // Проверяет что (количество камня < len/cons)
-        int len = getWorldGrid().getWorldLen();
-        while (entityCount < saturation) {
-//        while (saturation > 0) {
-            // Получает рандомную позицию
-            int position = random.nextInt(len);
-            // Проверяет что позиция не крайняя
-//            if (isPositionNotBorder(position, this)) {
-            // Генерирует фрагмент камня
-//            generateEntityFragment(position, 1, Herbivore);
-            entityCount += generateEntityFragment(position, 1, entityClass);
-//            saturation--;
-//            }
 
-        }
-
-    }
-
-    // Создаёт сущность в позиции TODO
-    private int newgenerateEntityFragment(int position, int steps, Class entityClass) {
-        int entityCount = 0;// Количество резмещенного камня
-//        int maxSubsequence = 0;//  Максимальное количество камня в линии
-        int direction = random.nextInt(4);// направление 0-вверх, 1-вниз, 2-влево, 3-вправо
-        int width = getWorldGrid().getWidth();
-        // массив направлений вверх, вниз, влево, вправо
-        int[] ary = new int[]{-width, width, -1, 1};
-        steps = 1;// Количество камней в линии
-//        steps = random.nextInt(steps);// Количество камней в линии
-        for (int i = 0; i < steps; i++) {
-
+    // Заполняет карту конкретной сущностью 
+    private void spawnEntityOnGrid(Class entityClass, int count) {
+        int spawnedCount = 0;
+        while (spawnedCount < count) {
+            int position = random.nextInt(getWorldGrid().getWorldLen());
             if (entities[position].isEmpty()) {
                 Entity entity = createEntity(entityClass);
                 entity.setPosition(position);
                 entities[position].add(entity);
-                entityCount++;
+                spawnedCount++;
             }
         }
-
-        return entityCount;
     }
 
 }
