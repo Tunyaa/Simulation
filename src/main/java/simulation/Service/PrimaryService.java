@@ -24,13 +24,17 @@ public class PrimaryService {
         this.view = view;
     }
 
+    
+    
+    
+    // Cоздание мира
     public void createWorldMap(int w, int h) {
-        if (w > 0 && h > 0) {
+        if (w > 0 && h > 0) {// Проверка на чистоту сетки
             if (world.getWorldGrid().getWorldLen() == 0) {
-                world.initWorld(w, h);
+                world.initWorld(w, h);//Инициализация сетки и списка существ. Спавн существ на сетку
                 world.spawnEntitiesOnWorldGrid();
-                view.setPngSize();
-                render();
+                view.setPngSize();// Настройка размера png
+                render();// Отображение сетки
             }
         }
 

@@ -80,7 +80,7 @@ public class PrimaryController {
     @FXML // Начало симуляции
     private void startSimulation() {
         // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН
-        if (running == false) {
+        if (running == false) {// TODO Перенести sim  в сервис> simul
             running = true;
             sim();
         }
