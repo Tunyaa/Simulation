@@ -3,10 +3,10 @@ package simulation.Model.Entity;
 import java.util.List;
 import java.util.Map;
 import simulation.Model.Action.Action;
-import simulation.Model.Action.HerbivoreAction;
-import simulation.Model.Eatable;
+import simulation.Model.Attack.Attackable;
+import simulation.Model.Eat.Eatable;
 import simulation.Model.Mover.Mover;
-import simulation.Model.Mover.PredatorStraightPathMover;
+import simulation.Model.Mover.PredatorStraightPathFinder;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.Model.Mover.StraightPathMover;
 import simulation.Render.EntityTypePng;
@@ -17,16 +17,15 @@ import simulation.World.WorldGrid;
  *
  * @author tunyaa
  */
-public class Herbivore extends Creature implements Eatable {
+public class Herbivore extends Creature implements Eatable, Attackable {
 
     private List<Integer> Path;
     private int targetPosition;
 
     // Тестовое зрение
     private SquareViewer squareViewer;
-    private final Mover mover = new PredatorStraightPathMover();
+    private final Mover mover = new PredatorStraightPathFinder();
 //    private final Mover mover = new StraightPathMover();
-    private final Action action;
 
     public Herbivore() {
         setEntityTypePng(EntityTypePng.HERBIVORE);
@@ -35,17 +34,16 @@ public class Herbivore extends Creature implements Eatable {
         setRangeOfView(4);
         setSpeed(2);
         this.squareViewer = new SquareViewer(this, Grass.class);
-        this.action = new HerbivoreAction();
 
     }
 
 //    @Override
     public void move(World world) {
-        mover.move(world, this);
+        mover.pathFinderToTarget(world, this);
     }
 
     public void randomMove(World world) {
-        mover.randomMove(world, this);
+        mover.randomPathFinder(world, this);
     }
 
     @Override
@@ -55,6 +53,15 @@ public class Herbivore extends Creature implements Eatable {
         }
     }
 
+    @Override
+    public void takeDamage(int damage) {
+        hp -= damage;
+        if (hp <= 0) {
+//            die(); // удалить из мира
+        }
+    }
+
+    @Override
     public void action(World world) {
 
         //      Есть путь?               --->                Передвижение

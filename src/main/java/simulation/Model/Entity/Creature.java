@@ -5,7 +5,7 @@ import simulation.Model.Entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import simulation.Model.Action.Action;
-import simulation.Model.Eater;
+import simulation.Model.Eat.Eater;
 import simulation.Model.Mover.Mover;
 
 /**
@@ -15,7 +15,7 @@ import simulation.Model.Mover.Mover;
 public abstract class Creature extends Entity implements
         //        Reproduser,
         //        Existance,
-        //        Action,
+        Action,
         //        Viewer,
         Eater {
 
@@ -24,10 +24,10 @@ public abstract class Creature extends Entity implements
     protected int speed;
     protected int inititive;
     protected int targetPosition;
+    protected int attackDamage;
 
     // Массив (Путь из индексов)
     protected ArrayDeque<Integer> path = new ArrayDeque<>();
-//    protected ArrayList<Integer> path = new ArrayList<>();
 
     public boolean isTarget(int targetPosition) {
         return this.targetPosition == targetPosition;
@@ -79,6 +79,18 @@ public abstract class Creature extends Entity implements
 
     public void setPath(ArrayDeque<Integer> path) {
         this.path = path;
+    }
+
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public void setAttackDamage(int attackDamage) {
+        this.attackDamage = attackDamage;
+    }
+
+    public boolean isAlive() {
+        return hp > 0;
     }
 
 }

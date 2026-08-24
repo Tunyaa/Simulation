@@ -12,18 +12,18 @@ import simulation.World.World;
  *
  * @author tunyaa
  */
-public class PredatorStraightPathMover implements Mover {
+public class PredatorStraightPathFinder implements Mover {
 
     // Массив (возможные точки) промежуточный массив
     ArrayList<Integer> tempIndixes = new ArrayList<>();
 
     @Override
-    public void move(World world, Creature creature) {
+    public void pathFinderToTarget(World world, Creature creature) {
         pathFinder(world, creature);
     }
 
     @Override
-    public void randomMove(World world, Creature creature) {
+    public void randomPathFinder(World world, Creature creature) {
 
         creature.getPath().clear();
 //        System.out.println("RAndom MOVE");

@@ -1,4 +1,4 @@
-package simulation.Model;
+package simulation.Model.Attack;
 
 /**
  *
@@ -6,4 +6,5 @@ package simulation.Model;
  */
 public interface Attackable {
     
+    void takeDamage(int damage);
 }

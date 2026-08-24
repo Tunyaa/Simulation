@@ -9,5 +9,5 @@ import simulation.World.World;
  */
 public interface Action {
 
-    void action(World world, Creature creature);
+    void action(World world);
 }

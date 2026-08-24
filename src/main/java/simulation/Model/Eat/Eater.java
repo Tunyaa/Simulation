@@ -1,4 +1,6 @@
-package simulation.Model;
+package simulation.Model.Eat;
+
+import simulation.Model.Eat.Eatable;
 
 /**
  *

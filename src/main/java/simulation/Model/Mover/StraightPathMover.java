@@ -21,7 +21,7 @@ public class StraightPathMover implements Mover {
     ArrayList<Integer> tempIndixes = new ArrayList<>();
 
     @Override
-    public void randomMove(World world, Creature creature) {
+    public void randomPathFinder(World world, Creature creature) {
 
         creature.getPath().clear();
         System.out.println("Move Else");
@@ -79,7 +79,7 @@ public class StraightPathMover implements Mover {
     }
 
     @Override
-    public void move(World world, Creature creature) {
+    public void pathFinderToTarget(World world, Creature creature) {
         System.out.println("Metod start");
         System.out.println("Проверка пути");
         for (Integer integer : creature.getPath()) {
