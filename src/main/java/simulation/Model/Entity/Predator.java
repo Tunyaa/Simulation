@@ -1,5 +1,6 @@
 package simulation.Model.Entity;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import simulation.Model.Attack.Attackable;
@@ -21,7 +22,7 @@ public class Predator extends Creature implements Attacker {
     private SquareViewer squareViewer;
 
     private final Mover mover;
-//    private final Attacker attacker;
+    private int atkDmg;
 
     public Predator() {
         setEntityTypePng(EntityTypePng.PREDATOR);
@@ -31,8 +32,6 @@ public class Predator extends Creature implements Attacker {
         setSpeed(2);
         this.squareViewer = new SquareViewer(this, Herbivore.class);
         this.mover = new PredatorStraightPathFinder();
-//        this.attacker = 
-//        this.action = new HerbivoreAction();
     }
 
     @Override
@@ -40,7 +39,9 @@ public class Predator extends Creature implements Attacker {
 // Ход хищника 
 // Если умер, то удалить
         if (!isAlive()) {
-            world.removeEntity(this);
+//            world.removeEntity(this);
+            die(world);
+            return;
         }
 
         // размножение Сделать метод размножение 1-2 в этой же точке.
@@ -55,14 +56,22 @@ public class Predator extends Creature implements Attacker {
 
         // Если нет цели
         if (getTargetPosition() == 0) {
+            System.out.println("randomPathFinder");
             // RandomMove
             hp -= 1;
             mover.randomPathFinder(world, this);
         } else {// если есть
-
-            hp -= 7;
+            System.out.println("pathFinderToTarget");
+            hp -= 1;
             mover.pathFinderToTarget(world, this);
         }
+
+        // // // // // 
+        ArrayDeque<Integer> path1 = getPath();
+        for (Integer integer : path1) {
+            System.out.println("путь - " + integer);
+        }
+        // // // // // 
 
         // передвигаюсь
         world.moveEntityToPosition(this, getPath().getFirst());
@@ -77,9 +86,10 @@ public class Predator extends Creature implements Attacker {
                     attack((Attackable) entity);
                     // Если убил , то съедаю 
                     if (!((Herbivore) entity).isAlive()) {
-                        eat((Eatable) entity);
+                        eat();
                         // удаляю с карты
-                        world.removeEntity(entity);
+                        ((Herbivore) entity).die(world);
+//                        world.removeEntity(entity);
 
                         setTargetPosition(0);
 
@@ -87,18 +97,22 @@ public class Predator extends Creature implements Attacker {
 
                     break;
                 }
+                targetPosition = 0;
             }
         }
     }
 
     @Override
-    public void eat(Eatable el) {
-        hp += 20;
+    public void eat() {
+        System.out.println("eat ЕМ");
+        hp += 40;
     }
 
     @Override
     public void attack(Attackable attackable) {
-        attackable.takeDamage(10);
+        int nextInt = random.nextInt(hp);
+        System.out.println("Бью на - " + nextInt);
+        attackable.takeDamage(nextInt);
     }
 
     public void viev(World world) {

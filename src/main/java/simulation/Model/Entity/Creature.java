@@ -4,20 +4,24 @@ import java.util.ArrayDeque;
 import simulation.Model.Entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import simulation.Model.Action.Action;
+import simulation.Model.Eat.Eatable;
 import simulation.Model.Eat.Eater;
 import simulation.Model.Mover.Mover;
+import simulation.World.World;
 
 /**
  *
  * @author tunyaa
  */
-public abstract class Creature extends Entity implements
-        //        Reproduser,
-        //        Existance,
-        Action,
-        //        Viewer,
-        Eater {
+public abstract class Creature extends Entity // implements
+//        Reproduser,
+//        Existance,
+//        Action,
+//        Viewer,
+// Eater 
+{
 
     protected int rangeOfView;
     protected int hp;
@@ -26,8 +30,19 @@ public abstract class Creature extends Entity implements
     protected int targetPosition;
     protected int attackDamage;
 
+    protected Random random = new Random();
+
     // Массив (Путь из индексов)
     protected ArrayDeque<Integer> path = new ArrayDeque<>();
+
+    abstract public void action(World world);
+
+    public void die(World world) {
+        System.out.println("die Я умер");
+        world.removeEntity(this);
+    }
+
+    abstract public void eat();
 
     public boolean isTarget(int targetPosition) {
         return this.targetPosition == targetPosition;
@@ -90,6 +105,7 @@ public abstract class Creature extends Entity implements
     }
 
     public boolean isAlive() {
+        System.out.println("isAlive Моё hp = " + hp);
         return hp > 0;
     }
 

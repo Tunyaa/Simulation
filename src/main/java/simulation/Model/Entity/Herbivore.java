@@ -47,22 +47,27 @@ public class Herbivore extends Creature implements Eatable, Attackable {
     }
 
     @Override
-    public void eat(Eatable el) {
-        if (el instanceof Grass) {
-            this.hp += 50;
-        }
+    public void eat() {
+
+        this.hp += 50;
+
     }
 
     @Override
     public void takeDamage(int damage) {
+        System.out.println("Меня задамажили на - " + damage);
         hp -= damage;
-        if (hp <= 0) {
-//            die(); // удалить из мира
-        }
+        System.out.println("моё HP - " + hp);
     }
 
     @Override
     public void action(World world) {
+        if (!isAlive()) {
+//            world.removeEntity(this);
+            die(world);
+            return;
+        }
+
         if (getHp() > 200) {
             setHp(100);
 //                world.regenerteHerbivore();
@@ -73,8 +78,10 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 //            }
         viev(world);// 
         if (getTargetPosition() == 0) {
+            hp -= 1;
             randomMove(world);
         } else {
+            hp -= 1;
             move(world);
         }
 
@@ -87,13 +94,13 @@ public class Herbivore extends Creature implements Eatable, Attackable {
             List<Entity> entity = entitys[position];
             for (Entity entity1 : entity) {
                 if (entity1 instanceof Grass) {
-                    eat((Eatable) entity1);
+                    eat();
                     world.removeEntity(entity1);
                     setTargetPosition(0);
                     break;
                 }
             }
-
+            targetPosition = 0;
         }
 
     }

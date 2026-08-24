@@ -39,7 +39,7 @@ public class CanvasRenderer implements Renderer {
         int sizeH = (int) (canvas.getHeight() / world.getWorldGrid().getHeight());
         int sizeW = (int) (canvas.getHeight() / world.getWorldGrid().getWidth());
 
-        pngSizeInPix = sizeH < sizeW ? sizeH - 1 : sizeW - 1;
+        pngSizeInPix = sizeH < sizeW ? sizeH : sizeW;
 
     }
 
@@ -62,7 +62,7 @@ public class CanvasRenderer implements Renderer {
                 RowColumn rC = world.getWorldGrid().getRowColumnByPosition(i);
                 // Загружает картинку
                 Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
-                
+
                 gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
             }
         }

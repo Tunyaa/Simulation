@@ -68,7 +68,7 @@ public class PrimaryService {
 
     }
 
-    private  void runSimulationCycle() {
+    private void runSimulationCycle() {
         simulation.runCycle(world);
     }
 
@@ -77,9 +77,10 @@ public class PrimaryService {
 
         turnTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(speedSimulationSlider.getValue()), event -> {
-//                    if (running == false) {
-//                        turnTimeline.stop();
-//                    }
+                    // Цикл завершается, если все сущности погибли
+                    if (world.getHerbivores().size() + world.getPredators().size() == 0) {
+                        turnTimeline.stop();
+                    }
                     runSimulationCycle();
                     render();
                 })

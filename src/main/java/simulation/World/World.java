@@ -208,8 +208,8 @@ public class World {
     // Воспроизводство сущности TODO переделать count, под рандом 1-3. 
 //    Переделать количество воспроизведения в количество вызова метода в цикле
     public <T extends Entity> void reproduceEntity(Class<T> entityType) {
-        int count = 2;
-        spawnEntity(entityType, count);
+        int count = random.nextInt(3);// TODO
+        spawnEntityOnGrid(entityType, count);
         if (entityType == Herbivore.class) {
             buildEntityList(Herbivore.class, herbivores);
         }
@@ -218,7 +218,7 @@ public class World {
         }
     }
 
-    public List<Predator> getPredtors() {
+    public List<Predator> getPredators() {
         return predators;
     }
 
