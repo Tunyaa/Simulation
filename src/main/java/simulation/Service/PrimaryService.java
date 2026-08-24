@@ -20,9 +20,9 @@ public class PrimaryService {
 
     private World world;
     private Simulation simulation;
-    private CanvasRenderer render;// TODO
+    private CanvasRenderer render;
 
-    // Цикл симуляции
+    // Цикл анимации
     private Timeline turnTimeline;
 
     // Флаг. Цикл запущен или нет
@@ -68,11 +68,11 @@ public class PrimaryService {
 
     }
 
-    public void runSimulationCycle() {
+    private  void runSimulationCycle() {
         simulation.runCycle(world);
     }
 
-    // Запускает цикл симуляции.
+    // Запускает анимацию
     private void runTimelineCycle(Slider speedSimulationSlider) {
 
         turnTimeline = new Timeline(
