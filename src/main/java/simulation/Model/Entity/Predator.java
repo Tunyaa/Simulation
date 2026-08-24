@@ -17,7 +17,7 @@ public class Predator extends Creature {
 
     private SquareViewer squareViewer;
 
-    private final Mover mover = new PredatorStraightPathMover();
+    private final Mover mover;
 
     public Predator() {
         setEntityTypePng(EntityTypePng.PREDATOR);
@@ -26,11 +26,12 @@ public class Predator extends Creature {
         setRangeOfView(5);
         setSpeed(2);
         this.squareViewer = new SquareViewer(this, Herbivore.class);
+        this.mover = new PredatorStraightPathMover();
 //        this.action = new HerbivoreAction();
     }
 
     public void action() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
