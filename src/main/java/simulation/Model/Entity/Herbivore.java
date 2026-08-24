@@ -63,14 +63,39 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 
     @Override
     public void action(World world) {
+        if (getHp() > 200) {
+            setHp(100);
+//                world.regenerteHerbivore();
+            world.reproduceEntity(simulation.Model.Entity.Herbivore.class);
+        }
+//            if (herbivore.getTargetPosition() == 0) {
+//                herbivore.viev(world);
+//            }
+        viev(world);// 
+        if (getTargetPosition() == 0) {
+            randomMove(world);
+        } else {
+            move(world);
+        }
 
-        //      Есть путь?               --->                Передвижение
-        //          |                                                           ^
-        //     Смотреть                                         Добавить в путь
-        //          |                                                           ^                   ^
-        //      Есть цель?              --->                Поиск пути      |
-        //          |                                                                                |
-        //      Случайное передвижение                  -----------^
+        world.moveEntityToPosition(this, getPath().getFirst());
+
+        if (getTargetPosition() == getPosition()) {
+            // To herbivore meth
+            int position = getPosition();
+            List<Entity>[] entitys = world.getEntitys();
+            List<Entity> entity = entitys[position];
+            for (Entity entity1 : entity) {
+                if (entity1 instanceof Grass) {
+                    eat((Eatable) entity1);
+                    world.removeEntity(entity1);
+                    setTargetPosition(0);
+                    break;
+                }
+            }
+
+        }
+
     }
 
     public void viev(World world) {
