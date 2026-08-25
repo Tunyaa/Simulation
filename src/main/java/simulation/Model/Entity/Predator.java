@@ -33,6 +33,8 @@ public class Predator extends Creature implements Attacker {
 
     @Override
     public void action(World world) {
+        targetPosition = 0;
+        getPath().clear();
 // Ход хищника 
 // Если умер, то удалить
         if (!isAlive()) {
@@ -120,7 +122,8 @@ public class Predator extends Creature implements Attacker {
 
                     break;
                 }
-                targetPosition = 0;
+                System.out.println("ЭТОТ СЛУЧАЙ СРАБОТАЛ!!!!!!!!!!!!! ");
+
             }
         }
 

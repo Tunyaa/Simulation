@@ -244,7 +244,7 @@ public class World {
         List<Entity> entitysByPosition = getEntitysByPosition(position);
         for (Entity entity : entitysByPosition) {
             if (entity instanceof Stone) {
-                System.out.println("На пути камень");
+//                System.out.println("На пути камень");
                 return true;
             }
         }

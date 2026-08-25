@@ -46,7 +46,7 @@ public class PredatorStraightPathFinder implements PathFinder {
         int r = world.getWorldGrid().getPositionByRowСolumn(3, 3);
         int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
         if (world.isStone(positionByRowСolumn)) {
-            System.out.println("Сработал IF  randomPathFinder");
+//            System.out.println("Сработал IF  randomPathFinder");
             creature.getPath().clear();
             return;
         }
@@ -68,7 +68,8 @@ public class PredatorStraightPathFinder implements PathFinder {
         // Добавляем целевую точку в промежуточный путь
         tempIndixes.add(targetPosition);
         if (world.isStone(targetPosition)) {
-            System.out.println("IF1 отработал");
+//            System.out.println("IF1 отработал");
+            creature.setTargetPosition(0);
             creature.getPath().clear();
             return;
         }
@@ -99,7 +100,8 @@ public class PredatorStraightPathFinder implements PathFinder {
                 // Берем промежуточную точку между сущностью и целью
                 targetPosition = world.getWorldGrid().getMidPosition(creaturePosition, targetPosition);
                 if (world.isStone(targetPosition)) {
-                    System.out.println("IF2 отработал");
+//                    System.out.println("IF2 отработал");
+                    creature.setTargetPosition(0);
                     creature.getPath().clear();
                     return;
                 }
