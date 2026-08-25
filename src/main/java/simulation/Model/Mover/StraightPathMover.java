@@ -6,6 +6,7 @@ import simulation.Model.Entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import simulation.World.RowColumn;
 import simulation.World.World;
 
@@ -15,19 +16,49 @@ import simulation.World.World;
  */
 public class StraightPathMover implements PathFinder {
 
-    // Массив (Путь из индексов)
-    ArrayDeque<Integer> path = new ArrayDeque<>();
     // Массив (возможные точки) промежуточный массив
     ArrayList<Integer> tempIndixes = new ArrayList<>();
+
+    @Override
+    public void pathFinderToTarget(World world, Creature creature) {
+        pathFinder(world, creature);
+    }
 
     @Override
     public void randomPathFinder(World world, Creature creature) {
 
         creature.getPath().clear();
-        System.out.println("Move Else");
-        // Поиск пути
+//        System.out.println("RAndom MOVE");
+        int row = ThreadLocalRandom.current().nextInt(-1, 2);
+        int col = ThreadLocalRandom.current().nextInt(-1, 2);
+
+        RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(creature.getPosition());
+//        System.out.println(rowColumnByPosition.getRow() + " & " + rowColumnByPosition.getCol());
+        col = rowColumnByPosition.getCol() + col;
+        row = rowColumnByPosition.getRow() + row;
+        col = col >= 1 ? col : 1;
+        col = col <= world.getWorldGrid().getWidth() ? col : world.getWorldGrid().getWidth();
+
+        row = row >= 1 ? row : 1;
+        row = row <= world.getWorldGrid().getHeight() ? row : world.getWorldGrid().getHeight();
+
+        int r = world.getWorldGrid().getPositionByRowСolumn(3, 3);
+        int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
+//        if (world.isStone(positionByRowСolumn)) {
+//            System.out.println("Сработал IF  randomPathFinder");
+//            creature.getPath().clear();
+//            return;
+//        }
+        ArrayDeque<Integer> path = creature.getPath();
+        path.addFirst(positionByRowСolumn);
+    }
+
+    private void pathFinder(World world, Creature creature) {
+        // Очищает Путь
+        creature.getPath().clear();
+
         // Текущая позиция
-        int position = creature.getPosition();
+        int creaturePosition = creature.getPosition();
 
         // Целевая точка
         // ОБРАТОБАТЬ ЕСЛИ ТОЧКИ ЦЕЛЕВОЙ НЕТ!!!!
@@ -35,136 +66,47 @@ public class StraightPathMover implements PathFinder {
 
         // Добавляем целевую точку в промежуточный путь
         tempIndixes.add(targetPosition);
+//        if (world.isStone(targetPosition)) {
+//            System.out.println("IF1 отработал");
+//            creature.getPath().clear();
+//            return;
+//        }
 
         // Проверка: массив пустой?
         // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
         while (!tempIndixes.isEmpty()) {
 
-            // 1: Проверка: Точка рядом?
-            if (world.getWorldGrid().isLocatedNearby(position, targetPosition)) {
+            // Проверка: Точка рядом?
+            if (world.getWorldGrid().isLocatedNearby(creaturePosition, targetPosition)) {
 
-                // 2.2 Записать точку в массив
+                // Записать точку путь
                 creature.getPath().add(targetPosition);
-//                    path.add(targetPosition);
                 // Удалить эту точку из промежуточного массива
                 tempIndixes.remove(tempIndixes.size() - 1);
-                // Проверка: Эта точка целевая?
-                // SET targetPosition
 
+                // Проверка: Эта точка целевая?
                 if (creature.isTarget(targetPosition)) {
                     // Дошли до целевой точки.
-
-//                        creature.setPath(path.toArray());
                     // Конец метода
                     break;
                 }
 
-                position = targetPosition;
+                creaturePosition = targetPosition;
                 targetPosition = tempIndixes.get(tempIndixes.size() - 1);
             } else {
 
-                // 2.1: Поиск пути:
-                // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
-//                RowColumn halfRelativeRowColumn = getMidPosition(world, position, targetPosition);
-//            RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(position);
-                targetPosition = world.getWorldGrid().getMidPosition(position, targetPosition);
-//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldGrid().getWidth() * halfRelativeRowColumn.getRow());
-
-                // Записываем в промежуточный массив
+                // Берем промежуточную точку между сущностью и целью
+                targetPosition = world.getWorldGrid().getMidPosition(creaturePosition, targetPosition);
+//                if (world.isStone(targetPosition)) {
+//                    System.out.println("IF2 отработал");
+//                    creature.getPath().clear();
+//                    return;
+//                }
                 tempIndixes.add(targetPosition);
             }
 
         }
 
-    }
-
-    @Override
-    public void pathFinderToTarget(World world, Creature creature) {
-        System.out.println("Metod start");
-        System.out.println("Проверка пути");
-        for (Integer integer : creature.getPath()) {
-            System.out.println(integer);
-        }
-        // Проверка: есть путь?
-//        if (!path.isEmpty()) {
-        if (!creature.getPath().isEmpty()) {
-            System.out.println("Path != Empty");
-            // Передвижение
-//            Map<Integer, List<Entity>> map = world.getPositionEntityMap();
-//            
-//            // Удалить существо из карты
-//            List<Entity> list = map.get(creature.getPosition());
-//            list.remove(creature);
-            // Добавить существо в новую позицию
-            // Следующая позиция в пути
-            int newPosition = creature.getPath().getFirst();
-//            int newPosition = path.getFirst();
-            creature.getPath().removeFirst();
-//            path.removeFirst();
-
-            world.moveEntityToPosition(creature, creature.getPath().getFirst());
-//            creature.setPosition(newPosition);
-//            map.putIfAbsent(newPosition, new ArrayList<>());
-//            map.get(newPosition).add(creature);
-
-        } else {
-            System.out.println("Move Else");
-            // Поиск пути
-            // Текущая позиция
-            int position = creature.getPosition();
-
-            // Целевая точка
-            // ОБРАТОБАТЬ ЕСЛИ ТОЧКИ ЦЕЛЕВОЙ НЕТ!!!!
-            int targetPosition = creature.getTargetPosition();
-
-            // Добавляем целевую точку в промежуточный путь
-            tempIndixes.add(targetPosition);
-
-            // Проверка: массив пустой?
-            // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
-            while (!tempIndixes.isEmpty()) {
-                System.out.println("MOVE WHILE");
-                // 1: Проверка: Точка рядом?
-                if (world.getWorldGrid().isLocatedNearby(position, targetPosition)) {
-
-                    // 2.2 Записать точку в массив
-                    creature.getPath().add(targetPosition);
-//                    path.add(targetPosition);
-                    // Удалить эту точку из промежуточного массива
-                    tempIndixes.remove(tempIndixes.size() - 1);
-                    // Проверка: Эта точка целевая?
-                    // SET targetPosition
-
-                    if (creature.isTarget(targetPosition)) {
-                        // Дошли до целевой точки.
-                        System.out.println("Move IsTarget");
-//                        creature.setPath(path.toArray());
-                        // Конец метода
-                        break;
-                    }
-
-                    position = targetPosition;
-                    targetPosition = tempIndixes.get(tempIndixes.size() - 1);
-                } else {
-
-                    // 2.1: Поиск пути:
-                    // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
-//                RowColumn halfRelativeRowColumn = getMidPosition(world, position, targetPosition);
-//            RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(position);
-                    targetPosition = world.getWorldGrid().getMidPosition(position, targetPosition);
-//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldGrid().getWidth() * halfRelativeRowColumn.getRow());
-
-                    // Записываем в промежуточный массив
-                    tempIndixes.add(targetPosition);
-                }
-
-            }
-            System.out.println("PATH IS");
-            for (Integer integer : creature.getPath()) {
-                System.out.println(integer);
-            }
-
-        }
     }
 
 }

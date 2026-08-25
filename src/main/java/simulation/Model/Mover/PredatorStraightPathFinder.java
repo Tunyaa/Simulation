@@ -47,6 +47,7 @@ public class PredatorStraightPathFinder implements PathFinder {
         int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
         if (world.isStone(positionByRowСolumn)) {
             System.out.println("Сработал IF  randomPathFinder");
+            creature.getPath().clear();
             return;
         }
         ArrayDeque<Integer> path = creature.getPath();
@@ -68,6 +69,7 @@ public class PredatorStraightPathFinder implements PathFinder {
         tempIndixes.add(targetPosition);
         if (world.isStone(targetPosition)) {
             System.out.println("IF1 отработал");
+            creature.getPath().clear();
             return;
         }
 
@@ -98,6 +100,7 @@ public class PredatorStraightPathFinder implements PathFinder {
                 targetPosition = world.getWorldGrid().getMidPosition(creaturePosition, targetPosition);
                 if (world.isStone(targetPosition)) {
                     System.out.println("IF2 отработал");
+                    creature.getPath().clear();
                     return;
                 }
                 tempIndixes.add(targetPosition);

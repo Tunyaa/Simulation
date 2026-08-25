@@ -24,7 +24,7 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 
     // Тестовое зрение
     private SquareViewer squareViewer;
-    private final PathFinder mover = new PredatorStraightPathFinder();
+    private final PathFinder mover = new StraightPathMover();
 //    private final PathFinder mover = new StraightPathMover();
 
     public Herbivore() {
@@ -47,7 +47,7 @@ public class Herbivore extends Creature implements Eatable, Attackable {
     @Override
     public void eat() {
 
-        this.hp += 50;
+        this.hp += 10;
 
     }
 
@@ -84,10 +84,10 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 //        } // Если нет цели
         if (getTargetPosition() == 0) {
             // RandomMove
-            hp -= 1;
+//            hp -= 1;
             mover.randomPathFinder(world, this);
         } else {// если есть
-            hp -= 1;
+//            hp -= 1;
             mover.pathFinderToTarget(world, this);
             if (getTargetPosition() == 0) {
 

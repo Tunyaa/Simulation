@@ -7,7 +7,6 @@ import simulation.Model.Attack.Attackable;
 import simulation.Model.Attack.Attacker;
 import simulation.Model.Eat.Eatable;
 import simulation.Model.Mover.PredatorStraightPathFinder;
-import simulation.Model.Mover.StraightPathMover;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
@@ -51,7 +50,34 @@ public class Predator extends Creature implements Attacker {
 
         // Просмотр
         viev(world);
-        
+//        if (getPath().isEmpty()) {
+//            System.out.println("Путь пустой");
+//        }
+//        ArrayList<Integer> targetPositions1 = getTargetPositions();
+//        if (!targetPositions1.isEmpty()) {
+//            for (Integer integer : targetPositions1) {
+//                System.out.println("Цель  - " + integer);
+//
+//                setTargetPosition(integer);
+//                mover.pathFinderToTarget(world, this);
+//                if (!getPath().isEmpty()) {
+//                    System.out.println(" Есть путь");
+//                    break;
+//                }
+//            }
+//            setTargetPosition(0);
+//        }
+//
+//        if (getPath().isEmpty()) {
+//            for (int i = 0; i < 3; i++) {
+//                mover.randomPathFinder(world, this);
+//                if (!getPath().isEmpty()) {
+//                    System.out.println("рандомный путь найден");
+//                    break;
+//                }
+//            }
+//        }
+
         // Если нет цели
         if (getTargetPosition() == 0) {
             // RandomMove
@@ -60,15 +86,16 @@ public class Predator extends Creature implements Attacker {
         } else {// если есть
             hp -= 1;
             mover.pathFinderToTarget(world, this);
-              if (getTargetPosition() == 0){
-                  
-                  mover.randomPathFinder(world, this);
-              }
+            if (getTargetPosition() == 0) {
+
+                mover.randomPathFinder(world, this);
+            }
         }
 
         if (!getPath().isEmpty()) {
             // передвигаюсь
             world.moveEntityToPosition(this, getPath().getFirst());
+            getPath().clear();
         }
 
         // Если хищник на точке с целью
