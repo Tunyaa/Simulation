@@ -5,13 +5,13 @@ import java.util.Map;
 import simulation.Model.Action.Action;
 import simulation.Model.Attack.Attackable;
 import simulation.Model.Eat.Eatable;
-import simulation.Model.Mover.Mover;
 import simulation.Model.Mover.PredatorStraightPathFinder;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.Model.Mover.StraightPathMover;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
 import simulation.World.WorldGrid;
+import simulation.Model.Mover.PathFinder;
 
 /**
  *
@@ -24,15 +24,13 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 
     // Тестовое зрение
     private SquareViewer squareViewer;
-    private final Mover mover = new PredatorStraightPathFinder();
-//    private final Mover mover = new StraightPathMover();
+    private final PathFinder mover = new PredatorStraightPathFinder();
+//    private final PathFinder mover = new StraightPathMover();
 
     public Herbivore() {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
-        setInititive(5);
         setRangeOfView(4);
-        setSpeed(2);
         this.squareViewer = new SquareViewer(this, Grass.class);
 
     }
@@ -77,15 +75,30 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 //                herbivore.viev(world);
 //            }
         viev(world);// 
+//        if (getTargetPosition() == 0) {
+//            hp -= 1;
+//            randomMove(world);
+//        } else {
+//            hp -= 1;
+//            move(world);
+//        } // Если нет цели
         if (getTargetPosition() == 0) {
+            // RandomMove
             hp -= 1;
-            randomMove(world);
-        } else {
+            mover.randomPathFinder(world, this);
+        } else {// если есть
             hp -= 1;
-            move(world);
+            mover.pathFinderToTarget(world, this);
+            if (getTargetPosition() == 0) {
+
+                mover.randomPathFinder(world, this);
+            }
         }
 
-        world.moveEntityToPosition(this, getPath().getFirst());
+        if (!getPath().isEmpty()) {
+            // передвигаюсь
+            world.moveEntityToPosition(this, getPath().getFirst());
+        }
 
         if (getTargetPosition() == getPosition()) {
             // To herbivore meth

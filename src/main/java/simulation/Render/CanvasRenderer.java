@@ -13,6 +13,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import simulation.Model.Entity.Entity;
+import simulation.Model.Entity.Predator;
 import simulation.World.RowColumn;
 import simulation.World.World;
 import simulation.World.WorldGrid;
@@ -61,8 +62,19 @@ public class CanvasRenderer implements Renderer {
             if (!entitys[i].isEmpty()) {
                 RowColumn rC = world.getWorldGrid().getRowColumnByPosition(i);
                 // Загружает картинку
-                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
+//                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
 
+// Если в клетке есть Predator, то загружается его png
+                List<Entity> entity = entitys[i];
+                int predatorIndex = entity.size()-1;
+                for (int j = 0; j < entity.size(); j++) {
+                    if (entity.get(j) instanceof Predator) {
+                        predatorIndex = j;
+                    }
+                }
+                
+                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(predatorIndex).getEntityTypePng().getDisplayName()));
+                
                 gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
             }
         }

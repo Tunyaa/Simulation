@@ -23,6 +23,7 @@ public class SquareViewer implements Viewer {
 
     @Override
     public void viev(World world) {
+        creature.getTargetPositions().clear();
         int rangeOfView = creature.getRangeOfView();
         int width = world.getWorldGrid().getWidth();
         // 
@@ -43,7 +44,7 @@ public class SquareViewer implements Viewer {
 
             // просмотр поля 
             for (int i : scan) {
-                int f = firstScanPOsition += i;
+                int targetPosition = firstScanPOsition += i;
 
                 RowColumn rowColumn = world.getWorldGrid().getRowColumnByPosition(creature.getPosition());
 
@@ -52,13 +53,13 @@ public class SquareViewer implements Viewer {
                 int topExtremePoint = rowColumn.getRow() - rangeOfView;
                 int lowerExtremePoint = rowColumn.getRow() + rangeOfView;
 
-                RowColumn rowColumnByScanPosition = world.getWorldGrid().getRowColumnByPosition(f);
+                RowColumn rowColumnByScanPosition = world.getWorldGrid().getRowColumnByPosition(targetPosition);
                 int col = rowColumnByScanPosition.getCol();
                 int row = rowColumnByScanPosition.getRow();
-
+//                System.out.println("Сканирование - " + targetPosition);
                 if (col >= LeftExtremePoint && col <= RightExtremePoint
                         && row >= topExtremePoint && row <= lowerExtremePoint) {
-                    List<Entity> e = world.getEntitysByPosition(f);
+                    List<Entity> e = world.getEntitysByPosition(targetPosition);
                     if (e != null) {
 
                         if (!e.isEmpty()) {
@@ -67,7 +68,8 @@ public class SquareViewer implements Viewer {
 
                                 if (target.isInstance(entity)) {
 
-                                    creature.setTargetPosition(f);
+                                    creature.setTargetPosition(targetPosition);
+                                    creature.getTargetPositions().add(targetPosition);
                                 }
                             }
 

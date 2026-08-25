@@ -13,7 +13,7 @@ import simulation.World.World;
  *
  * @author tunyaa
  */
-public class StraightPathMover implements Mover {
+public class StraightPathMover implements PathFinder {
 
     // Массив (Путь из индексов)
     ArrayDeque<Integer> path = new ArrayDeque<>();

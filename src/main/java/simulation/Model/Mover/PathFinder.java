@@ -7,7 +7,7 @@ import simulation.World.World;
  *
  * @author tunyaa
  */
-public interface Mover {
+public interface PathFinder {
     void pathFinderToTarget(World world, Creature creature);
     void randomPathFinder(World world, Creature creature);
 }

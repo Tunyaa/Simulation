@@ -6,12 +6,12 @@ import java.util.List;
 import simulation.Model.Attack.Attackable;
 import simulation.Model.Attack.Attacker;
 import simulation.Model.Eat.Eatable;
-import simulation.Model.Mover.Mover;
 import simulation.Model.Mover.PredatorStraightPathFinder;
 import simulation.Model.Mover.StraightPathMover;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
+import simulation.Model.Mover.PathFinder;
 
 /**
  *
@@ -21,17 +21,15 @@ public class Predator extends Creature implements Attacker {
 
     private SquareViewer squareViewer;
 
-    private final Mover mover;
+    private final PathFinder mover;
     private int atkDmg;
 
     public Predator() {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
-        setInititive(5);
-        setRangeOfView(5);
-        setSpeed(2);
-        this.squareViewer = new SquareViewer(this, Herbivore.class);
-        this.mover = new PredatorStraightPathFinder();
+        setRangeOfView(3);
+        this.squareViewer = new SquareViewer(this, Herbivore.class);// TODO
+        this.mover = new PredatorStraightPathFinder();// TODO вынести один объект для всех сущностей Di
     }
 
     @Override
@@ -53,28 +51,26 @@ public class Predator extends Creature implements Attacker {
 
         // Просмотр
         viev(world);
-
+        
         // Если нет цели
         if (getTargetPosition() == 0) {
-            System.out.println("randomPathFinder");
             // RandomMove
             hp -= 1;
             mover.randomPathFinder(world, this);
         } else {// если есть
-            System.out.println("pathFinderToTarget");
             hp -= 1;
             mover.pathFinderToTarget(world, this);
+              if (getTargetPosition() == 0){
+                  
+                  mover.randomPathFinder(world, this);
+              }
         }
 
-        // // // // // 
-        ArrayDeque<Integer> path1 = getPath();
-        for (Integer integer : path1) {
-            System.out.println("путь - " + integer);
+        if (!getPath().isEmpty()) {
+            // передвигаюсь
+            world.moveEntityToPosition(this, getPath().getFirst());
         }
-        // // // // // 
 
-        // передвигаюсь
-        world.moveEntityToPosition(this, getPath().getFirst());
         // Если хищник на точке с целью
         if (getTargetPosition() == getPosition()) {
 
@@ -100,11 +96,11 @@ public class Predator extends Creature implements Attacker {
                 targetPosition = 0;
             }
         }
+
     }
 
     @Override
     public void eat() {
-        System.out.println("eat ЕМ");
         hp += 40;
     }
 

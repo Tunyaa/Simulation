@@ -8,8 +8,8 @@ import java.util.Random;
 import simulation.Model.Action.Action;
 import simulation.Model.Eat.Eatable;
 import simulation.Model.Eat.Eater;
-import simulation.Model.Mover.Mover;
 import simulation.World.World;
+import simulation.Model.Mover.PathFinder;
 
 /**
  *
@@ -25,10 +25,8 @@ public abstract class Creature extends Entity // implements
 
     protected int rangeOfView;
     protected int hp;
-    protected int speed;
-    protected int inititive;
     protected int targetPosition;
-    protected int attackDamage;
+    protected ArrayList<Integer> targetPositions = new ArrayList<>();
 
     protected Random random = new Random();
 
@@ -64,22 +62,6 @@ public abstract class Creature extends Entity // implements
         this.hp = hp;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getInititive() {
-        return inititive;
-    }
-
-    public void setInititive(int inititive) {
-        this.inititive = inititive;
-    }
-
     public int getTargetPosition() {
         return targetPosition;
     }
@@ -96,17 +78,16 @@ public abstract class Creature extends Entity // implements
         this.path = path;
     }
 
-    public int getAttackDamage() {
-        return attackDamage;
-    }
-
-    public void setAttackDamage(int attackDamage) {
-        this.attackDamage = attackDamage;
-    }
-
     public boolean isAlive() {
-        System.out.println("isAlive Моё hp = " + hp);
         return hp > 0;
+    }
+
+    public ArrayList<Integer> getTargetPositions() {
+        return targetPositions;
+    }
+
+    public void setTargetPositions(ArrayList<Integer> targetPositions) {
+        this.targetPositions = targetPositions;
     }
 
 }

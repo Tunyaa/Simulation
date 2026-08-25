@@ -2,9 +2,12 @@ package simulation.Model.Mover;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import simulation.Model.Entity.Creature;
+import simulation.Model.Entity.Entity;
+import simulation.Model.Entity.Stone;
 import simulation.World.RowColumn;
 import simulation.World.World;
 
@@ -12,7 +15,7 @@ import simulation.World.World;
  *
  * @author tunyaa
  */
-public class PredatorStraightPathFinder implements Mover {
+public class PredatorStraightPathFinder implements PathFinder {
 
     // Массив (возможные точки) промежуточный массив
     ArrayList<Integer> tempIndixes = new ArrayList<>();
@@ -40,21 +43,22 @@ public class PredatorStraightPathFinder implements Mover {
         row = row >= 1 ? row : 1;
         row = row <= world.getWorldGrid().getHeight() ? row : world.getWorldGrid().getHeight();
 
-//        System.out.println(row + " & " + col);
         int r = world.getWorldGrid().getPositionByRowСolumn(3, 3);
-//        System.out.println("Проверка позиции 3-3 " + r);
         int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
-//        System.out.println(positionByRowСolumn + " рандомная цель");
+        if (world.isStone(positionByRowСolumn)) {
+            System.out.println("Сработал IF  randomPathFinder");
+            return;
+        }
         ArrayDeque<Integer> path = creature.getPath();
         path.addFirst(positionByRowСolumn);
     }
 
     private void pathFinder(World world, Creature creature) {
+        // Очищает Путь
         creature.getPath().clear();
-//        System.out.println("Move Else");
-        // Поиск пути
+
         // Текущая позиция
-        int position = creature.getPosition();
+        int creaturePosition = creature.getPosition();
 
         // Целевая точка
         // ОБРАТОБАТЬ ЕСЛИ ТОЧКИ ЦЕЛЕВОЙ НЕТ!!!!
@@ -62,50 +66,44 @@ public class PredatorStraightPathFinder implements Mover {
 
         // Добавляем целевую точку в промежуточный путь
         tempIndixes.add(targetPosition);
+        if (world.isStone(targetPosition)) {
+            System.out.println("IF1 отработал");
+            return;
+        }
 
         // Проверка: массив пустой?
         // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
         while (!tempIndixes.isEmpty()) {
 
-            // 1: Проверка: Точка рядом?
-            if (world.getWorldGrid().isLocatedNearby(position, targetPosition)) {
+            // Проверка: Точка рядом?
+            if (world.getWorldGrid().isLocatedNearby(creaturePosition, targetPosition)) {
 
-                // 2.2 Записать точку в массив
+                // Записать точку путь
                 creature.getPath().add(targetPosition);
-//                    path.add(targetPosition);
                 // Удалить эту точку из промежуточного массива
                 tempIndixes.remove(tempIndixes.size() - 1);
-                // Проверка: Эта точка целевая?
-                // SET targetPosition
 
+                // Проверка: Эта точка целевая?
                 if (creature.isTarget(targetPosition)) {
                     // Дошли до целевой точки.
-
-//                        creature.setPath(path.toArray());
                     // Конец метода
                     break;
                 }
 
-                position = targetPosition;
+                creaturePosition = targetPosition;
                 targetPosition = tempIndixes.get(tempIndixes.size() - 1);
             } else {
 
-                // 2.1: Поиск пути:
-                // Берем координату от текущей позиции (+6w+7) w - шаг по высоте; 1 - шаг по ширене
-//                RowColumn halfRelativeRowColumn = getMidPosition(world, position, targetPosition);
-//            RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(position);
-                targetPosition = world.getWorldGrid().getMidPosition(position, targetPosition);
-//                targetPosition = position + halfRelativeRowColumn.getCol() + (world.getWorldGrid().getWidth() * halfRelativeRowColumn.getRow());
-
-                // Записываем в промежуточный массив
+                // Берем промежуточную точку между сущностью и целью
+                targetPosition = world.getWorldGrid().getMidPosition(creaturePosition, targetPosition);
+                if (world.isStone(targetPosition)) {
+                    System.out.println("IF2 отработал");
+                    return;
+                }
                 tempIndixes.add(targetPosition);
             }
 
         }
-
-    }
-
-    private void mover(World world, Creature creature) {
 
     }
 

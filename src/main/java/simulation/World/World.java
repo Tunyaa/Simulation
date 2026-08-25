@@ -75,7 +75,7 @@ public class World {
     public void spawnEntitiesOnWorldGrid() {
 
         // Размещает сущности на сетке, количество берется из конфига
-        spawnEntityOnGrid(Stone.class, configProperties.getGrassInitialCount());
+        spawnEntityOnGrid(Stone.class, configProperties.getStoneInitialCount());
         spawnEntityOnGrid(Grass.class, configProperties.getGrassInitialCount());
         spawnEntityOnGrid(Tree.class, configProperties.getTreeInitialCount());
         spawnEntityOnGrid(Predator.class, configProperties.getPredatorInitialCount());
@@ -171,7 +171,7 @@ public class World {
     // Возвращает лист сущностей по позиции
     public List<Entity> getEntitysByPosition(int position) {
         int length = entities.length;
-        if (position >= 1 && position <= length - 1) {
+        if (position >= 1 && position <= length - 1) {// TODO -1 не нужно?
 
             return entities[position];
         }
@@ -238,6 +238,17 @@ public class World {
                 spawnedCount++;
             }
         }
+    }
+
+    public boolean isStone(int position) {
+        List<Entity> entitysByPosition = getEntitysByPosition(position);
+        for (Entity entity : entitysByPosition) {
+            if (entity instanceof Stone) {
+                System.out.println("На пути камень");
+                return true;
+            }
+        }
+        return false;
     }
 
 }
