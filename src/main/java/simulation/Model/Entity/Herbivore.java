@@ -103,20 +103,20 @@ public class Herbivore extends Creature implements Eatable, Attackable {
             }
         }
 
-        String s = "S";
-        ArrayDeque<Integer> path1 = getPath();
-        if (position == path1.getFirst()) {
-            
-            System.out.println("FFFFFFFFFFFFFFFFFFFFF ------- " + i);
-        }
+//        String s = "S";
+//        ArrayDeque<Integer> path1 = getPath();
+//        if (position == path1.getFirst()) {
+//            
+//            System.out.println("FFFFFFFFFFFFFFFFFFFFF ------- " + i);
+//        }
         if (!getPath().isEmpty()) {
             // передвигаюсь
-            s = "G";
+//            s = "G";
             world.moveEntityToPosition(this, getPath().getFirst());
         }
-        if (s.equals("S")) {
-            System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ------- " + i);
-        }
+//        if (s.equals("S")) {
+//            System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ------- " + i);
+//        }
         if (getTargetPosition() == getPosition()) {
             // To herbivore meth
             int position = getPosition();
