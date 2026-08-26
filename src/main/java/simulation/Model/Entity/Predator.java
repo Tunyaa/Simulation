@@ -134,7 +134,7 @@ public class Predator extends Creature implements Attacker {
 
     @Override
     public void attack(Attackable attackable) {
-        int nextInt = random.nextInt(hp);
+        int nextInt = random.nextInt(1, hp + 2);
         System.out.println("Бью на - " + nextInt);
         attackable.takeDamage(nextInt);
     }
