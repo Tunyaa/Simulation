@@ -197,7 +197,7 @@ public class World {
 
     // Заполняет выбранный список из общего списка, сущностями выбранного типа
     private <T extends Entity> void buildEntityList(Class<T> entityType, List<T> targetList) {
-            targetList.clear();
+        targetList.clear();
         for (List<Entity> entitiesList : entities) {
             for (Entity entity : entitiesList) {
                 if (entityType.isInstance(entity)) {
@@ -256,14 +256,16 @@ public class World {
     public int getGrassCount() {
         this.grassCount = 0;
         List<Entity>[] entitysAry = getEntitys();
-        for (List<Entity> entity : entitysAry) {
-            if (entity instanceof Grass) {
-                this.grassCount++;
+        for (List<Entity> entityList : entitysAry) {
+            for (Entity entity : entityList) {
+
+                if (entity instanceof Grass) {
+                    this.grassCount++;
+                }
             }
+
         }
         return this.grassCount;
     }
-   
-    
 
 }

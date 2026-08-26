@@ -6,7 +6,7 @@ package simulation.Render;
  */
 public enum EntityTypePng {
     PREDATOR("/static/img/wolf.png"),
-    HERBIVORE("/static/img/rabbit.png"),
+    HERBIVORE("/static/img/rabbit2.png"),
     GRASS("/static/img/grass.png"),
     THREE("/static/img/tree.png"),
     STONE("/static/img/stone.png");
