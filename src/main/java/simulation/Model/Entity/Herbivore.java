@@ -1,5 +1,6 @@
 package simulation.Model.Entity;
 
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Map;
 import simulation.Model.Action.Action;
@@ -20,7 +21,7 @@ import simulation.Model.Mover.PathFinder;
 public class Herbivore extends Creature implements Eatable, Attackable {
 
     private List<Integer> Path;
-    private int targetPosition;
+//    private int targetPosition;
 
     // Тестовое зрение
     private SquareViewer squareViewer;
@@ -60,6 +61,84 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 
     @Override
     public void action(World world) {
+        targetPosition = 0;
+        getPath().clear();
+        if (!isAlive()) {
+//            world.removeEntity(this);
+            die(world);
+            return;
+        }
+
+        if (getHp() > 300) {
+            setHp(100);
+//                world.regenerteHerbivore();
+            world.reproduceEntity(simulation.Model.Entity.Herbivore.class);
+        }
+
+//            if (herbivore.getTargetPosition() == 0) {
+//                herbivore.viev(world);
+//            }
+        viev(world);// 
+        
+//        if (getTargetPosition() == 0) {
+//            hp -= 1;
+//            randomMove(world);
+//        } else {
+//            hp -= 1;
+//            move(world);
+        int i = 0;
+        // Если нет цели
+        if (getTargetPosition() == 0) {
+            i += 1;
+            // RandomMove
+            hp -= 1;
+            mover.randomPathFinder(world, this);
+        } else {// если есть
+            i += 2;
+            hp -= 1;
+            mover.pathFinderToTarget(world, this);
+            if (getTargetPosition() == 0) {
+                i += 3;
+                mover.randomPathFinder(world, this);
+            }
+        }
+
+        String s = "S";
+        ArrayDeque<Integer> path1 = getPath();
+        if (position == path1.getFirst()) {
+            
+            System.out.println("FFFFFFFFFFFFFFFFFFFFF ------- " + i);
+        }
+        if (!getPath().isEmpty()) {
+            // передвигаюсь
+            s = "G";
+            world.moveEntityToPosition(this, getPath().getFirst());
+        }
+        if (s.equals("S")) {
+            System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ------- " + i);
+        }
+        if (getTargetPosition() == getPosition()) {
+            // To herbivore meth
+            int position = getPosition();
+            List<Entity>[] entitys = world.getEntitys();
+            List<Entity> entity = entitys[position];
+            for (Entity entity1 : entity) {
+                if (entity1 instanceof Grass) {
+                    eat();
+                    world.removeEntity(entity1);
+                    setTargetPosition(0);
+                    break;
+                }
+            }
+            targetPosition = 0;
+        }
+
+    }
+
+    public void action1(World world) {
+        targetPosition = 0;
+        getPath().clear();
+
         if (!isAlive()) {
 //            world.removeEntity(this);
             die(world);
@@ -71,16 +150,7 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 //                world.regenerteHerbivore();
             world.reproduceEntity(simulation.Model.Entity.Herbivore.class);
         }
-//            if (herbivore.getTargetPosition() == 0) {
-//                herbivore.viev(world);
-//            }
         viev(world);// 
-//        if (getTargetPosition() == 0) {
-//            hp -= 1;
-//            randomMove(world);
-//        } else {
-//            hp -= 1;
-//            move(world);
 
         // Если нет цели
         if (getTargetPosition() == 0) {
@@ -103,18 +173,15 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 
         if (getTargetPosition() == getPosition()) {
             // To herbivore meth
-            int position = getPosition();
-            List<Entity>[] entitys = world.getEntitys();
-            List<Entity> entity = entitys[position];
-            for (Entity entity1 : entity) {
-                if (entity1 instanceof Grass) {
+            List<Entity> entityList = world.getEntitys()[getPosition()];
+            for (Entity entity : entityList) {
+                if (entity instanceof Grass) {
                     eat();
-                    world.removeEntity(entity1);
+                    world.removeEntity(entity);
                     setTargetPosition(0);
                     break;
                 }
             }
-            targetPosition = 0;
         }
 
     }

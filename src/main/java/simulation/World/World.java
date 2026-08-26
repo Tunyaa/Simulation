@@ -196,6 +196,7 @@ public class World {
 
     // Заполняет выбранный список из общего списка, сущностями выбранного типа
     private <T extends Entity> void buildEntityList(Class<T> entityType, List<T> targetList) {
+            targetList.clear();
         for (List<Entity> entitiesList : entities) {
             for (Entity entity : entitiesList) {
                 if (entityType.isInstance(entity)) {

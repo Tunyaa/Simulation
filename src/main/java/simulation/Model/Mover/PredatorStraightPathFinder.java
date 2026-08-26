@@ -30,8 +30,15 @@ public class PredatorStraightPathFinder implements PathFinder {
 
         creature.getPath().clear();
 //        System.out.println("RAndom MOVE");
-        int row = ThreadLocalRandom.current().nextInt(-1, 2);
-        int col = ThreadLocalRandom.current().nextInt(-1, 2);
+        int row;
+        int col;
+//        int row = ThreadLocalRandom.current().nextInt(-1, 2);
+//        int col = ThreadLocalRandom.current().nextInt(-1, 2);
+
+        do {// TODO
+            row = ThreadLocalRandom.current().nextInt(-1, 2);
+            col = ThreadLocalRandom.current().nextInt(-1, 2);
+        } while (row == 0 && col == 0);
 
         RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(creature.getPosition());
 //        System.out.println(rowColumnByPosition.getRow() + " & " + rowColumnByPosition.getCol());
@@ -43,13 +50,12 @@ public class PredatorStraightPathFinder implements PathFinder {
         row = row >= 1 ? row : 1;
         row = row <= world.getWorldGrid().getHeight() ? row : world.getWorldGrid().getHeight();
 
-        int r = world.getWorldGrid().getPositionByRowСolumn(3, 3);
         int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
-        if (world.isStone(positionByRowСolumn)) {
-//            System.out.println("Сработал IF  randomPathFinder");
-            creature.getPath().clear();
-            return;
-        }
+//        if (world.isStone(positionByRowСolumn)) {
+////            System.out.println("Сработал IF  randomPathFinder");
+//
+//            return;
+//        }
         ArrayDeque<Integer> path = creature.getPath();
         path.addFirst(positionByRowСolumn);
     }

@@ -44,7 +44,7 @@ public class Predator extends Creature implements Attacker {
         }
 
         // размножение Сделать метод размножение 1-2 в этой же точке.
-        if (getHp() > 180) {
+        if (getHp() > 380) {
             setHp(90);
 //                world.regenertePredator();
             world.reproduceEntity(Predator.class);
@@ -83,10 +83,10 @@ public class Predator extends Creature implements Attacker {
         // Если нет цели
         if (getTargetPosition() == 0) {
             // RandomMove
-            hp -= 1;
+            hp -= 2;
             mover.randomPathFinder(world, this);
         } else {// если есть
-            hp -= 1;
+            hp -= 2;
             mover.pathFinderToTarget(world, this);
             if (getTargetPosition() == 0) {
 
@@ -122,8 +122,6 @@ public class Predator extends Creature implements Attacker {
 
                     break;
                 }
-                System.out.println("ЭТОТ СЛУЧАЙ СРАБОТАЛ!!!!!!!!!!!!! ");
-
             }
         }
 
