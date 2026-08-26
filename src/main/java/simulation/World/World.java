@@ -30,6 +30,7 @@ public class World {
     private List<Entity>[] entities;              // Общий список сущностей сетки
     private List<Predator> predators;        // Лист хищников
     private List<Herbivore> herbivores;     // Лист Тровоядных
+    private int grassCount;     // количество травы на сетке.
 
     private Random random = new Random();
 
@@ -251,5 +252,18 @@ public class World {
         }
         return false;
     }
+
+    public int getGrassCount() {
+        this.grassCount = 0;
+        List<Entity>[] entitysAry = getEntitys();
+        for (List<Entity> entity : entitysAry) {
+            if (entity instanceof Grass) {
+                this.grassCount++;
+            }
+        }
+        return this.grassCount;
+    }
+   
+    
 
 }
