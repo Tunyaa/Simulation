@@ -26,7 +26,7 @@ public class Predator extends Creature implements Attacker {
     public Predator() {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
-        setRangeOfView(4);
+        setRangeOfView(3);
         this.squareViewer = new SquareViewer(this, Herbivore.class);// TODO
         this.mover = new PredatorStraightPathFinder();// TODO вынести один объект для всех сущностей Di
     }
