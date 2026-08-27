@@ -6,13 +6,13 @@ import java.util.Map;
 import simulation.Model.Action.Action;
 import simulation.Model.Attack.Attackable;
 import simulation.Model.Eat.Eatable;
-import simulation.Model.Mover.PredatorStraightPathFinder;
+import simulation.Model.PathFinder.PredatorStraightPathFinder;
 import simulation.Model.Viewer.SquareViewer;
-import simulation.Model.Mover.StraightPathMover;
+import simulation.Model.PathFinder.StraightPathMover;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
 import simulation.World.WorldGrid;
-import simulation.Model.Mover.PathFinder;
+import simulation.Model.PathFinder.PathFinder;
 
 /**
  *

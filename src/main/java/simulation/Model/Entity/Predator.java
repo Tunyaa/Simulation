@@ -6,11 +6,11 @@ import java.util.List;
 import simulation.Model.Attack.Attackable;
 import simulation.Model.Attack.Attacker;
 import simulation.Model.Eat.Eatable;
-import simulation.Model.Mover.PredatorStraightPathFinder;
+import simulation.Model.PathFinder.PredatorStraightPathFinder;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
-import simulation.Model.Mover.PathFinder;
+import simulation.Model.PathFinder.PathFinder;
 
 /**
  *
@@ -26,7 +26,7 @@ public class Predator extends Creature implements Attacker {
     public Predator() {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
-        setRangeOfView(3);
+        setRangeOfView(4);
         this.squareViewer = new SquareViewer(this, Herbivore.class);// TODO
         this.mover = new PredatorStraightPathFinder();// TODO вынести один объект для всех сущностей Di
     }

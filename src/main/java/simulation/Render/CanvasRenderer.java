@@ -66,16 +66,17 @@ public class CanvasRenderer implements Renderer {
 
 // Если в клетке есть Predator, то загружается его png
                 List<Entity> entity = entitys[i];
-                int predatorIndex = entity.size()-1;
+                int predatorIndex = entity.size() - 1;
                 for (int j = 0; j < entity.size(); j++) {
                     if (entity.get(j) instanceof Predator) {
                         predatorIndex = j;
                     }
                 }
-                
+
                 Image image = new Image(getClass().getResourceAsStream(entitys[i].get(predatorIndex).getEntityTypePng().getDisplayName()));
-                
-                gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
+
+                gc.drawImage(image, (rC.getCol() * pngSizeInPix) - pngSizeInPix, (rC.getRow() * pngSizeInPix) - pngSizeInPix, pngSizeInPix, pngSizeInPix);
+//                gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
             }
         }
     }

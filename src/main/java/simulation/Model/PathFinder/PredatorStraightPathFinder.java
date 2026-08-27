@@ -1,5 +1,6 @@
-package simulation.Model.Mover;
+package simulation.Model.PathFinder;
 
+import simulation.Model.PathFinder.PathFinder;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;

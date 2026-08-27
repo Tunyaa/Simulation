@@ -9,7 +9,7 @@ import simulation.Model.Action.Action;
 import simulation.Model.Eat.Eatable;
 import simulation.Model.Eat.Eater;
 import simulation.World.World;
-import simulation.Model.Mover.PathFinder;
+import simulation.Model.PathFinder.PathFinder;
 
 /**
  *
