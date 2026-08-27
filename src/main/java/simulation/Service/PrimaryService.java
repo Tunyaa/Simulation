@@ -61,9 +61,11 @@ public class PrimaryService {
 
     // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН/ Включается симуляция с пустым миром
     public void startSimulation(Slider speedSimulationSlider) {
-        if (running == false) {// TODO Перенести runTimelineCycle  в сервис> simul
-            running = true;
-            runTimelineCycle(speedSimulationSlider);
+        if (world.getHerbivores().size() > 0 && world.getPredators().size() > 0) {
+            if (running == false) {// TODO Перенести runTimelineCycle  в сервис> simul
+                running = true;
+                runTimelineCycle(speedSimulationSlider);
+            }
         }
 
     }
