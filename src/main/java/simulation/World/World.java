@@ -133,12 +133,15 @@ public class World {
 
     // Очищает поле и карту
     public void clearWorld() {
-        for (List<Entity> entity : entities) {
-            entity.clear();
+        if (entities != null) {
+            for (List<Entity> entity : entities) {
+                entity.clear();
+            }
+            predators.clear();
+            herbivores.clear();
+            worldGrid.clearField();
         }
-        predators.clear();
-        herbivores.clear();
-        worldGrid.clearField();
+
     }
 
     // Создает сущность

@@ -54,9 +54,12 @@ public class PrimaryService {
     }
 
     public void clearWorldMap() {
-        stopSimulation();
-        world.clearWorld();
-        render();
+        if (world.getWorldGrid().getWorldLen() != 0) {
+            stopSimulation();
+            world.clearWorld();
+            render();
+        }
+
     }
 
     // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН/ Включается симуляция с пустым миром
