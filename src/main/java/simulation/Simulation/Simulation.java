@@ -19,20 +19,11 @@ import simulation.World.World;
  */
 public class Simulation {
 
-    private int turnCounter;
-    private boolean isRunning;
-
-    public boolean isIsRunning() {
-        return isRunning;
-    }
-
-    public void setIsRunning(boolean isRunning) {
-        this.isRunning = isRunning;
-    }
-
+//    private int turnCounter;
+    
     // Описывает цикл одного хода
     private void turn(World world) {
-        turnCounter++;
+//        turnCounter++;
 
         if (world.getGrassCount() < world.getWorldGrid().getWorldLen() / 8) {
             for (int i = 0; i < 10; i++) {
