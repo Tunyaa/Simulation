@@ -19,16 +19,19 @@ import simulation.Model.PathFinder.PathFinder;
 public class Predator extends Creature implements Attacker {
 
     private SquareViewer squareViewer;
-
-    private final PathFinder pathFinder;
+    private PathFinder pathFinder;
     private int atkDmg;
 
-    public Predator() {
+    public Predator(PathFinder pathFinder) {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
         setRangeOfView(3);
         this.squareViewer = new SquareViewer(this, Herbivore.class);// TODO
-        this.pathFinder = new StraightPathFinder();// TODO вынести один объект для всех сущностей Di
+        this.pathFinder = pathFinder;// TODO вынести один объект для всех сущностей Di
+    }
+
+    public void setPathFinder(PathFinder pathFinder) {
+        this.pathFinder = pathFinder;
     }
 
     @Override

@@ -23,12 +23,12 @@ public class Herbivore extends Creature implements Eatable, Attackable {
     private SquareViewer squareViewer;
     private final PathFinder pathFinder;
 
-    public Herbivore() {
+    public Herbivore(PathFinder pathFinder) {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setRangeOfView(4);
         this.squareViewer = new SquareViewer(this, Grass.class);
-        this.pathFinder = new StraightPathFinder();
+        this.pathFinder = pathFinder;
     }
 
     public void move(World world) {

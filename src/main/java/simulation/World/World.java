@@ -147,8 +147,14 @@ public class World {
     }
 
     // Создает сущность
-    private Entity createEntity(Class<Entity> entityClass) {
+    private Entity createEntity(Class<? extends Entity> entityClass) {
         try {
+            if (entityClass == Predator.class ) {
+                return new Predator(pathFinder);
+            }
+            if (entityClass == Herbivore.class) {
+                return  new Herbivore(pathFinder);
+            }
             return entityClass.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
             ex.printStackTrace();
