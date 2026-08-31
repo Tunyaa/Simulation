@@ -20,29 +20,23 @@ import simulation.Model.PathFinder.PathFinder;
  */
 public class Herbivore extends Creature implements Eatable, Attackable {
 
-    private List<Integer> Path;
-//    private int targetPosition;
-
-    // Тестовое зрение
     private SquareViewer squareViewer;
-    private final PathFinder mover = new PredatorStraightPathFinder();
-//    private final PathFinder mover = new StraightPathMover();
+    private final PathFinder pathFinder;
 
     public Herbivore() {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setRangeOfView(4);
         this.squareViewer = new SquareViewer(this, Grass.class);
-
+        this.pathFinder = new PredatorStraightPathFinder();
     }
 
-//    @Override
     public void move(World world) {
-        mover.pathFinderToTarget(world, this);
+        pathFinder.pathFinderToTarget(world, this);
     }
 
     public void randomMove(World world) {
-        mover.randomPathFinder(world, this);
+        pathFinder.randomPathFinder(world, this);
     }
 
     @Override
@@ -79,7 +73,7 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 //                herbivore.viev(world);
 //            }
         viev(world);// 
-        
+
 //        if (getTargetPosition() == 0) {
 //            hp -= 1;
 //            randomMove(world);
@@ -92,14 +86,14 @@ public class Herbivore extends Creature implements Eatable, Attackable {
             i += 1;
             // RandomMove
             hp -= 1;
-            mover.randomPathFinder(world, this);
+            pathFinder.randomPathFinder(world, this);
         } else {// если есть
             i += 2;
             hp -= 1;
-            mover.pathFinderToTarget(world, this);
+            pathFinder.pathFinderToTarget(world, this);
             if (getTargetPosition() == 0) {
                 i += 3;
-                mover.randomPathFinder(world, this);
+                pathFinder.randomPathFinder(world, this);
             }
         }
 
@@ -156,13 +150,13 @@ public class Herbivore extends Creature implements Eatable, Attackable {
         if (getTargetPosition() == 0) {
             // RandomMove
             hp -= 1;
-            mover.randomPathFinder(world, this);
+            pathFinder.randomPathFinder(world, this);
         } else {// если есть
             hp -= 1;
-            mover.pathFinderToTarget(world, this);
+            pathFinder.pathFinderToTarget(world, this);
             if (getTargetPosition() == 0) {
 
-                mover.randomPathFinder(world, this);
+                pathFinder.randomPathFinder(world, this);
             }
         }
 

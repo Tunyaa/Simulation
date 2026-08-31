@@ -30,19 +30,15 @@ public class PredatorStraightPathFinder implements PathFinder {
     public void randomPathFinder(World world, Creature creature) {
 
         creature.getPath().clear();
-//        System.out.println("RAndom MOVE");
         int row;
         int col;
-//        int row = ThreadLocalRandom.current().nextInt(-1, 2);
-//        int col = ThreadLocalRandom.current().nextInt(-1, 2);
 
-        do {// TODO
+        do {
             row = ThreadLocalRandom.current().nextInt(-1, 2);
             col = ThreadLocalRandom.current().nextInt(-1, 2);
         } while (row == 0 && col == 0);
 
         RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(creature.getPosition());
-//        System.out.println(rowColumnByPosition.getRow() + " & " + rowColumnByPosition.getCol());
         col = rowColumnByPosition.getCol() + col;
         row = rowColumnByPosition.getRow() + row;
         col = col >= 1 ? col : 1;
@@ -53,7 +49,6 @@ public class PredatorStraightPathFinder implements PathFinder {
 
         int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
         if (world.isStone(positionByRowСolumn)) {
-//            System.out.println("Сработал IF  randomPathFinder");
 
             return;
         }
@@ -69,20 +64,16 @@ public class PredatorStraightPathFinder implements PathFinder {
         int creaturePosition = creature.getPosition();
 
         // Целевая точка
-        // ОБРАТОБАТЬ ЕСЛИ ТОЧКИ ЦЕЛЕВОЙ НЕТ!!!!
         int targetPosition = creature.getTargetPosition();
 
         // Добавляем целевую точку в промежуточный путь
         tempIndixes.add(targetPosition);
         if (world.isStone(targetPosition)) {
-//            System.out.println("IF1 отработал");
             creature.setTargetPosition(0);
             creature.getPath().clear();
             return;
         }
 
-        // Проверка: массив пустой?
-        // ПРОВЕРИТЬ ОКОНЧАНИЕ МЕТОДЕ ЧЕРЕЗ УСЛОВИЕ
         while (!tempIndixes.isEmpty()) {
 
             // Проверка: Точка рядом?
@@ -107,7 +98,6 @@ public class PredatorStraightPathFinder implements PathFinder {
                 // Берем промежуточную точку между сущностью и целью
                 targetPosition = world.getWorldGrid().getMidPosition(creaturePosition, targetPosition);
                 if (world.isStone(targetPosition)) {
-//                    System.out.println("IF2 отработал");
                     creature.setTargetPosition(0);
                     creature.getPath().clear();
                     return;

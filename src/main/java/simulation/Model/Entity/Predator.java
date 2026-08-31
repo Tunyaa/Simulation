@@ -20,7 +20,7 @@ public class Predator extends Creature implements Attacker {
 
     private SquareViewer squareViewer;
 
-    private final PathFinder mover;
+    private final PathFinder pathFinder;
     private int atkDmg;
 
     public Predator() {
@@ -28,7 +28,7 @@ public class Predator extends Creature implements Attacker {
         setHp(100);
         setRangeOfView(3);
         this.squareViewer = new SquareViewer(this, Herbivore.class);// TODO
-        this.mover = new PredatorStraightPathFinder();// TODO вынести один объект для всех сущностей Di
+        this.pathFinder = new PredatorStraightPathFinder();// TODO вынести один объект для всех сущностей Di
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Predator extends Creature implements Attacker {
 //                System.out.println("Цель  - " + integer);
 //
 //                setTargetPosition(integer);
-//                mover.pathFinderToTarget(world, this);
+//                pathFinder.pathFinderToTarget(world, this);
 //                if (!getPath().isEmpty()) {
 //                    System.out.println(" Есть путь");
 //                    break;
@@ -72,7 +72,7 @@ public class Predator extends Creature implements Attacker {
 //
 //        if (getPath().isEmpty()) {
 //            for (int i = 0; i < 3; i++) {
-//                mover.randomPathFinder(world, this);
+//                pathFinder.randomPathFinder(world, this);
 //                if (!getPath().isEmpty()) {
 //                    System.out.println("рандомный путь найден");
 //                    break;
@@ -84,13 +84,13 @@ public class Predator extends Creature implements Attacker {
         if (getTargetPosition() == 0) {
             // RandomMove
             hp -= 2;
-            mover.randomPathFinder(world, this);
+            pathFinder.randomPathFinder(world, this);
         } else {// если есть
             hp -= 2;
-            mover.pathFinderToTarget(world, this);
+            pathFinder.pathFinderToTarget(world, this);
             if (getTargetPosition() == 0) {
 
-                mover.randomPathFinder(world, this);
+                pathFinder.randomPathFinder(world, this);
             }
         }
 
