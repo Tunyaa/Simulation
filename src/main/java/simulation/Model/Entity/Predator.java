@@ -6,7 +6,7 @@ import java.util.List;
 import simulation.Model.Attack.Attackable;
 import simulation.Model.Attack.Attacker;
 import simulation.Model.Eat.Eatable;
-import simulation.Model.PathFinder.PredatorStraightPathFinder;
+import simulation.Model.PathFinder.StraightPathFinder;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
@@ -28,7 +28,7 @@ public class Predator extends Creature implements Attacker {
         setHp(100);
         setRangeOfView(3);
         this.squareViewer = new SquareViewer(this, Herbivore.class);// TODO
-        this.pathFinder = new PredatorStraightPathFinder();// TODO вынести один объект для всех сущностей Di
+        this.pathFinder = new StraightPathFinder();// TODO вынести один объект для всех сущностей Di
     }
 
     @Override

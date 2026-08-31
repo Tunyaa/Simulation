@@ -19,21 +19,25 @@ import simulation.World.World;
  */
 public class Simulation {
 
-//    private int turnCounter;
+    //    private int turnCounter;
+    
     // Описывает цикл одного хода
     private void turn(World world) {
 
+        // Генерация травы
         if (world.getGrassCount() < world.getWorldGrid().getWorldLen() / 8) {
             for (int i = 0; i < 10; i++) {
                 world.reproduceEntity(Grass.class);
             }
         }
 
+        // Действия хищников
         List<Predator> predators = new ArrayList<>(world.getPredators());
         for (Predator predator : predators) {
             predator.action(world);
         }
 
+        // Действия травоядных
         List<Herbivore> herbivores = new ArrayList<>(world.getHerbivores());
         for (Herbivore herbivore : herbivores) {
             herbivore.action(world);

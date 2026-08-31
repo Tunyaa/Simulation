@@ -16,7 +16,7 @@ import simulation.World.World;
  *
  * @author tunyaa
  */
-public class PredatorStraightPathFinder implements PathFinder {
+public class StraightPathFinder implements PathFinder {
 
     @Override
     public void pathFinderToTarget(World world, Creature creature) {

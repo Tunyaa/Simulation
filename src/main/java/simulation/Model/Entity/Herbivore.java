@@ -6,7 +6,7 @@ import java.util.Map;
 import simulation.Model.Action.Action;
 import simulation.Model.Attack.Attackable;
 import simulation.Model.Eat.Eatable;
-import simulation.Model.PathFinder.PredatorStraightPathFinder;
+import simulation.Model.PathFinder.StraightPathFinder;
 import simulation.Model.Viewer.SquareViewer;
 import simulation.Model.PathFinder.StraightPathMover;
 import simulation.Render.EntityTypePng;
@@ -28,7 +28,7 @@ public class Herbivore extends Creature implements Eatable, Attackable {
         setHp(100);
         setRangeOfView(4);
         this.squareViewer = new SquareViewer(this, Grass.class);
-        this.pathFinder = new PredatorStraightPathFinder();
+        this.pathFinder = new StraightPathFinder();
     }
 
     public void move(World world) {

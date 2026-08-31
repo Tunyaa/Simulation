@@ -17,6 +17,7 @@ import simulation.Model.Entity.Herbivore;
 import simulation.Model.Entity.Predator;
 import simulation.Model.Entity.Stone;
 import simulation.Model.Entity.Tree;
+import simulation.Model.PathFinder.StraightPathFinder;
 
 /**
  *
@@ -33,6 +34,7 @@ public class World {
     private int grassCount;     // количество травы на сетке.
 
     private Random random = new Random();
+    private StraightPathFinder pathFinder;
 
     private final ConfigProperties configProperties;
     // Значения для генерации при создании мира.
@@ -48,7 +50,7 @@ public class World {
         this.predators = new ArrayList<>();
         this.herbivores = new ArrayList<>();
         this.configProperties = configProperties;
-
+        this.pathFinder = new StraightPathFinder();
     }
 
     // Создаёт список индексов и задаёт ширину и высоту сетки
