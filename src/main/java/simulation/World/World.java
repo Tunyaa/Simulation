@@ -91,51 +91,6 @@ public class World {
         buildEntityList(Herbivore.class, herbivores);
     }
 
-// Заполняет карту конкретной сущностью TODO Сделать генерацтю каменного фрагмента
-    private void spawnEntity(Class entityClass, int saturation) {
-        // Переменная хранит количество камня на карте
-        int entityCount = 0;
-        // Проверяет что (количество камня < len/cons)
-        int len = getWorldGrid().getWorldLen();
-        while (entityCount < saturation) {
-//        while (saturation > 0) {
-            // Получает рандомную позицию
-            int position = random.nextInt(len);
-            // Проверяет что позиция не крайняя
-//            if (isPositionNotBorder(position, this)) {
-            // Генерирует фрагмент камня
-//            generateEntityFragment(position, 1, Herbivore);
-            entityCount += generateEntityFragment(position, 1, entityClass);
-//            saturation--;
-//            }
-
-        }
-
-    }
-
-    // Создаёт сущность в позиции TODO
-    private int generateEntityFragment(int position, int steps, Class entityClass) {
-        int entityCount = 0;// Количество резмещенного камня
-//        int maxSubsequence = 0;//  Максимальное количество камня в линии
-        int direction = random.nextInt(4);// направление 0-вверх, 1-вниз, 2-влево, 3-вправо
-        int width = getWorldGrid().getWidth();
-        // массив направлений вверх, вниз, влево, вправо
-        int[] ary = new int[]{-width, width, -1, 1};
-        steps = 1;// Количество камней в линии
-//        steps = random.nextInt(steps);// Количество камней в линии
-        for (int i = 0; i < steps; i++) {
-
-            if (entities[position].isEmpty()) {
-                Entity entity = createEntity(entityClass);
-                entity.setPosition(position);
-                entities[position].add(entity);
-                entityCount++;
-            }
-        }
-
-        return entityCount;
-    }
-
     // Очищает поле и карту
     public void clearWorld() {
         if (entities != null) {
@@ -152,11 +107,11 @@ public class World {
     // Создает сущность
     private Entity createEntity(Class<? extends Entity> entityClass) {
         try {
-            if (entityClass == Predator.class ) {
+            if (entityClass == Predator.class) {
                 return new Predator(pathFinder, squareViewer);
             }
             if (entityClass == Herbivore.class) {
-                return  new Herbivore(pathFinder, squareViewer);
+                return new Herbivore(pathFinder, squareViewer);
             }
             return entityClass.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
@@ -186,7 +141,7 @@ public class World {
     // Возвращает лист сущностей по позиции
     public List<Entity> getEntitysByPosition(int position) {
         int length = entities.length;
-        if (position >= 1 && position <= length - 1) {// TODO -1 не нужно?
+        if (position >= 1 && position <= length - 1) {// 
 
             return entities[position];
         }
@@ -196,12 +151,6 @@ public class World {
     // Возвращает сетку сущностей
     public List<Entity>[] getEntitys() {
         return entities;
-    }
-
-    // TODO Удалить , если не используется
-    public void setEntitys(List<Entity>[] entitys) {
-        System.out.println("НЕ УДАЛЯЙ МЕНЯ!!!");
-        this.entities = entitys;
     }
 
     // Возвращает  поле
@@ -221,8 +170,7 @@ public class World {
         }
     }
 
-    // Воспроизводство сущности TODO переделать count, под рандом 1-3. 
-//    Переделать количество воспроизведения в количество вызова метода в цикле
+    // Размножение сущностей
     public <T extends Entity> void reproduceEntity(Class<T> entityType) {
         int count = random.nextInt(3);// TODO
         spawnEntityOnGrid(entityType, count);
@@ -232,14 +180,6 @@ public class World {
         if (entityType == Predator.class) {
             buildEntityList(Predator.class, predators);
         }
-    }
-
-    public List<Predator> getPredators() {
-        return predators;
-    }
-
-    public List<Herbivore> getHerbivores() {
-        return herbivores;
     }
 
     // Заполняет карту конкретной сущностью 
@@ -260,7 +200,6 @@ public class World {
         List<Entity> entitysByPosition = getEntitysByPosition(position);
         for (Entity entity : entitysByPosition) {
             if (entity instanceof Stone) {
-//                System.out.println("На пути камень");
                 return true;
             }
         }
@@ -281,5 +220,59 @@ public class World {
         }
         return this.grassCount;
     }
+
+    public List<Predator> getPredators() {
+        return predators;
+    }
+
+    public List<Herbivore> getHerbivores() {
+        return herbivores;
+    }
+
+
+//// Заполняет карту конкретной сущностью  Сделать генерацтю каменного фрагмента
+//    private void spawnEntity(Class entityClass, int saturation) {
+//        // Переменная хранит количество камня на карте
+//        int entityCount = 0;
+//        // Проверяет что (количество камня < len/cons)
+//        int len = getWorldGrid().getWorldLen();
+//        while (entityCount < saturation) {
+////        while (saturation > 0) {
+//            // Получает рандомную позицию
+//            int position = random.nextInt(len);
+//            // Проверяет что позиция не крайняя
+////            if (isPositionNotBorder(position, this)) {
+//            // Генерирует фрагмент камня
+////            generateEntityFragment(position, 1, Herbivore);
+//            entityCount += generateEntityFragment(position, 1, entityClass);
+////            saturation--;
+////            }
+//
+//        }
+//
+//    }
+//
+//    // Создаёт сущность в позиции 
+//    private int generateEntityFragment(int position, int steps, Class entityClass) {
+//        int entityCount = 0;// Количество резмещенного камня
+////        int maxSubsequence = 0;//  Максимальное количество камня в линии
+//        int direction = random.nextInt(4);// направление 0-вверх, 1-вниз, 2-влево, 3-вправо
+//        int width = getWorldGrid().getWidth();
+//        // массив направлений вверх, вниз, влево, вправо
+//        int[] ary = new int[]{-width, width, -1, 1};
+//        steps = 1;// Количество камней в линии
+////        steps = random.nextInt(steps);// Количество камней в линии
+//        for (int i = 0; i < steps; i++) {
+//
+//            if (entities[position].isEmpty()) {
+//                Entity entity = createEntity(entityClass);
+//                entity.setPosition(position);
+//                entities[position].add(entity);
+//                entityCount++;
+//            }
+//        }
+//
+//        return entityCount;
+//    }
 
 }
