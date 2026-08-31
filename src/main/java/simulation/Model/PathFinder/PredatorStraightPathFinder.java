@@ -18,9 +18,6 @@ import simulation.World.World;
  */
 public class PredatorStraightPathFinder implements PathFinder {
 
-    // Массив (возможные точки) промежуточный массив
-    ArrayList<Integer> tempIndixes = new ArrayList<>();
-
     @Override
     public void pathFinderToTarget(World world, Creature creature) {
         pathFinder(world, creature);
@@ -57,6 +54,9 @@ public class PredatorStraightPathFinder implements PathFinder {
     }
 
     private void pathFinder(World world, Creature creature) {
+        // Массив (возможные точки) промежуточный массив
+        ArrayList<Integer> tempIndixes = new ArrayList<>();
+        
         // Очищает Путь
         creature.getPath().clear();
 
