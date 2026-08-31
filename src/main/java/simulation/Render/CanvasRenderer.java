@@ -48,16 +48,20 @@ public class CanvasRenderer implements Renderer {
 
     }
 
+    // Загрузка изображений
     private void loadImages() {
-        int pNGCount = EntityTypePng.values().length;
-        this.imageCache.clear();
 
-        for (int i = 0; i < pNGCount; i++) {
-            imageCache.put(EntityTypePng.values()[i], new Image(getClass().getResourceAsStream(EntityTypePng.values()[i].getDisplayName())));
+        for (int i = 0; i < EntityTypePng.values().length; i++) {
+            try {
+                imageCache.put(EntityTypePng.values()[i], new Image(getClass().getResourceAsStream(EntityTypePng.values()[i].getDisplayName())));
+            } catch (NullPointerException e) {
+                throw new IllegalStateException("Image not found: " + EntityTypePng.values()[i].getDisplayName());
+            }
+
         }
     }
 
-    // TODO сделать загрузку картинок 1 раз в старте
+    // Отрисовка сетки
     @Override
     public void render() {
 
@@ -67,17 +71,14 @@ public class CanvasRenderer implements Renderer {
 
         // Цвет фона сетки
         gc.setFill(Color.CADETBLUE);
-//        gc.setFill(Color.BISQUE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         List<Entity>[] entitys = world.getEntitys();
         for (int i = 1; i < entitys.length; i++) {
             if (!entitys[i].isEmpty()) {
                 RowColumn rC = world.getWorldGrid().getRowColumnByPosition(i);
-                // Загружает картинку
-//                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(0).getEntityTypePng().getDisplayName()));
 
-// Если в клетке есть Predator, то загружается его png
+                // Если в клетке есть Predator, то загружается его png
                 List<Entity> entity = entitys[i];
                 int predatorIndex = entity.size() - 1;
                 for (int j = 0; j < entity.size(); j++) {
@@ -86,11 +87,12 @@ public class CanvasRenderer implements Renderer {
                     }
                 }
 
-//                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(predatorIndex).getEntityTypePng().getDisplayName()));
-                Image get = imageCache.get(entity.get(predatorIndex).getEntityTypePng());
-                gc.drawImage(get, (rC.getCol() * pngSizeInPix) - pngSizeInPix, (rC.getRow() * pngSizeInPix) - pngSizeInPix, pngSizeInPix, pngSizeInPix);
-//                gc.drawImage(image, (rC.getCol() * pngSizeInPix) - pngSizeInPix, (rC.getRow() * pngSizeInPix) - pngSizeInPix, pngSizeInPix, pngSizeInPix);
-//                gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
+                gc.drawImage(
+                        imageCache.get(entity.get(predatorIndex).getEntityTypePng()),// png
+                        (rC.getCol() * pngSizeInPix) - pngSizeInPix,// Координата колонки
+                        (rC.getRow() * pngSizeInPix) - pngSizeInPix,// Координатя ряда
+                        pngSizeInPix,// Ширина png
+                        pngSizeInPix);// Высота png
             }
         }
     }
