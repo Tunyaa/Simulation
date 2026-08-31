@@ -13,6 +13,7 @@ import simulation.Render.EntityTypePng;
 import simulation.World.World;
 import simulation.World.WorldGrid;
 import simulation.Model.PathFinder.PathFinder;
+import simulation.Model.Viewer.Viewer;
 
 /**
  *
@@ -20,14 +21,14 @@ import simulation.Model.PathFinder.PathFinder;
  */
 public class Herbivore extends Creature implements Eatable, Attackable {
 
-    private SquareViewer squareViewer;
+    private Viewer viewer;
     private final PathFinder pathFinder;
 
-    public Herbivore(PathFinder pathFinder) {
+    public Herbivore(PathFinder pathFinder, Viewer viewer) {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setRangeOfView(4);
-        this.squareViewer = new SquareViewer(this, Grass.class);
+        this.viewer = viewer;
         this.pathFinder = pathFinder;
     }
 
@@ -181,7 +182,7 @@ public class Herbivore extends Creature implements Eatable, Attackable {
     }
 
     public void viev(World world) {
-        squareViewer.viev(world);
+        viewer.viev(world, this, Grass.class);
 
     }
 

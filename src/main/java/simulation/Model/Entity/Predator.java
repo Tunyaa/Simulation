@@ -11,6 +11,7 @@ import simulation.Model.Viewer.SquareViewer;
 import simulation.Render.EntityTypePng;
 import simulation.World.World;
 import simulation.Model.PathFinder.PathFinder;
+import simulation.Model.Viewer.Viewer;
 
 /**
  *
@@ -18,19 +19,14 @@ import simulation.Model.PathFinder.PathFinder;
  */
 public class Predator extends Creature implements Attacker {
 
-    private SquareViewer squareViewer;
-    private PathFinder pathFinder;
-    private int atkDmg;
+    private Viewer viewer;
+    private final PathFinder pathFinder;
 
-    public Predator(PathFinder pathFinder) {
+    public Predator(PathFinder pathFinder, Viewer viewer) {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
         setRangeOfView(3);
-        this.squareViewer = new SquareViewer(this, Herbivore.class);// TODO
-        this.pathFinder = pathFinder;// TODO вынести один объект для всех сущностей Di
-    }
-
-    public void setPathFinder(PathFinder pathFinder) {
+        this.viewer = viewer;
         this.pathFinder = pathFinder;
     }
 
@@ -55,33 +51,6 @@ public class Predator extends Creature implements Attacker {
 
         // Просмотр
         viev(world);
-//        if (getPath().isEmpty()) {
-//            System.out.println("Путь пустой");
-//        }
-//        ArrayList<Integer> targetPositions1 = getTargetPositions();
-//        if (!targetPositions1.isEmpty()) {
-//            for (Integer integer : targetPositions1) {
-//                System.out.println("Цель  - " + integer);
-//
-//                setTargetPosition(integer);
-//                pathFinder.pathFinderToTarget(world, this);
-//                if (!getPath().isEmpty()) {
-//                    System.out.println(" Есть путь");
-//                    break;
-//                }
-//            }
-//            setTargetPosition(0);
-//        }
-//
-//        if (getPath().isEmpty()) {
-//            for (int i = 0; i < 3; i++) {
-//                pathFinder.randomPathFinder(world, this);
-//                if (!getPath().isEmpty()) {
-//                    System.out.println("рандомный путь найден");
-//                    break;
-//                }
-//            }
-//        }
 
         // Если нет цели
         if (getTargetPosition() == 0) {
@@ -144,7 +113,7 @@ public class Predator extends Creature implements Attacker {
 
     public void viev(World world) {
 
-        squareViewer.viev(world);
+        viewer.viev(world, this, Herbivore.class);
     }
 
 }

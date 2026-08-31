@@ -13,16 +13,16 @@ import simulation.World.World;
  */
 public class SquareViewer implements Viewer {
     
-    private Creature creature;
-    private Class<?> target;
-    
-    public SquareViewer(Creature creature, Class<?> target) {
-        this.creature = creature;
-        this.target = target;
-    }
+////    private Creature creature;
+////    private Class<?> target;
+//    
+//    public SquareViewer() {
+////        this.creature = creature;
+////        this.target = target;
+//    }
     
     @Override
-    public void viev(World world) {
+    public void viev(World world, Creature creature, Class<?> target) {
         creature.getTargetPositions().clear();
         creature.getPath().clear();
 //        creature.setTargetPosition(0);

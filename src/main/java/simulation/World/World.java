@@ -18,6 +18,7 @@ import simulation.Model.Entity.Predator;
 import simulation.Model.Entity.Stone;
 import simulation.Model.Entity.Tree;
 import simulation.Model.PathFinder.StraightPathFinder;
+import simulation.Model.Viewer.SquareViewer;
 
 /**
  *
@@ -35,6 +36,7 @@ public class World {
 
     private Random random = new Random();
     private StraightPathFinder pathFinder;
+    private SquareViewer squareViewer;
 
     private final ConfigProperties configProperties;
     // Значения для генерации при создании мира.
@@ -51,6 +53,7 @@ public class World {
         this.herbivores = new ArrayList<>();
         this.configProperties = configProperties;
         this.pathFinder = new StraightPathFinder();
+        this.squareViewer = new SquareViewer();
     }
 
     // Создаёт список индексов и задаёт ширину и высоту сетки
@@ -150,10 +153,10 @@ public class World {
     private Entity createEntity(Class<? extends Entity> entityClass) {
         try {
             if (entityClass == Predator.class ) {
-                return new Predator(pathFinder);
+                return new Predator(pathFinder, squareViewer);
             }
             if (entityClass == Herbivore.class) {
-                return  new Herbivore(pathFinder);
+                return  new Herbivore(pathFinder, squareViewer);
             }
             return entityClass.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
