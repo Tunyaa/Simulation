@@ -1,5 +1,6 @@
 package simulation.Render;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -29,10 +30,13 @@ public class CanvasRenderer implements Renderer {
 
     int pngSizeInPix; // Размер картинки PNG
 
+    private HashMap<EntityTypePng, Image> imageCache;
+
     public CanvasRenderer(World world, Canvas canvas) {
         this.world = world;
         this.canvas = canvas;
-
+        this.imageCache = new HashMap<>();
+        loadImages();
     }
 
     // Изменение размера png в зависимости от размера сетки
@@ -42,6 +46,15 @@ public class CanvasRenderer implements Renderer {
 
         pngSizeInPix = sizeH < sizeW ? sizeH : sizeW;
 
+    }
+
+    private void loadImages() {
+        int pNGCount = EntityTypePng.values().length;
+        this.imageCache.clear();
+
+        for (int i = 0; i < pNGCount; i++) {
+            imageCache.put(EntityTypePng.values()[i], new Image(getClass().getResourceAsStream(EntityTypePng.values()[i].getDisplayName())));
+        }
     }
 
     // TODO сделать загрузку картинок 1 раз в старте
@@ -73,9 +86,10 @@ public class CanvasRenderer implements Renderer {
                     }
                 }
 
-                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(predatorIndex).getEntityTypePng().getDisplayName()));
-
-                gc.drawImage(image, (rC.getCol() * pngSizeInPix) - pngSizeInPix, (rC.getRow() * pngSizeInPix) - pngSizeInPix, pngSizeInPix, pngSizeInPix);
+//                Image image = new Image(getClass().getResourceAsStream(entitys[i].get(predatorIndex).getEntityTypePng().getDisplayName()));
+                Image get = imageCache.get(entity.get(predatorIndex).getEntityTypePng());
+                gc.drawImage(get, (rC.getCol() * pngSizeInPix) - pngSizeInPix, (rC.getRow() * pngSizeInPix) - pngSizeInPix, pngSizeInPix, pngSizeInPix);
+//                gc.drawImage(image, (rC.getCol() * pngSizeInPix) - pngSizeInPix, (rC.getRow() * pngSizeInPix) - pngSizeInPix, pngSizeInPix, pngSizeInPix);
 //                gc.drawImage(image, rC.getCol() * pngSizeInPix, rC.getRow() * pngSizeInPix, pngSizeInPix, pngSizeInPix);
             }
         }
