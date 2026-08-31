@@ -20,7 +20,7 @@ import simulation.World.World;
 public class Simulation {
 
 //    private int turnCounter;
-    
+                            
     // Описывает цикл одного хода
     private void turn(World world) {
 //        turnCounter++;
