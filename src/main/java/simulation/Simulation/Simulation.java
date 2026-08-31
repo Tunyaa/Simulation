@@ -20,10 +20,8 @@ import simulation.World.World;
 public class Simulation {
 
 //    private int turnCounter;
-                            
     // Описывает цикл одного хода
     private void turn(World world) {
-//        turnCounter++;
 
         if (world.getGrassCount() < world.getWorldGrid().getWorldLen() / 8) {
             for (int i = 0; i < 10; i++) {
@@ -44,6 +42,7 @@ public class Simulation {
     }
 
     public void runCycle(World world) {
+//        turnCounter++;
         turn(world);
     }
 

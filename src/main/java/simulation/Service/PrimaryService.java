@@ -65,7 +65,7 @@ public class PrimaryService {
     // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН/ Включается симуляция с пустым миром
     public void startSimulation(Slider speedSimulationSlider) {
         if (world.getHerbivores().size() > 0 && world.getPredators().size() > 0) {
-            if (running == false) {// TODO Перенести runTimelineCycle  в сервис> simul
+            if (running == false) {
                 running = true;
                 runTimelineCycle(speedSimulationSlider);
             }
@@ -73,21 +73,17 @@ public class PrimaryService {
 
     }
 
-    private void runSimulationCycle() {
-        simulation.runCycle(world);
-    }
-
     // Запускает анимацию
     private void runTimelineCycle(Slider speedSimulationSlider) {
 
         turnTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(speedSimulationSlider.getValue()), event -> {
-                    // Цикл завершается, если все сущности погибли
+                    // Цикл завершается, если сущности погибли
                     if (world.getHerbivores().size() == 0 || world.getPredators().size() == 0) {
-//                    if (world.getHerbivores().size() + world.getPredators().size() == 0) {
                         turnTimeline.stop();
+                        return;
                     }
-                    runSimulationCycle();
+                    simulation.runCycle(world);
                     render();
                 })
         );
@@ -97,11 +93,10 @@ public class PrimaryService {
 
     }
 
+    // Перезапуск цикла
     public void restartSimulation(Slider speedSimulationSlider) {
-        if (isRunning()) {// TODO
+        if (isRunning()) {
             turnTimeline.stop();
-//            stopSimulation(); УДАЛИТЬ
-//            startSimulation(speedSimulationSlider);
             runTimelineCycle(speedSimulationSlider);
         }
     }
