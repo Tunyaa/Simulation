@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import simulation.Model.Action.CreatureTurnProcessor;
 import simulation.Model.Entity.Creature;
 import simulation.Model.Entity.Entity;
 import simulation.Model.Entity.Grass;
@@ -20,7 +21,7 @@ import simulation.World.World;
 public class Simulation {
 
     //    private int turnCounter;
-    
+    private CreatureTurnProcessor turnProcessor = new CreatureTurnProcessor();
     // Описывает цикл одного хода
     private void turn(World world) {
 
@@ -34,13 +35,13 @@ public class Simulation {
         // Действия хищников
         List<Predator> predators = new ArrayList<>(world.getPredators());
         for (Predator predator : predators) {
-            predator.action(world);
+            turnProcessor.turnProcess(world, predator);
         }
 
         // Действия травоядных
         List<Herbivore> herbivores = new ArrayList<>(world.getHerbivores());
         for (Herbivore herbivore : herbivores) {
-            herbivore.action(world);
+            turnProcessor.turnProcess(world, herbivore);
         }
 
     }

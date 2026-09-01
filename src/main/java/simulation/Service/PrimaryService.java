@@ -20,7 +20,7 @@ public class PrimaryService {
 
     private World world;
     private Simulation simulation;
-    private CanvasRenderer render;
+    private CanvasRenderer renderer;
 
     // Цикл анимации
     private Timeline turnTimeline;
@@ -31,7 +31,7 @@ public class PrimaryService {
     public PrimaryService(World world, Simulation simulation, CanvasRenderer render) {
         this.world = world;
         this.simulation = simulation;
-        this.render = render;
+        this.renderer = render;
     }
 
     // Cоздание мира
@@ -40,29 +40,23 @@ public class PrimaryService {
             if (world.getWorldGrid().getWorldLen() == 0) {
                 world.initWorld(w, h);//Инициализация сетки и списка существ. Спавн существ на сетку
                 world.spawnEntitiesOnWorldGrid();
-                render.setPngSize();// Настройка размера png
-                render();// Отображение сетки
+                renderer.setPngSize();// Настройка размера png
+                renderer.render();// Отображение сетки
             }
         }
 
-    }
-
-    // TODO Убрать
-    public void render() {
-        // TODO перенести
-        render.render();
     }
 
     public void clearWorldMap() {
         if (world.getWorldGrid().getWorldLen() != 0) {
             stopSimulation();
             world.clearWorld();
-            render();
+            renderer.render();
         }
 
     }
 
-    // ПРОВЕРКУ ЕСЛИ МИР ОЧИЩЕН/ Включается симуляция с пустым миром
+    
     public void startSimulation(Slider speedSimulationSlider) {
         if (world.getHerbivores().size() > 0 && world.getPredators().size() > 0) {
             if (running == false) {
@@ -84,7 +78,7 @@ public class PrimaryService {
                         return;
                     }
                     simulation.runCycle(world);
-                    render();
+                    renderer.render();
                 })
         );
 

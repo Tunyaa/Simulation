@@ -24,7 +24,7 @@ public class StraightPathFinder implements PathFinder {
     }
 
     @Override
-    public void randomPathFinder(World world, Creature creature) {
+    public void pathFinderRandom(World world, Creature creature) {
 
         creature.getPath().clear();
         int row;

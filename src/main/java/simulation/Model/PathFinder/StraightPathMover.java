@@ -26,7 +26,7 @@ public class StraightPathMover implements PathFinder {
     }
 
     @Override
-    public void randomPathFinder(World world, Creature creature) {
+    public void pathFinderRandom(World world, Creature creature) {
 
         creature.getPath().clear();
 //        System.out.println("RAndom MOVE");
@@ -46,7 +46,7 @@ public class StraightPathMover implements PathFinder {
         int r = world.getWorldGrid().getPositionByRowСolumn(3, 3);
         int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
 //        if (world.isStone(positionByRowСolumn)) {
-//            System.out.println("Сработал IF  randomPathFinder");
+//            System.out.println("Сработал IF  pathFinderRandom");
 //            creature.getPath().clear();
 //            return;
 //        }

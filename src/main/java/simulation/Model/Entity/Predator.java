@@ -19,7 +19,7 @@ import simulation.Model.Viewer.Viewer;
  */
 public class Predator extends Creature implements Attacker {
 
-    private Viewer viewer;
+    private final Viewer viewer;
     private final PathFinder pathFinder;
 
     public Predator(PathFinder pathFinder, Viewer viewer) {
@@ -31,47 +31,34 @@ public class Predator extends Creature implements Attacker {
     }
 
     @Override
-    public void action(World world) {
-        targetPosition = 0;
-        getPath().clear();
-// Ход хищника 
-// Если умер, то удалить
-        if (!isAlive()) {
-//            world.removeEntity(this);
-            die(world);
-            return;
-        }
+    public void eat() {
+        hp += 40;
+    }
 
-        // размножение Сделать метод размножение 1-2 в этой же точке.
-        if (getHp() > 380) {
-            setHp(90);
-//                world.regenertePredator();
-            world.reproduceEntity(Predator.class);
-        }
+    @Override
+    public void attack(Attackable attackable) {
+        int nextInt = random.nextInt(1, hp + 2);
+        attackable.takeDamage(nextInt);
+    }
 
-        // Просмотр
-        viev(world);
+    @Override
+    public void view(World world) {
 
-        // Если нет цели
-        if (getTargetPosition() == 0) {
-            // RandomMove
-            hp -= 2;
-            pathFinder.randomPathFinder(world, this);
-        } else {// если есть
-            hp -= 2;
-            pathFinder.pathFinderToTarget(world, this);
-            if (getTargetPosition() == 0) {
+        viewer.view(world, this, Herbivore.class);
+    }
 
-                pathFinder.randomPathFinder(world, this);
-            }
-        }
+    @Override
+    public void pathFinderRandom(World world) {
+        pathFinder.pathFinderRandom(world, this);
+    }
 
-        if (!getPath().isEmpty()) {
-            // передвигаюсь
-            world.moveEntityToPosition(this, getPath().getFirst());
-            getPath().clear();
-        }
+    @Override
+    public void pathFinderToTarget(World world) {
+        pathFinder.pathFinderToTarget(world, this);
+    }
 
+    @Override
+    public void actionOnTarget(World world) {
         // Если хищник на точке с целью
         if (getTargetPosition() == getPosition()) {
 
@@ -86,34 +73,25 @@ public class Predator extends Creature implements Attacker {
                         eat();
                         // удаляю с карты
                         ((Herbivore) entity).die(world);
-//                        world.removeEntity(entity);
-
                         setTargetPosition(0);
-
                     }
-
                     break;
                 }
             }
         }
-
     }
 
     @Override
-    public void eat() {
-        hp += 40;
+    public void turnTax() {
+        this.setHp(this.getHp() - 2);
     }
 
     @Override
-    public void attack(Attackable attackable) {
-        int nextInt = random.nextInt(1, hp + 2);
-        System.out.println("Бью на - " + nextInt);
-        attackable.takeDamage(nextInt);
-    }
-
-    public void viev(World world) {
-
-        viewer.view(world, this, Herbivore.class);
+    public void reproduce(World world) {
+        if (this.getHp() > 380) {
+            this.setHp(90);
+            world.reproduceEntity(Predator.class);
+        }
     }
 
 }

@@ -9,5 +9,5 @@ import simulation.World.World;
  */
 public interface PathFinder {
     void pathFinderToTarget(World world, Creature creature);
-    void randomPathFinder(World world, Creature creature);
+    void pathFinderRandom(World world, Creature creature);
 }
