@@ -10,5 +10,5 @@ import simulation.World.WorldGrid;
  */
 public interface Viewer {
 
-    void viev(World world, Creature creature, Class<?> target);
+    void view(World world, Creature creature, Class<?> target);
 }

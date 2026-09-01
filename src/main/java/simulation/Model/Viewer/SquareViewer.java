@@ -22,7 +22,7 @@ public class SquareViewer implements Viewer {
 //    }
     
     @Override
-    public void viev(World world, Creature creature, Class<?> target) {
+    public void view(World world, Creature creature, Class<?> target) {
         creature.getTargetPositions().clear();
         creature.getPath().clear();
 //        creature.setTargetPosition(0);

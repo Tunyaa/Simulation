@@ -10,16 +10,19 @@ import simulation.Model.Eat.Eatable;
 import simulation.Model.Eat.Eater;
 import simulation.World.World;
 import simulation.Model.PathFinder.PathFinder;
+import simulation.Model.Viewer.Viewer;
 
 /**
  *
  * @author tunyaa
  */
-public abstract class Creature extends Entity // implements
+public abstract class Creature extends Entity implements
 //        Reproduser,
 //        Existance,
 //        Action,
-//        Viewer,
+
+
+        Viewer
 // Eater 
 {
 

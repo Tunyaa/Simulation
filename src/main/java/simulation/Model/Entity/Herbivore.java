@@ -71,9 +71,9 @@ public class Herbivore extends Creature implements Eatable, Attackable {
         }
 
 //            if (herbivore.getTargetPosition() == 0) {
-//                herbivore.viev(world);
+//                herbivore.view(world);
 //            }
-        viev(world);// 
+        view(world);// 
 
 //        if (getTargetPosition() == 0) {
 //            hp -= 1;
@@ -145,7 +145,7 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 //                world.regenerteHerbivore();
             world.reproduceEntity(simulation.Model.Entity.Herbivore.class);
         }
-        viev(world);// 
+        view(world);// 
 
         // Если нет цели
         if (getTargetPosition() == 0) {
@@ -181,8 +181,8 @@ public class Herbivore extends Creature implements Eatable, Attackable {
 
     }
 
-    public void viev(World world) {
-        viewer.viev(world, this, Grass.class);
+    public void view(World world) {
+        viewer.view(world, this, Grass.class);
 
     }
 

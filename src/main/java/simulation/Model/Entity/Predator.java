@@ -113,7 +113,7 @@ public class Predator extends Creature implements Attacker {
 
     public void viev(World world) {
 
-        viewer.viev(world, this, Herbivore.class);
+        viewer.view(world, this, Herbivore.class);
     }
 
 }
