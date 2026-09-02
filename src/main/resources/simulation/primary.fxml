@@ -14,11 +14,11 @@
     <left>
         <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="80.0" prefWidth="120.0" spacing="10.0" style="-fx-background-color: white;">
             <children>
-                <TextField fx:id="widthWorldMapField" promptText="Ширина">
+                <TextField fx:id="widthWorldMapField" promptText="Ширина мин. 7">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin></TextField>
-            <TextField fx:id="heightWorldMapField" promptText="Высота">
+            <TextField fx:id="heightWorldMapField" promptText="Высота мин. 7">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
@@ -27,6 +27,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></Button>
+            <Button fx:id="clearWorldMapButton" mnemonicParsing="false" onAction="#clearWorldMap" text="Очистить поле" />
             <Label text="Скорость">
                <font>
                   <Font size="11.0" />
@@ -35,7 +36,7 @@
                   <Insets bottom="-10.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Slider fx:id="speedSimulationSlider" max="2.0" min="0.1" prefWidth="0.0" showTickLabels="true" value="1.0">
+            <Slider fx:id="speedSimulationSlider" max="1.0" min="0.01" prefWidth="0.0" showTickLabels="true" value="1.0">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
@@ -46,7 +47,6 @@
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button fx:id="clearWorldMapButton" mnemonicParsing="false" onAction="#clearWorldMap" text="Очистить поле" />
             </children>
          <opaqueInsets>
             <Insets />
