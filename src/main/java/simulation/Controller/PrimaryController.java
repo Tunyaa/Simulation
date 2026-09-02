@@ -1,31 +1,14 @@
 package simulation.Controller;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Random;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
-import simulation.App;
-import simulation.App;
 import simulation.Service.PrimaryService;
-import simulation.Simulation.Simulation;
-import simulation.Render.EntityTypePng;
-import simulation.Render.CanvasRenderer;
-import simulation.World.World;
-import simulation.World.WorldGrid;
 
 public class PrimaryController {
 

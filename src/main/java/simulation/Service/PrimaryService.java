@@ -1,16 +1,12 @@
 package simulation.Service;
 
-import java.util.Map;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import simulation.Simulation.Simulation;
 import simulation.Render.CanvasRenderer;
 import simulation.World.World;
-import simulation.World.WorldGrid;
 
 /**
  *
@@ -18,9 +14,9 @@ import simulation.World.WorldGrid;
  */
 public class PrimaryService {
 
-    private World world;
-    private Simulation simulation;
-    private CanvasRenderer renderer;
+    private final World world;
+    private final Simulation simulation;
+    private final CanvasRenderer renderer;
 
     // Цикл анимации
     private Timeline turnTimeline;
@@ -56,7 +52,6 @@ public class PrimaryService {
 
     }
 
-    
     public void startSimulation(Slider speedSimulationSlider) {
         if (world.getHerbivores().size() > 0 && world.getPredators().size() > 0) {
             if (running == false) {

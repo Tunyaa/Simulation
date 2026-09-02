@@ -3,21 +3,14 @@ package simulation.Render;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import simulation.Model.Entity.Entity;
 import simulation.Model.Entity.Predator;
 import simulation.World.RowColumn;
 import simulation.World.World;
-import simulation.World.WorldGrid;
 
 /**
  *
@@ -25,12 +18,12 @@ import simulation.World.WorldGrid;
  */
 public class CanvasRenderer implements Renderer {
 
-    final World world;
-    final Canvas canvas;
+    private final World world;
+    private final Canvas canvas;
 
-    int pngSizeInPix; // Размер картинки PNG
+    private int pngSizeInPix; // Размер картинки PNG
 
-    private HashMap<EntityTypePng, Image> imageCache;
+    private Map<EntityTypePng, Image> imageCache;
 
     public CanvasRenderer(World world, Canvas canvas) {
         this.world = world;

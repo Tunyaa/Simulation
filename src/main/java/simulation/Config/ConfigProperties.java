@@ -33,7 +33,7 @@ public class ConfigProperties {
             herbivoreInitialCount = getIntValueFromProperty("herbivoreInitialCount");
 
         } catch (IOException e) {
-            throw new RuntimeException("Exeption in load config.properties");
+            throw new RuntimeException("Exception in load config.properties");
         }
     }
 

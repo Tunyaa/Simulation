@@ -5,7 +5,6 @@ import simulation.Model.Entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import simulation.Model.Action.Action;
 import simulation.Model.Eat.Eatable;
 import simulation.Model.Eat.Eater;
 import simulation.World.World;

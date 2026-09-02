@@ -1,8 +1,5 @@
 package simulation.Render;
 
-import javafx.scene.canvas.Canvas;
-import simulation.World.World;
-import simulation.World.WorldGrid;
 
 /**
  *
