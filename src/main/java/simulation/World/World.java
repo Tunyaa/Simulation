@@ -77,21 +77,21 @@ public class World {
         this.worldGrid.initField(width, height);
     }
 
-    private void setConfig() {
-        stoneInitialCount = getWorldGrid().getWorldLen() / 10;
-        treeInitialCount = getWorldGrid().getWorldLen() / 40;
-        grassInitialCount = 1;
-        predatorInitialCount = 1;
-        herbivoreInitialCount = getWorldGrid().getWorldLen() / 20;
+    private void autoconfigurator() {
+        stoneInitialCount = configProperties.getStoneInitialCount() == -1 ? getWorldGrid().getWorldLen() / 10 : configProperties.getStoneInitialCount();
+        treeInitialCount = configProperties.getGrassInitialCount() == -1 ? getWorldGrid().getWorldLen() / 40 : configProperties.getTreeInitialCount();
+        grassInitialCount = configProperties.getGrassInitialCount() == -1 ? 1 : configProperties.getGrassInitialCount();
+        predatorInitialCount = configProperties.getPredatorInitialCount() == -1 ? 1 : configProperties.getPredatorInitialCount();
+        herbivoreInitialCount = configProperties.getHerbivoreInitialCount() == -1 ? getWorldGrid().getWorldLen() / 20 : configProperties.getHerbivoreInitialCount();
     }
 
     // Заполняет карту сущностями 
     public void spawnEntitiesOnWorldGrid() {
-        setConfig();
+        autoconfigurator();
         // Размещает сущности на сетке, количество берется из конфига
         spawnEntityOnGrid(Stone.class, stoneInitialCount);
-        spawnEntityOnGrid(Grass.class, grassInitialCount);
         spawnEntityOnGrid(Tree.class, treeInitialCount);
+        spawnEntityOnGrid(Grass.class, grassInitialCount);
         spawnEntityOnGrid(Predator.class, predatorInitialCount);
         spawnEntityOnGrid(Herbivore.class, herbivoreInitialCount);
 //        spawnEntityOnGrid(Stone.class, configProperties.getStoneInitialCount());
