@@ -183,7 +183,7 @@ public class World {
         }
     }
 
-    // Размножение сущностей
+    // Размножение сущностей в рандомных клетках
     public <T extends Entity> void reproduceEntity(Class<T> entityType) {
         int count = random.nextInt(3);
         spawnEntityOnGrid(entityType, count);
@@ -206,6 +206,32 @@ public class World {
                 entities[position].add(entity);
                 spawnedCount++;
             }
+        }
+    }
+    
+    // Размножение сущностей в одной клетке
+    public <T extends Entity> void reproduceEntityOnCurrentEntityPosition(Class<T> entityType, Creature creature) {
+        int count = random.nextInt(3);
+        spawnEntityOnGridOnCurrentEntityPosition(entityType, count, creature);
+        if (entityType == Herbivore.class) {
+            buildEntityList(Herbivore.class, herbivores);
+        }
+        if (entityType == Predator.class) {
+            buildEntityList(Predator.class, predators);
+        }
+    }
+
+    private <T extends Entity> void spawnEntityOnGridOnCurrentEntityPosition(Class<T> entityType, int count, Creature creature) {
+        int spawnedCount = 0;
+        while (spawnedCount < count) {
+            int position = creature.getPosition();
+//            int position = random.nextInt(getWorldGrid().getWorldLen());
+
+            Entity entity = createEntity(entityType);
+            entity.setPosition(position);
+            entities[position].add(entity);
+            spawnedCount++;
+
         }
     }
 
