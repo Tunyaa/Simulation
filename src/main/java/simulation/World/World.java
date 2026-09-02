@@ -211,7 +211,7 @@ public class World {
     
     // Размножение сущностей в одной клетке
     public <T extends Entity> void reproduceEntityOnCurrentEntityPosition(Class<T> entityType, Creature creature) {
-        int count = random.nextInt(3);
+        int count = random.nextInt(6);
         spawnEntityOnGridOnCurrentEntityPosition(entityType, count, creature);
         if (entityType == Herbivore.class) {
             buildEntityList(Herbivore.class, herbivores);

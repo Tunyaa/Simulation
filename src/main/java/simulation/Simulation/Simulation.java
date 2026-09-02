@@ -22,12 +22,14 @@ public class Simulation {
 
     //    private int turnCounter;
     private CreatureTurnProcessor turnProcessor = new CreatureTurnProcessor();
+
     // Описывает цикл одного хода
     private void turn(World world) {
 
         // Генерация травы
+        int treeSpawnQuantity = (world.getWorldGrid().getWorldLen() / 190) + 1;
         if (world.getGrassCount() < world.getWorldGrid().getWorldLen() / 8) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < treeSpawnQuantity; i++) {
                 world.reproduceEntity(Grass.class);
             }
         }
