@@ -40,11 +40,11 @@ public class World {
 
     private final ConfigProperties configProperties;
     // Значения для генерации при создании мира.
-    // stoneInitialCount;
-    // treeInitialCount;
-    // grassInitialCount;
-    // predatorInitialCount;
-    // herbivoreInitialCount;
+    private int stoneInitialCount;// Плотность камня на поле (количество клеток / cons)
+    private int treeInitialCount;
+    private int grassInitialCount;
+    private int predatorInitialCount;
+    private int herbivoreInitialCount;
 
     public World(ConfigProperties configProperties) {
 
@@ -77,15 +77,28 @@ public class World {
         this.worldGrid.initField(width, height);
     }
 
+    private void setConfig() {
+        stoneInitialCount = getWorldGrid().getWorldLen() / 10;
+        treeInitialCount = getWorldGrid().getWorldLen() / 40;
+        grassInitialCount = 1;
+        predatorInitialCount = 1;
+        herbivoreInitialCount = getWorldGrid().getWorldLen() / 20;
+    }
+
     // Заполняет карту сущностями 
     public void spawnEntitiesOnWorldGrid() {
-
+        setConfig();
         // Размещает сущности на сетке, количество берется из конфига
-        spawnEntityOnGrid(Stone.class, configProperties.getStoneInitialCount());
-        spawnEntityOnGrid(Grass.class, configProperties.getGrassInitialCount());
-        spawnEntityOnGrid(Tree.class, configProperties.getTreeInitialCount());
-        spawnEntityOnGrid(Predator.class, configProperties.getPredatorInitialCount());
-        spawnEntityOnGrid(Herbivore.class, configProperties.getHerbivoreInitialCount());
+        spawnEntityOnGrid(Stone.class, stoneInitialCount);
+        spawnEntityOnGrid(Grass.class, grassInitialCount);
+        spawnEntityOnGrid(Tree.class, treeInitialCount);
+        spawnEntityOnGrid(Predator.class, predatorInitialCount);
+        spawnEntityOnGrid(Herbivore.class, herbivoreInitialCount);
+//        spawnEntityOnGrid(Stone.class, configProperties.getStoneInitialCount());
+//        spawnEntityOnGrid(Grass.class, configProperties.getGrassInitialCount());
+//        spawnEntityOnGrid(Tree.class, configProperties.getTreeInitialCount());
+//        spawnEntityOnGrid(Predator.class, configProperties.getPredatorInitialCount());
+//        spawnEntityOnGrid(Herbivore.class, configProperties.getHerbivoreInitialCount());
 
         buildEntityList(Predator.class, predators);
         buildEntityList(Herbivore.class, herbivores);
