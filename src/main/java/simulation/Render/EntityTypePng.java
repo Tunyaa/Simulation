@@ -5,11 +5,11 @@ package simulation.Render;
  * @author tunyaa
  */
 public enum EntityTypePng {
-    PREDATOR("/static/img/wolf.png"),
+    PREDATOR("/static/img/wolf2.png"),
     HERBIVORE("/static/img/rabbit2.png"),
-    GRASS("/static/img/grass.png"),
-    THREE("/static/img/tree.png"),
-    STONE("/static/img/stone.png");
+    GRASS("/static/img/grass2.png"),
+    THREE("/static/img/tree2.png"),
+    STONE("/static/img/stone2.png");
 
     private String displayName;
 
