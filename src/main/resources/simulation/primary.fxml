@@ -14,11 +14,11 @@
     <left>
         <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="80.0" prefWidth="120.0" spacing="10.0" style="-fx-background-color: white;">
             <children>
-                <TextField fx:id="widthWorldMapField" promptText="Ширина мин. 7">
+                <TextField fx:id="widthWorldMapField" promptText="Ширина 7 - 250" text="60">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin></TextField>
-            <TextField fx:id="heightWorldMapField" promptText="Высота мин. 7">
+            <TextField fx:id="heightWorldMapField" promptText="Высота 7 - 250" text="40">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>

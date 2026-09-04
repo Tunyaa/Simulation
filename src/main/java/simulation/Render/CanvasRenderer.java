@@ -35,7 +35,7 @@ public class CanvasRenderer implements Renderer {
     // Изменение размера png в зависимости от размера сетки
     public void setPngSize() {
         int sizeH = (int) (canvas.getHeight() / world.getWorldGrid().getHeight());
-        int sizeW = (int) (canvas.getHeight() / world.getWorldGrid().getWidth());
+        int sizeW = (int) (canvas.getWidth() / world.getWorldGrid().getWidth());
 
         pngSizeInPix = sizeH < sizeW ? sizeH : sizeW;
 
