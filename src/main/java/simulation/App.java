@@ -8,12 +8,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.scene.canvas.Canvas;
-import simulation.Config.ConfigProperties;
-import simulation.Controller.PrimaryController;
-import simulation.Service.PrimaryService;
-import simulation.Simulation.Simulation;
-import simulation.Render.CanvasRenderer;
-import simulation.World.World;
+import simulation.config.ConfigProperties;
+import simulation.controller.PrimaryController;
+import simulation.service.PrimaryService;
+import simulation.simulation.Simulation;
+import simulation.render.CanvasRenderer;
+import simulation.world.World;
 
 /**
  * JavaFX App
@@ -26,7 +26,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         // Чтение проперти
         ConfigProperties configProperties = new ConfigProperties();
-        
+
         // Создание постоянных объектов
         World world = new World(configProperties);
         Simulation simulation = new Simulation();

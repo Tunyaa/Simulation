@@ -1,0 +1,108 @@
+package simulation.simulation.pathFinder;
+
+import simulation.model.pathFinder.PathFinder;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+import simulation.model.entity.Creature;
+import simulation.world.RowColumn;
+import simulation.world.World;
+
+/**
+ *
+ * @author tunyaa
+ */
+public class StraightPathFinder implements PathFinder {
+
+    @Override
+    public void pathFinderToTarget(World world, Creature creature) {
+        pathFinder(world, creature);
+    }
+
+    @Override
+    public void pathFinderRandom(World world, Creature creature) {
+
+        creature.getPath().clear();
+        int row;
+        int col;
+
+        do {
+            row = ThreadLocalRandom.current().nextInt(-1, 2);
+            col = ThreadLocalRandom.current().nextInt(-1, 2);
+        } while (row == 0 && col == 0);
+
+        RowColumn rowColumnByPosition = world.getWorldGrid().getRowColumnByPosition(creature.getPosition());
+        col = rowColumnByPosition.getCol() + col;
+        row = rowColumnByPosition.getRow() + row;
+        col = col >= 1 ? col : 1;
+        col = col <= world.getWorldGrid().getWidth() ? col : world.getWorldGrid().getWidth();
+
+        row = row >= 1 ? row : 1;
+        row = row <= world.getWorldGrid().getHeight() ? row : world.getWorldGrid().getHeight();
+
+        int positionByRowСolumn = world.getWorldGrid().getPositionByRowСolumn(row, col);
+        if (world.isStone(positionByRowСolumn)) {
+
+            return;
+        }
+        ArrayDeque<Integer> path = creature.getPath();
+        path.addFirst(positionByRowСolumn);
+    }
+
+    private void pathFinder(World world, Creature creature) {
+        // Массив (возможные точки) промежуточный массив
+        ArrayList<Integer> tempIndixes = new ArrayList<>();
+
+        // Очищает Путь
+        creature.getPath().clear();
+
+        // Текущая позиция
+        int creaturePosition = creature.getPosition();
+
+        // Целевая точка
+        int targetPosition = creature.getTargetPosition();
+
+        // Добавляем целевую точку в промежуточный путь
+        tempIndixes.add(targetPosition);
+        if (world.isStone(targetPosition)) {
+            creature.setTargetPosition(0);
+            creature.getPath().clear();
+            return;
+        }
+
+        while (!tempIndixes.isEmpty()) {
+
+            // Проверка: Точка рядом?
+            if (world.getWorldGrid().isLocatedNearby(creaturePosition, targetPosition)) {
+
+                // Записать точку путь
+                creature.getPath().add(targetPosition);
+                // Удалить эту точку из промежуточного массива
+                tempIndixes.remove(tempIndixes.size() - 1);
+
+                // Проверка: Эта точка целевая?
+                if (creature.isTarget(targetPosition)) {
+                    // Дошли до целевой точки.
+                    // Конец метода
+                    break;
+                }
+
+                creaturePosition = targetPosition;
+                targetPosition = tempIndixes.get(tempIndixes.size() - 1);
+            } else {
+
+                // Берем промежуточную точку между сущностью и целью
+                targetPosition = world.getWorldGrid().getMidPosition(creaturePosition, targetPosition);
+                if (world.isStone(targetPosition)) {
+                    creature.setTargetPosition(0);
+                    creature.getPath().clear();
+                    return;
+                }
+                tempIndixes.add(targetPosition);
+            }
+
+        }
+
+    }
+
+}
