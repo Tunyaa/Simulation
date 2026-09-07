@@ -11,6 +11,8 @@ import simulation.model.entity.Herbivore;
 import simulation.model.entity.Predator;
 import simulation.model.entity.Stone;
 import simulation.model.entity.Tree;
+import simulation.model.pathFinder.PathFinder;
+import simulation.model.vision.Vision;
 import simulation.simulation.pathFinder.StraightPathFinder;
 import simulation.simulation.vision.SquareVision;
 
@@ -29,8 +31,8 @@ public class World {
     private int grassCount;     // количество травы на сетке.
 
     private Random random = new Random();
-    private StraightPathFinder pathFinder;
-    private SquareVision squareViewer;
+    private PathFinder pathFinder;
+    private Vision vision;
 
     private final ConfigProperties configProperties;
     // Значения для генерации при создании мира.
@@ -40,14 +42,14 @@ public class World {
     private int predatorInitialCount;
     private int herbivoreInitialCount;
 
-    public World(ConfigProperties configProperties) {
+    public World(ConfigProperties configProperties, PathFinder pathFinder, Vision vision) {
 
         this.worldGrid = new WorldGrid();
         this.predators = new ArrayList<>();
         this.herbivores = new ArrayList<>();
         this.configProperties = configProperties;
-        this.pathFinder = new StraightPathFinder();
-        this.squareViewer = new SquareVision();
+        this.pathFinder = pathFinder;
+        this.vision = vision;
     }
 
     // Создаёт список индексов и задаёт ширину и высоту сетки
@@ -88,11 +90,6 @@ public class World {
         spawnEntityOnGrid(Grass.class, grassInitialCount);
         spawnEntityOnGrid(Predator.class, predatorInitialCount);
         spawnEntityOnGrid(Herbivore.class, herbivoreInitialCount);
-//        spawnEntityOnGrid(Stone.class, configProperties.getStoneInitialCount());
-//        spawnEntityOnGrid(Grass.class, configProperties.getGrassInitialCount());
-//        spawnEntityOnGrid(Tree.class, configProperties.getTreeInitialCount());
-//        spawnEntityOnGrid(Predator.class, configProperties.getPredatorInitialCount());
-//        spawnEntityOnGrid(Herbivore.class, configProperties.getHerbivoreInitialCount());
 
         buildEntityList(Predator.class, predators);
         buildEntityList(Herbivore.class, herbivores);
@@ -115,10 +112,10 @@ public class World {
     private Entity createEntity(Class<? extends Entity> entityClass) {
         try {
             if (entityClass == Predator.class) {
-                return new Predator(pathFinder, squareViewer);
+                return new Predator(pathFinder, vision);
             }
             if (entityClass == Herbivore.class) {
-                return new Herbivore(pathFinder, squareViewer);
+                return new Herbivore(pathFinder, vision);
             }
             return entityClass.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {

@@ -10,9 +10,12 @@ import java.io.IOException;
 import javafx.scene.canvas.Canvas;
 import simulation.config.ConfigProperties;
 import simulation.controller.PrimaryController;
+import simulation.model.pathFinder.PathFinder;
 import simulation.service.PrimaryService;
 import simulation.simulation.Simulation;
 import simulation.render.CanvasRenderer;
+import simulation.simulation.pathFinder.StraightPathFinder;
+import simulation.simulation.vision.SquareVision;
 import simulation.world.World;
 
 /**
@@ -28,7 +31,7 @@ public class App extends Application {
         ConfigProperties configProperties = new ConfigProperties();
 
         // Создание постоянных объектов
-        World world = new World(configProperties);
+        World world = new World(configProperties, new StraightPathFinder(), new SquareVision());
         Simulation simulation = new Simulation();
 
         // Загружаем FXML и получаем контроллер
