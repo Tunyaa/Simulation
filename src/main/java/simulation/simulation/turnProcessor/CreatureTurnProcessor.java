@@ -49,7 +49,7 @@ public class CreatureTurnProcessor {
 
         creature.reproduce(world);// размножение 
 
-        creature.view(world);  // Просмотр
+        creature.vision(world);  // Просмотр
 
         pathFinder(creature, world);// Поиск пути
 

@@ -14,14 +14,14 @@ import simulation.model.vision.Vision;
  */
 public class Predator extends Creature implements Attacker {
 
-    private final Vision viewer;
+    private final Vision vision;
     private final PathFinder pathFinder;
 
-    public Predator(PathFinder pathFinder, Vision viewer) {
+    public Predator(PathFinder pathFinder, Vision vision) {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
         setRangeOfView(3);
-        this.viewer = viewer;
+        this.vision = vision;
         this.pathFinder = pathFinder;
     }
 
@@ -37,9 +37,9 @@ public class Predator extends Creature implements Attacker {
     }
 
     @Override
-    public void view(World world) {
+    public void vision(World world) {
 
-        viewer.view(world, this, Herbivore.class);
+        vision.vision(world, this, Herbivore.class);
     }
 
     @Override

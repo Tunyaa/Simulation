@@ -14,14 +14,14 @@ import simulation.model.vision.Vision;
  */
 public class Herbivore extends Creature implements Eatable, Attackable {
     
-    private final Vision viewer;
+    private final Vision vision;
     private final PathFinder pathFinder;
     
-    public Herbivore(PathFinder pathFinder, Vision viewer) {
+    public Herbivore(PathFinder pathFinder, Vision vision) {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setRangeOfView(4);
-        this.viewer = viewer;
+        this.vision = vision;
         this.pathFinder = pathFinder;
     }
     
@@ -44,8 +44,8 @@ public class Herbivore extends Creature implements Eatable, Attackable {
     }
     
     @Override
-    public void view(World world) {
-        viewer.view(world, this, Grass.class);
+    public void vision(World world) {
+        vision.vision(world, this, Grass.class);
     }
     
     @Override

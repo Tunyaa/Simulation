@@ -14,7 +14,7 @@ import simulation.world.World;
 public class SquareVision implements Vision {
 
     @Override
-    public void view(World world, Creature creature, Class<?> target) {
+    public void vision(World world, Creature creature, Class<?> target) {
         creature.getTargetPositions().clear();
         creature.getPath().clear();
         int rangeOfView = creature.getRangeOfView();
