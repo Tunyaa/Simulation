@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import simulation.model.entity.Entity;
 import java.util.ArrayList;
 import java.util.Random;
+import simulation.model.vision.Vision;
 import simulation.world.World;
 
 /**
@@ -17,6 +18,8 @@ public abstract class Creature extends Entity {
     protected int targetPosition;
     protected ArrayList<Integer> targetPositions = new ArrayList<>();
     protected Random random = new Random();
+    protected Vision vision;
+    protected Class targetClass;
 
     // Массив (Путь из индексов)
     protected ArrayDeque<Integer> path = new ArrayDeque<>();
@@ -76,8 +79,7 @@ public abstract class Creature extends Entity {
         this.targetPositions = targetPositions;
     }
 
-    abstract public void vision(World world);
-
+//    abstract public void vision(World world);
     abstract public void pathFinderRandom(World world);
 
     abstract public void pathFinderToTarget(World world);
@@ -87,5 +89,17 @@ public abstract class Creature extends Entity {
     abstract public void turnTax();
 
     abstract public void reproduce(World world);
+
+    public Vision getVision() {
+        return vision;
+    }
+
+    public void setVision(Vision vision) {
+        this.vision = vision;
+    }
+
+    public Class getTargetClass() {
+        return targetClass;
+    }
 
 }

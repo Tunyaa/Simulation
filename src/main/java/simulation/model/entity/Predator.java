@@ -14,15 +14,16 @@ import simulation.model.vision.Vision;
  */
 public class Predator extends Creature implements Attacker {
 
-    private final Vision vision;
+//    private final Vision vision;
     private final PathFinder pathFinder;
 
     public Predator(PathFinder pathFinder, Vision vision) {
         setEntityTypePng(EntityTypePng.PREDATOR);
         setHp(100);
         setRangeOfView(3);
-        this.vision = vision;
+        super.vision = vision;
         this.pathFinder = pathFinder;
+        this.targetClass = Herbivore.class;
     }
 
     @Override
@@ -36,12 +37,11 @@ public class Predator extends Creature implements Attacker {
         attackable.takeDamage(nextInt);
     }
 
-    @Override
-    public void vision(World world) {
-
-        vision.vision(world, this, Herbivore.class);
-    }
-
+//    @Override
+//    public void vision(World world) {
+//
+//        vision.vision(world, this, Herbivore.class);
+//    }
     @Override
     public void pathFinderRandom(World world) {
         pathFinder.pathFinderRandom(world, this);
@@ -59,14 +59,14 @@ public class Predator extends Creature implements Attacker {
 
             List<Entity> entityList = world.getEntitys()[getPosition()];
             for (Entity entity : entityList) {
-                
+
                 if (entity instanceof Herbivore) {
-                    
+
                     attack((Attackable) entity);
-                    
+
                     if (!((Herbivore) entity).isAlive()) {
                         eat();
-                        
+
                         ((Herbivore) entity).die(world);
                         setTargetPosition(0);
                     }

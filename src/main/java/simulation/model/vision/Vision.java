@@ -9,5 +9,5 @@ import simulation.world.World;
  */
 public interface Vision {
 
-    void vision(World world, Creature creature, Class<?> target);
+    void vision(World world, Creature creature);
 }

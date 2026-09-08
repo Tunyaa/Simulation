@@ -49,8 +49,8 @@ public class CreatureTurnProcessor {
 
         creature.reproduce(world);// размножение 
 
-        creature.vision(world);  // Просмотр
-
+//        creature.vision(world);  // Просмотр
+        creature.getVision().vision(world, creature);
         pathFinder(creature, world);// Поиск пути
 
         move(creature, world); // Перемещение сущности

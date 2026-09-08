@@ -13,55 +13,55 @@ import simulation.model.vision.Vision;
  * @author tunyaa
  */
 public class Herbivore extends Creature implements Eatable, Attackable {
-    
-    private final Vision vision;
+
+//    private final Vision vision;
     private final PathFinder pathFinder;
-    
+
     public Herbivore(PathFinder pathFinder, Vision vision) {
         setEntityTypePng(EntityTypePng.HERBIVORE);
         setHp(100);
         setRangeOfView(4);
-        this.vision = vision;
+        super.vision = vision;
         this.pathFinder = pathFinder;
+        this.targetClass = Grass.class;
     }
-    
+
     public void move(World world) {
         pathFinder.pathFinderToTarget(world, this);
     }
-    
+
     public void randomMove(World world) {
         pathFinder.pathFinderRandom(world, this);
     }
-    
+
     @Override
     public void eat() {
         this.hp += 10;
     }
-    
+
     @Override
     public void takeDamage(int damage) {
         hp -= damage;
     }
-    
-    @Override
-    public void vision(World world) {
-        vision.vision(world, this, Grass.class);
-    }
-    
+
+//    @Override
+//    public void vision(World world) {
+//        vision.vision(world, this, Grass.class);
+//    }
     @Override
     public void pathFinderRandom(World world) {
         pathFinder.pathFinderRandom(world, this);
     }
-    
+
     @Override
     public void pathFinderToTarget(World world) {
         pathFinder.pathFinderToTarget(world, this);
     }
-    
+
     @Override
     public void actionOnTarget(World world) {
         if (getTargetPosition() == getPosition()) {
-            
+
             List<Entity> entityList = world.getEntitys()[getPosition()];
             for (Entity entity : entityList) {
                 if (entity instanceof Grass) {
@@ -73,12 +73,12 @@ public class Herbivore extends Creature implements Eatable, Attackable {
             }
         }
     }
-    
+
     @Override
     public void turnTax() {
         this.setHp(this.getHp() - 1);
     }
-    
+
     @Override
     public void reproduce(World world) {
         if (this.getHp() > 200) {
@@ -87,5 +87,5 @@ public class Herbivore extends Creature implements Eatable, Attackable {
             world.reproduceEntityOnCurrentEntityPosition(Herbivore.class, this);
         }
     }
-    
+
 }
