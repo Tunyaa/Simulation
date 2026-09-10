@@ -2,6 +2,9 @@ package simulation.service;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
 import simulation.simulation.Simulation;
@@ -17,6 +20,8 @@ public class PrimaryService {
     private final World world;
     private final Simulation simulation;
     private final CanvasRenderer renderer;
+
+    PieChart pieChart;
 
     // Цикл анимации
     private Timeline turnTimeline;
@@ -73,6 +78,7 @@ public class PrimaryService {
                         return;
                     }
                     simulation.runCycle(world);
+                    updatePieChart();
                     renderer.render();
                 })
         );
@@ -104,6 +110,28 @@ public class PrimaryService {
             turnTimeline.stop();
         }
 
+    }
+
+    public void setPieChart(PieChart pieChart) {
+        this.pieChart = pieChart;
+
+    }
+
+    public void updatePieChart() {
+        // Считаем количество каждого типа существ
+        int herbivoreCount = this.world.getHerbivores().size();
+        int predatorCount = world.getPredators().size();
+        int grassCount = world.getGrassCount();
+
+        // Создаём список данных
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Травоядные - " + herbivoreCount, herbivoreCount),
+                new PieChart.Data("Хищники - " + predatorCount, predatorCount),
+                new PieChart.Data("Трава - " + grassCount, grassCount)
+        );
+
+        // Устанавливаем данные в диаграмму
+        pieChart.setData(pieChartData);
     }
 
 }

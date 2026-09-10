@@ -3,8 +3,11 @@ package simulation.controller;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
@@ -30,6 +33,7 @@ public class PrimaryController {
 
     @FXML// Прослушивание слайдера. Изменение скорости симуляции.
     public void initialize() {
+//        pieChart.setAnimated(false);
         System.out.println("CANVAS Controller init - " + canvas);
         // Добавляет слушатель на изменение значения
         speedSimulationSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -47,6 +51,7 @@ public class PrimaryController {
 
     @FXML// Генерация поля. Заполнение сущностями.
     private void createWorldMap() {
+        setPieChart();
         primaryService.createWorldMap(parseIntCheckOrDeafault(widthWorldMapField.getText()), parseIntCheckOrDeafault(heightWorldMapField.getText()));
     }
 
@@ -66,6 +71,13 @@ public class PrimaryController {
         primaryService.clearWorldMap();
     }
 
+    @FXML
+    private PieChart pieChart;
+
+    private void setPieChart() {
+        primaryService.setPieChart(pieChart);
+    }
+
     public void setPrimaryService(PrimaryService primaryService) {
         this.primaryService = primaryService;
     }
@@ -81,6 +93,7 @@ public class PrimaryController {
             int parseInt = Integer.parseInt(str);
             // Минимальное значение для создания поля 7
             parseInt = parseInt < 7 ? 7 : parseInt;
+            parseInt = parseInt > 160 ? 160 : parseInt;
             return parseInt;
         } catch (Exception e) {
             return 0;

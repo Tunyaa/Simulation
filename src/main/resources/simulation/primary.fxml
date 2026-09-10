@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -10,10 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="840.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simulation.controller.PrimaryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="840.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simulation.controller.PrimaryController">
     <left>
-        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="80.0" prefWidth="120.0" spacing="10.0" style="-fx-background-color: white;">
+        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="584.0" prefWidth="141.0" spacing="10.0" style="-fx-background-color: white;">
             <children>
+            <Label prefHeight="19.0" prefWidth="185.0" text="Размер поля 7 - 160" VBox.vgrow="ALWAYS" />
                 <TextField fx:id="widthWorldMapField" promptText="Ширина 7 - 250" text="60">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
@@ -23,12 +31,12 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-                <Button fx:id="createWorldMapButton" mnemonicParsing="false" onAction="#createWorldMap" text="Создать Мир">
+                <Button fx:id="createWorldMapButton" mnemonicParsing="false" onAction="#createWorldMap" text="Создать поле">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Button>
             <Button fx:id="clearWorldMapButton" mnemonicParsing="false" onAction="#clearWorldMap" text="Очистить поле" />
-            <Label text="Скорость">
+            <Label prefHeight="43.0" prefWidth="45.0" text="Скорость">
                <font>
                   <Font size="11.0" />
                </font>
@@ -36,17 +44,21 @@
                   <Insets bottom="-10.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Slider fx:id="speedSimulationSlider" max="1.0" min="0.01" prefWidth="0.0" showTickLabels="true" value="1.0">
+            <Slider fx:id="speedSimulationSlider" max="1.0" min="0.01" prefHeight="39.0" prefWidth="291.0" showTickLabels="true" value="1.0">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </Slider>
             <Button fx:id="startSimulationButton" mnemonicParsing="false" onAction="#startSimulation" text="Старт" />
-            <Button fx:id="stopSimulationButton" mnemonicParsing="false" onAction="#stopSimulation" text="Стоп">
+            <Button fx:id="stopSimulationButton" alignment="TOP_LEFT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#stopSimulation" prefHeight="5.0" prefWidth="46.0" text="Стоп" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </Button>
+            <PieChart fx:id="pieChart" animated="false" labelLineLength="3.0" labelsVisible="false" legendSide="TOP" prefHeight="246.0" prefWidth="200.0" titleSide="BOTTOM">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></PieChart>
             </children>
          <opaqueInsets>
             <Insets />
